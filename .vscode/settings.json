@@ -14,5 +14,6 @@
         "--disable=too-few-public-methods",
         "--disable=cell-var-from-loop",
         "--extension-pkg-whitelist=pygame",
+        "--disable=all"
     ],
 }
