@@ -1,16 +1,11 @@
+import pygame
+
 from game import Game
 
-
-def HelloWorld(print):
-    print("Hello World")
-
-
 def main():
-    Game.run()
-    HelloWorld()
-
+    pygame.init()
+    Game()
 
 if __name__ == "__main__":
     main()
-
 
