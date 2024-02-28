@@ -1,0 +1,7 @@
+FPS = 60
+WIDTH = 800
+HEIGHT = 600
+TITLE = "DoL Dodge of Legends"
+
+
+BG_COLOR = (255, 255, 255)
