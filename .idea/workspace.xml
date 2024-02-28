@@ -5,16 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fc2787e-7793-45ea-956e-ac68ce6e32aa" name="Changes" comment="Init pygame">
-      <change afterPath="$PROJECT_DIR$/.idea/DoL.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Map/tileset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/backend/deprecations.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/animation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/color.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/debug.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/draw.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/entity.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/enums.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/event.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/exceptions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/image.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/keys.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/math.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/node.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/scene.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/shape.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/sound.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/spritesheets.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/storage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/ui.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/vector.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/engine/window.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/examples/example1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/examples/example2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/examples/example3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/examples/example4.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/examples/example5.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/external/fe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/external/font.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/fusiongl/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/fusiongl/binding.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fusionengine/fusiongl/libgl.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inputs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Changes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Changes.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Map/map_init.py" beforeDir="false" afterPath="$PROJECT_DIR$/Map/map_init.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +59,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="8-fusion-engine-inicializálása-production-kezdete" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -64,25 +92,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Python.game.executor": "Run",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "7-alap-pygame-ablak-létrehozása",
-    "last_opened_file_path": "C:/Users/szalai.bence.bendegu/Desktop/DoL",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Python.game.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;7-alap-pygame-ablak-létrehozása&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/szalai.bence.bendegu/Desktop/DoL&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="DoL" />
@@ -168,6 +196,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/DoL$game.coverage" NAME="game Coverage Results" MODIFIED="1708602461374" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/DoL$main.coverage" NAME="main Coverage Results" MODIFIED="1708604112387" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\szalai.bence.bendegu\Desktop\DoL" />
+    <SUITE FILE_PATH="coverage/DoL$main.coverage" NAME="main Coverage Results" MODIFIED="1709121486797" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\szalai.bence.bendegu\Desktop\DoL" />
   </component>
 </project>
