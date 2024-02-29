@@ -55,7 +55,7 @@ class SceneManager:
 
     def start(self):
         """
-        Starts all the scenes one after a other
+        Starts all the scenes one after another
         """
         for scene in list(self.scenes.values()):
             scene.run()
