@@ -1,6 +1,5 @@
 FPS = 60
-WIDTH = 800
-HEIGHT = 600
+WIDTH, HEIGHT = 1280, 720
 TITLE = "DoL Dodge of Legends"
 
 
