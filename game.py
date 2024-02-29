@@ -36,8 +36,8 @@ class Game(object):
 
     def walk(self):
         if self.player.get_coord_tuple() != self.destination.get_coord_tuple():
-            self.player.x += int(self.dx * self.p_speed)
-            self.player.y += int(self.dy * self.p_speed)
+            self.player.x += self.dx * self.p_speed
+            self.player.y += self.dy * self.p_speed
 
     def move_player(self, player: fusion.Node):
         self.dest_x, self.dest_y = fusion.get_mouse_pos(self)
