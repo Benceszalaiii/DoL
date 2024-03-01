@@ -63,3 +63,5 @@ class Game(object):
             print("CURR: ", self.player.x, self.player.y)
 
             self.player.update()
+
+    

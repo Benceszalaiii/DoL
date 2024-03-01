@@ -13,6 +13,11 @@
         "--disable=no-else-return",
         "--disable=too-few-public-methods",
         "--disable=cell-var-from-loop",
-        "--extension-pkg-whitelist=pygame"
+        "--extension-pkg-whitelist=pygame",
+        "--extension-pkg-whitelist=fusion",
+        "reportUnknownMemberType"
     ],
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportUnknownMemberType": "none"
+    }
 }

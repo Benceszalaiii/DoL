@@ -1,3 +1,4 @@
+from email.mime import image
 from fusionengine.engine.image import Image
 
 
