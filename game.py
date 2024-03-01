@@ -12,7 +12,8 @@ class Game(object):
     dx: float = 0
     dy: float = 0
     destination: fusion.Node = fusion.Node(window, player.x, player.y, 75, 75)
-
+    player_rect = pygame.Rect(player.x, player.y, player.width, player.height)
+    destination_rect = pygame.Rect(destination.x, destination.y, destination.width, destination.height)
     def window_inputs(self):
         if fusion.key_down_once(fusion.KEY_F1):
             self.window.toggle_fullscreen()
@@ -32,9 +33,8 @@ class Game(object):
                 self.move_player(self.player)
             if event.type == pygame.QUIT:
                 self.window.quit()
-
     def walk(self):
-        if abs(self.player.x - self.destination.x) > abs(self.dx) and abs(self.player.y - self.destination.y) > abs(self.dy):
+        if not self.destination_rect.colliderect(self.player_rect):
             self.player.x += self.p_speed * self.dx
             self.player.y += self.p_speed * self.dy
 
@@ -46,26 +46,26 @@ class Game(object):
         length = max(1, (self.dx ** 2 + self.dy ** 2) ** 0.5)
         self.dx /= length
         self.dy /= length
-        print("DEST: ", dest_x, dest_y)
+
         self.walk()
 
-    def distance(self, node1, node2):
-        dx = node1.x - node2.x
-        dy = node1.y - node2.y
-        return math.sqrt(dx ** 2 + dy ** 2)
 
     def __init__(self):
-        self.window.change_icon(fusion.DEBUGIMAGE)
-        self.bg = fusion.Image("background.png", 0, 0, WIDTH, HEIGHT)
+        self.window.change_icon("logo.png")
+        self.bg = fusion.Image("background.jpg", 0, 0, WIDTH, HEIGHT)
 
         @self.window.loop
         def loop():
             self.window.set_fps(FPS)
             self.bg.draw()
-            self.player.load_rect(fusion.WHITE)
-            self.destination.load_rect(fusion.PINK)
-            self.destination.update()
+            self.player.load_rect(self.player_rect, fusion.WHITE)
+            self.destination.load_rect(self.destination_rect, fusion.PINK)
             self.window_inputs()
             self.walk()
-            print("CURR: ", self.player.x, self.player.y)
+            self.player_rect.update(self.player.x, self.player.y, self.player.width, self.player.height)
+            self.destination_rect.update(self.destination.x, self.destination.y, self.destination.width, self.destination.height)
+            print(self.destination_rect.x, self.destination_rect.y)
+            self.destination.update()
             self.player.update()
+
+

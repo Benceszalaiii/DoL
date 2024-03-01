@@ -6,12 +6,9 @@ import pygame as pg
 
 class Rect:
     def __init__(
-        self,
-        x: int,
-        y: int,
-        width: int,
-        height: int,
-        color: Color = BLUE,
+            self,
+            rect: pg.Rect,
+            color: Color
     ) -> None:
         """
         A class that creates a new rect shape.
@@ -23,16 +20,18 @@ class Rect:
             height (int): Height of the rect
             color (Color): Color of the rect
         """
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
+        self.x = rect.x
+        self.y = rect.y
+        self.width = rect.width
+        self.height = rect.height
         self.color = color
-
-        self.pg_rect = pg.Rect(self.x, self.y, self.width, self.height)
+        self.rect = rect
 
     def draw(self) -> None:
         """
         Draw the rectangle
         """
         draw_rect(self.x, self.y, self.width, self.height, self.color)
+
+    def get_rect(self) -> pg.Rect:
+        return self.pg_rect

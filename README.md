@@ -1,4 +1,5 @@
-# 👣Dodge of Legends  
+#  ![Dodge of Legends](logo.png)  
+# Dodge of Legends  
 ## ⬇️Download guide
 
 ---

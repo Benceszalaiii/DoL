@@ -4,10 +4,12 @@ from fusionengine.engine.image import Image
 from fusionengine.engine.vector import Vector2D
 from fusionengine.engine.animation import Animation
 from fusionengine.engine.color import Color
+import fusionengine as fusion
+import pygame as pg
 
 
 class Node:
-    def __init__(self, window: Window, x: int, y: int, width: int, height: int):
+    def __init__(self, window: Window, x, y, width, height):
         self.x = x
         self.y = y
         self.width = width
@@ -15,6 +17,7 @@ class Node:
         self.window = window
         self.frame = 0
         self.to_draw = []
+        self.rect: pg.Rect = pg.Rect(x, y, width, height)
 
     def get_coord_tuple(self) -> tuple[int, int]:
         """
@@ -70,14 +73,18 @@ class Node:
         """
         self.to_draw.append(images)
 
-    def load_rect(self, color: Color) -> None:
+    def load_rect(self, rect: pg.Rect, color: Color) -> None:
         """
         Gives the entity a rectangle and later draws it on the screen.
 
         Args:
             color (tuple): The color of the rectangle
+            :param color:
+            :param rect:
         """
-        self.to_draw.append(Rect(self.x, self.y, self.width, self.height, color))
+
+        self.to_draw.append(Rect(pg.Rect(self.x, self.y, self.width, self.height), color))
+        self.rect = rect
 
     def update(self):
         """
