@@ -13,7 +13,11 @@ class Game(object):
     dy: float = 0
     destination: fusion.Node = fusion.Node(window, player.x, player.y, 75, 75)
     player_rect = pygame.Rect(player.x, player.y, player.width, player.height)
-    destination_rect = pygame.Rect(destination.x, destination.y, destination.width, destination.height)
+    destination_rect = pygame.Rect(
+        destination.x, destination.y, destination.width, destination.height)
+    ground_arow_sh = fusion.SpriteSheet("./ground_arrows.png", 16, 16)
+    ground_arrow_an = fusion.Animation(window, ground_arow_sh, 1/3)
+
     def window_inputs(self):
         if fusion.key_down_once(fusion.KEY_F1):
             self.window.toggle_fullscreen()
@@ -33,6 +37,7 @@ class Game(object):
                 self.move_player(self.player)
             if event.type == pygame.QUIT:
                 self.window.quit()
+
     def walk(self):
         if not self.destination_rect.colliderect(self.player_rect):
             self.player.x += self.p_speed * self.dx
@@ -40,7 +45,8 @@ class Game(object):
 
     def move_player(self, player: fusion.Node):
         dest_x, dest_y = fusion.get_mouse_pos(self)
-        self.destination = fusion.Node(self.window, dest_x, dest_y, int(player.width / 2), int(player.height / 2))
+        self.destination = fusion.Node(self.window, dest_x, dest_y, int(
+            player.width / 2), int(player.height / 2))
         self.dx = dest_x - player.x
         self.dy = dest_y - player.y
         length = max(1, (self.dx ** 2 + self.dy ** 2) ** 0.5)
@@ -48,7 +54,6 @@ class Game(object):
         self.dy /= length
 
         self.walk()
-
 
     def __init__(self):
         self.window.change_icon("logo.png")
@@ -60,12 +65,13 @@ class Game(object):
             self.bg.draw()
             self.player.load_rect(self.player_rect, fusion.WHITE)
             self.destination.load_rect(self.destination_rect, fusion.PINK)
+            #self.destination_rect.load_animation(self.ground_arrow_an)
             self.window_inputs()
             self.walk()
-            self.player_rect.update(self.player.x, self.player.y, self.player.width, self.player.height)
-            self.destination_rect.update(self.destination.x, self.destination.y, self.destination.width, self.destination.height)
+            self.player_rect.update(
+                self.player.x, self.player.y, self.player.width, self.player.height)
+            self.destination_rect.update(
+                self.destination.x, self.destination.y, self.destination.width, self.destination.height)
             print(self.destination_rect.x, self.destination_rect.y)
             self.destination.update()
             self.player.update()
-
-
