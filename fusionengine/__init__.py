@@ -56,6 +56,3 @@ import fusionengine.fusiongl as gl
 
 import pygame as pg
 
-message = True
-
-
