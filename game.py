@@ -16,7 +16,7 @@ class Game(object):
     destination_rect = pygame.Rect(
         destination.x, destination.y, destination.width, destination.height)
     ground_arow_sh = fusion.SpriteSheet("./ground_arrows.png", 16, 16)
-    ground_arrow_an = fusion.Animation(window, ground_arow_sh, 1/3)
+    ground_arrow_an = fusion.Animation(window, ground_arow_sh, 1 / 3)
 
     def window_inputs(self):
         if fusion.key_down_once(fusion.KEY_F1):
@@ -53,8 +53,6 @@ class Game(object):
         self.dx /= length
         self.dy /= length
 
-        self.walk()
-
     def __init__(self):
         self.window.change_icon("logo.png")
         self.bg = fusion.Image("background.jpg", 0, 0, WIDTH, HEIGHT)
@@ -62,10 +60,10 @@ class Game(object):
         @self.window.loop
         def loop():
             self.window.set_fps(FPS)
+            self.player.load_rect(fusion.BLUE)
             self.bg.draw()
-            self.player.load_rect(self.player_rect, fusion.WHITE)
-            self.destination.load_rect(self.destination_rect, fusion.PINK)
-            #self.destination_rect.load_animation(self.ground_arrow_an)
+            self.destination.load_rect(fusion.RED)
+            # self.destination_rect.load_animation(self.ground_arrow_an)
             self.window_inputs()
             self.walk()
             self.player_rect.update(

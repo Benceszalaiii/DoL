@@ -36,7 +36,7 @@ class Node:
 
     def set_frame(self, frame: int) -> None:
         """
-        Sets the frame of the previously loaded images (as a animation).
+        Sets the frame of the previously loaded images (as an animation).
 
         Args:
             frame (int): The frame of the animation
@@ -45,7 +45,7 @@ class Node:
 
     def get_frame(self) -> int:
         """
-        Gets the frame of the previously loaded images (as a animation).
+        Gets the frame of the previously loaded images (as an animation).
 
         Returns:
             int: The frame of the animation
@@ -63,7 +63,7 @@ class Node:
 
     def load_animation(self, images: tuple | Animation) -> None:
         """
-        Loads images that can be later used as a animation.
+        Loads images that can be later used as an animation.
 
         Args:
             images (tuple): A tuple of images
