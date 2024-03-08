@@ -3,7 +3,7 @@ from fusionengine.engine.scene import Scene
 
 
 class SceneManager:
-    def init(self, window: Window) -> None:
+    def __init__(self, window: Window) -> None:
         """
         Creates a new SceneManager
 
