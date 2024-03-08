@@ -63,8 +63,8 @@ class Game(object):
         def loop():
             self.window.set_fps(FPS)
             self.bg.draw()
-            self.player.load_rect(self.player_rect, fusion.WHITE)
-            self.destination.load_rect(self.destination_rect, fusion.PINK)
+            self.player.load_rect( fusion.WHITE)
+            self.destination.load_rect( fusion.PINK)
             #self.destination_rect.load_animation(self.ground_arrow_an)
             self.window_inputs()
             self.walk()
