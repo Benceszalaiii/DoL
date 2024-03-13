@@ -2,6 +2,7 @@ import fusionengine as fusion
 from menu import Menu
 from game import Game
 
+
 class App:
 
     def __init__(self) -> None:    

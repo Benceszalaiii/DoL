@@ -9,4 +9,4 @@ class Menu:
         
         @self.menu_window.loop
         def loop():
-            
+            pass
