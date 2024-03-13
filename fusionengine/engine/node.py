@@ -7,7 +7,7 @@ from fusionengine.engine.color import Color
 
 
 class Node:
-    def __init__(self, window: Window, x: int, y: int, width: int, height: int):
+    def __init__(self, window: Window, x: float, y: float, width: int, height: int):
         self.x = x
         self.y = y
         self.width = width

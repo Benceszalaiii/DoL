@@ -8,12 +8,12 @@ from fusionengine.backend.deprecations import deprecated
 class Entity:
     @deprecated("5.0.0", "Entity class")
     def __init__(
-        self,
-        window: Window,
-        x: int,
-        y: int,
-        width: int,
-        height: int,
+            self,
+            window: Window,
+            x: int,
+            y: int,
+            width: int,
+            height: int,
     ) -> None:
         """
         A class that creates a new entity. If set_body isn't called, it will automatically become a StaticBody
@@ -35,8 +35,8 @@ class Entity:
         self.body = None
 
     def load_image(
-        self,
-        image_path: str,
+            self,
+            image_path: str,
     ) -> None:
         """
         Gives the entity an image and laters draws it on the screen.

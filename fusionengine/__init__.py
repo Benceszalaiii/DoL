@@ -55,4 +55,3 @@ from fusionengine.engine.spritesheets import *
 import fusionengine.fusiongl as gl
 
 import pygame as pg
-

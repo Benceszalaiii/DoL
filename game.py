@@ -1,7 +1,7 @@
 #
+import pygame
 
 import fusionengine as fusion
-import pygame
 from settings import FPS, WIDTH, HEIGHT, TITLE
 
 

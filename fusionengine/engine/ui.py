@@ -9,14 +9,14 @@ import os
 
 class Button:
     def __init__(
-        self,
-        x: int,
-        y: int,
-        width: int,
-        height: int,
-        font_size: int,
-        text: str,
-        font: str = DEBUGFONT,
+            self,
+            x: int,
+            y: int,
+            width: int,
+            height: int,
+            font_size: int,
+            text: str,
+            font: str = DEBUGFONT,
     ) -> None:
         """
         Creates a button. You can get its events using is_pressed() function or you can draw it using draw() function.
@@ -86,13 +86,13 @@ class Button:
 
 class Text:
     def __init__(
-        self,
-        text: str,
-        x: int,
-        y: int,
-        font_path: str,
-        font_size: int,
-        color: Color,
+            self,
+            text: str,
+            x: int,
+            y: int,
+            font_path: str,
+            font_size: int,
+            color: Color,
     ) -> None:
         """
         Prints text on the screen.

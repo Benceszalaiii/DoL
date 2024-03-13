@@ -1,7 +1,4 @@
-
-
 import fusionengine as fusion
-
 
 window = fusion.Window("asd", 800, 600)
 player = fusion.Node(window, 200, 200, 100, 100)

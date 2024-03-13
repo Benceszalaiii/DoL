@@ -34,10 +34,10 @@ class JsonStorage:
             return False
 
     def search(
-        self,
-        search_dict: dict[typing.Any, typing.Any],
-        first: bool = False,
-        get_index: bool = False,
+            self,
+            search_dict: dict[typing.Any, typing.Any],
+            first: bool = False,
+            get_index: bool = False,
     ) -> typing.Union[dict, list, tuple, None]:
         """Search for a entry based on the search_dict
 

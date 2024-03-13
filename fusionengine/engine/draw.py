@@ -29,11 +29,11 @@ def draw_line(x1: int, y1: int, x2: int, y2: int, color: Color) -> None:
 
 
 def draw_line_rect(
-    x: int,
-    y: int,
-    width: int,
-    height: int,
-    color: Color,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        color: Color,
 ) -> None:
     """
     Draws a rectangle that exists of lines on the screen.
@@ -52,11 +52,11 @@ def draw_line_rect(
 
 
 def draw_rect(
-    x: int,
-    y: int,
-    width: int,
-    height: int,
-    color: Color,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        color: Color,
 ) -> None:
     """
     Draws a rectangle on the screen.
@@ -91,7 +91,7 @@ def set_background_color(color: Color) -> None:
 
 
 def draw_arbitrary_polygon_outline(
-    corners: tuple[tuple[int, int]], color: Color
+        corners: tuple[tuple[int, int]], color: Color
 ) -> None:
     """
     Draw an arbitrary polygon outline.

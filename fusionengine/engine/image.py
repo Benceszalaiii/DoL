@@ -5,12 +5,12 @@ import pygame as pg
 
 class Image:
     def __init__(
-        self,
-        image_path: str | pg.Surface,
-        x: int,
-        y: int,
-        width: int,
-        height: int,
+            self,
+            image_path: str | pg.Surface,
+            x: int,
+            y: int,
+            width: int,
+            height: int,
     ) -> None:
         """
         Opens an image. Can be later rendered with draw method.
