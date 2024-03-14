@@ -1,11 +1,11 @@
-#
+# Itt kell szerintem valaminek lenni, találtam egy random # jelet, szoval ideirom hogy valamit kellene vele kezdeni
 import pygame
 
 import fusionengine as fusion
 from settings import FPS, WIDTH, HEIGHT, TITLE
 
 
-class Game(object):
+class Game:
     window: fusion.Window = fusion.Window(TITLE, WIDTH, HEIGHT)
     p_speed: int = 5
     player: fusion.Node = fusion.Node(window, 1, 1, 150, 150)
