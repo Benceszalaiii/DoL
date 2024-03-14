@@ -1,0 +1,6 @@
+{
+  "reportUnknownMemberType": "none",
+  "reportUnusedFunction": "none",
+  "reportUnknownArgumentType": "none",
+  "reportUnknownVariableType": "none"
+}

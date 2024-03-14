@@ -136,7 +136,7 @@ def BindTexture(target, texture):
 
 
 def TexImage2D(
-    target, level, internalformat, width, height, border, format, type, pixels
+        target, level, internalformat, width, height, border, format, type, pixels
 ):
     """
     Set the image of a texture.
