@@ -1,8 +1,8 @@
-from game import Game
 
+from app import App
 
 def main():
-    Game()
+    App()
 
 
 if __name__ == "__main__":

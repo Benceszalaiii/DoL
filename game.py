@@ -1,4 +1,5 @@
 # Itt kell szerintem valaminek lenni, találtam egy random # jelet, szoval ideirom hogy valamit kellene vele kezdeni
+from typing import Any
 import pygame
 
 import fusionengine as fusion
@@ -53,17 +54,18 @@ class Game:
         self.dx /= length
         self.dy /= length
 
-    def __init__(self):
+    def __init__(self, window):
         self.window.change_icon("logo.png")
         self.bg = fusion.Image("background.jpg", 0, 0, WIDTH, HEIGHT)
-
+        print("Game starting...")
         @self.window.loop
         def loop():
+            print("Game on")
             self.window.set_fps(FPS)
             self.bg.draw()
             self.player.load_rect( fusion.WHITE)
             self.destination.load_rect( fusion.PINK)
-            #self.destination_rect.load_animation(self.ground_arrow_an)
+                #self.destination_rect.load_animation(self.ground_arrow_an)
 
             self.window_inputs()
             self.walk()
@@ -74,5 +76,3 @@ class Game:
             print(self.destination_rect.x, self.destination_rect.y)
             self.destination.update()
             self.player.update()
-
-    
