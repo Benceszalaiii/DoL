@@ -5,7 +5,7 @@
 # ----------- # 
 
 import fusionengine as fe
-from sys import exit as kys
+import sys as kys
 
 # ----------- #
 #  FUNCTIONS  #
@@ -19,7 +19,7 @@ def global_inputs(win: fe.Window) -> None:
     - Exit
     - Switch screen
     """
-    if fe.key_down_once(fe.KEY_R):
-        kys()
     if fe.key_down_once(fe.KEY_ESCAPE):
+        kys.exit()
+    if fe.key_down_once(fe.KEY_R):
         win.quit()

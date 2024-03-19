@@ -39,6 +39,7 @@ class Menu:
         def loop():
             self.win.change_icon("logo.png")
             self.background.load_image("menu_background.jpg")
+            self.inputs()
             self.background.update()
             
                 

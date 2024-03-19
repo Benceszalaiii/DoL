@@ -1,5 +1,10 @@
 # THIS IS THE FILE FOR SETTINGS AND PREFERENCES
 
+# ----------------- #
+#  CONFIG SETTINGS  #
+# ----------------- # 
+
+SPEED = 5
 
 
 # ----------------- #
