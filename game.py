@@ -22,9 +22,9 @@ from destination import Destination
 class Game:
 
 
-# ------------------- # 
-# INITIALIZE SESSION  #
-# ------------------- # 
+    # ------------------- # 
+    # INITIALIZE SESSION  #
+    # ------------------- # 
 
     def __init__(self, win):
         self.window: fe.Window = win
