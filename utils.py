@@ -1,6 +1,15 @@
+# ----------- #
+#   IMPORTS   #
+# ----------- # 
 import tkinter
 
 
+# ----------- #
+#  FUNCTIONS  #
+# ----------- # 
+
+
+# Get active screen's resolution in dict
 def screen_size() -> dict[str, int]:
     """
     Get the current screen's dimensions
@@ -17,5 +26,4 @@ def screen_size() -> dict[str, int]:
         "height": root.winfo_screenheight()
     }
     return result
-    
     
