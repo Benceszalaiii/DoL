@@ -35,13 +35,16 @@ class Menu:
     # ------------------- # 
     
     def run(self):
+# ----> GAME LOOP
         @self.win.loop
         def loop():
             self.win.change_icon("logo.png")
             self.background.load_image("menu_background.jpg")
             self.inputs()
             self.background.update()
-            
+
+# ----> END OF GAME LOOP
+
                 
     # ------------------- #
     #       INPUTS        #

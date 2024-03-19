@@ -44,7 +44,7 @@ class Game:
         self.window.change_icon("logo.png")
         self.bg = fe.Image("background.jpg", 0, 0, WIDTH, HEIGHT)
         
-        
+# ----> GAME LOOP
         @self.window.loop
         def loop():
             self.player.crect.load_rect(fe.ORANGERED)
