@@ -61,7 +61,7 @@ class Game:
 
 
     # ----------------- #
-    # MOVEMENT / INPUTS #
+    # MOVEMENT / INPUT  #
     # ----------------- #
     
 # Handles global and sessionwide inputs
