@@ -4,10 +4,7 @@
 # --------- #
 #  IMPORTS  #
 # --------- #
-<<<<<<< HEAD
 
-=======
->>>>>>> 7d757a0a3e91729c06c254a54b998040cbf34cc7
 import pygame as pg
 from inputs import global_inputs
 import fusionengine as fe
@@ -37,20 +34,17 @@ class Game:
         self.animations_load()
         self.pause_load()
 
-# Signal start of game
+        # Signal start of game
         print("Switching to game")
 
-# Load window
+    # Load window
     def window_load(self, win):
         self.paused: bool = False
         self.window: fe.Window = win
         self.window._running = True
-<<<<<<< HEAD
         self.tick_count = FPS
-=======
->>>>>>> 7d757a0a3e91729c06c254a54b998040cbf34cc7
 
-# Load characters and animations
+    # Load characters and animations
     def characters_load(self):
         self.player: Player = Player(
             self.window, self.window.width, self.window.height, 75, 175)
@@ -58,37 +52,27 @@ class Game:
             self.window, self.player.crect.x, self.player.crect.y, 10, 10)
         self.animations_load()
 
-# Load pause menu
+    # Load pause menu
     def pause_load(self):
-<<<<<<< HEAD
         self.resume: fe.Button = fe.Button(200, 200, 200, 75, 32, "Resume game")
-=======
         self.resume: fe.Button = fe.Button(
             200, 200, 200, 75, 32, "Resume game")
->>>>>>> 7d757a0a3e91729c06c254a54b998040cbf34cc7
 
-# Load animations -> initialized inside characters_load
+    # Load animations -> initialized inside characters_load
     def animations_load(self):
         pass
         # self.ground_arow_sh = fe.SpriteSheet("./ground_arrows.png", 16, 16)
         # self.ground_arrow_an = fe.Animation(self.window, self.ground_arow_sh, 1 / 3)
 
-<<<<<<< HEAD
-# ------------------- #
-#    START SESSION    #
-=======
-
->>>>>>> 7d757a0a3e91729c06c254a54b998040cbf34cc7
-# ------------------- #
-#    START SESSION    #
-# ------------------- #
-
+    # ------------------- #
+    #    START SESSION    #
+    # ------------------- #
 
     def run(self):
         self.window.change_icon("logo.png")
         self.bg = fe.Image("background.jpg", 0, 0, WIDTH, HEIGHT)
 
-# ----> GAME LOOP
+        # ----> GAME LOOP
         @self.window.loop
         def loop():
             self.window.set_fps(FPS)
@@ -103,13 +87,14 @@ class Game:
                 # self.destination_rect.load_animation(self.ground_arrow_an)
                 self.player.update(self.destination)
                 self.destination.update()
-# <---- END OF GAME LOOP
+
+    # <---- END OF GAME LOOP
 
     # ----------------- #
     # MOVEMENT / INPUT  #
     # ----------------- #
 
-# Handles global and sessionwide inputs
+    # Handles global and sessionwide inputs
 
     def inputs(self):
         global_inputs(self.window)
@@ -125,7 +110,7 @@ class Game:
                 print("We wish to see you again!")
                 sys.exit()
 
-# Calculates the distance and direction on click
+    # Calculates the distance and direction on click
     def move_player(self, player: Player):
         dest_x, dest_y = fe.get_mouse_pos(self)
         self.destination.destination.x, self.destination.destination.y = dest_x, dest_y
