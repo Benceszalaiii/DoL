@@ -2,10 +2,9 @@
 from app import App
 
 
-
 # ------------- #
 #  MAIN SCRIPT  #
-# ------------- # 
+# ------------- #
 
 
 def main():

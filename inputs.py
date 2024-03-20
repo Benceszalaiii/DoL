@@ -2,20 +2,20 @@
 
 # ----------- #
 #   IMPORTS   #
-# ----------- # 
+# ----------- #
 
 import fusionengine as fe
 import sys as kys
 
 # ----------- #
 #  FUNCTIONS  #
-# ----------- # 
+# ----------- #
 
 
 def global_inputs(win: fe.Window) -> None:
     """
     Handles the inputs that handle the window
-    
+
     - Exit
     - Switch screen
     """
