@@ -2,7 +2,7 @@
 
 # ----------- #
 #   IMPORTS   #
-# ----------- # 
+# ----------- #
 
 import fusionengine as fe
 from menu import Menu
@@ -12,7 +12,7 @@ from settings import FPS, TITLE, WIDTH, HEIGHT
 
 # ----------------- #
 #  SESSION MANAGER  #
-# ----------------- # 
+# ----------------- #
 
 class App:
     def __init__(self) -> None:

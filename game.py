@@ -2,7 +2,7 @@
 
 # --------- #
 #  IMPORTS  #
-# --------- # 
+# --------- #
 import pygame as pg
 from inputs import global_inputs
 import fusionengine as fe
@@ -16,23 +16,22 @@ import time
 
 # ------------------- #
 #      SESSION        #
-# ------------------- # 
+# ------------------- #
 
 
 class Game:
-    
 
-    # ------------------- # 
+    # ------------------- #
     # INITIALIZE SESSION  #
-    # ------------------- # 
+    # ------------------- #
 
-# Load all components
+    # Load all components
     def __init__(self, win):
-        self.window_load()
+        self.window_load(win)
         self.characters_load()
         self.animations_load()
         self.pause_load()
-        
+
 # Signal start of game
         print("Switching to game")
 
@@ -41,32 +40,36 @@ class Game:
         self.paused: bool = False
         self.window: fe.Window = win
         self.window._running = True
-        
+
 # Load characters and animations
     def characters_load(self):
-        self.player: Player = Player(self.window, self.window.width, self.window.height, 75, 175)
-        self.destination: Destination = Destination(self.window, self.player.crect.x, self.player.crect.y, 10, 10)
+        self.player: Player = Player(
+            self.window, self.window.width, self.window.height, 75, 175)
+        self.destination: Destination = Destination(
+            self.window, self.player.crect.x, self.player.crect.y, 10, 10)
         self.animations_load()
-        
+
 # Load pause menu
     def pause_load(self):
-        self.resume: fe.Button = fe.Button(200, 200, 200, 75, 32, "Resume game")
-        
+        self.resume: fe.Button = fe.Button(
+            200, 200, 200, 75, 32, "Resume game")
+
 # Load animations -> initialized inside characters_load
     def animations_load(self):
         pass
         # self.ground_arow_sh = fe.SpriteSheet("./ground_arrows.png", 16, 16)
         # self.ground_arrow_an = fe.Animation(self.window, self.ground_arow_sh, 1 / 3)
-        
-        
-# ------------------- # 
-#    START SESSION    # 
+
+
 # ------------------- #
+#    START SESSION    #
+# ------------------- #
+
 
     def run(self):
         self.window.change_icon("logo.png")
         self.bg = fe.Image("background.jpg", 0, 0, WIDTH, HEIGHT)
-        
+
 # ----> GAME LOOP
         @self.window.loop
         def loop():
@@ -77,20 +80,19 @@ class Game:
             else:
                 self.player.crect.load_rect(fe.ORANGERED)
                 self.bg.draw()
-                self.player.load_rect( fe.WHITE)
-                self.destination.load_rect( fe.PINK)
-                    #self.destination_rect.load_animation(self.ground_arrow_an)
+                self.player.load_rect(fe.WHITE)
+                self.destination.load_rect(fe.PINK)
+                # self.destination_rect.load_animation(self.ground_arrow_an)
                 self.player.update(self.destination)
                 self.destination.update()
 # <---- END OF GAME LOOP
 
-
-
     # ----------------- #
     # MOVEMENT / INPUT  #
     # ----------------- #
-    
+
 # Handles global and sessionwide inputs
+
     def inputs(self):
         global_inputs(self.window)
         if self.paused and self.resume.is_pressed():
@@ -115,11 +117,10 @@ class Game:
         self.player.dx /= length
         self.player.dy /= length
 
-
-
     # ----------------- #
     #    PAUSE MENU     #
     # ----------------- #
+
     def pause(self) -> None:
         self.resume.draw()
         print("Paused")
