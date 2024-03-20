@@ -4,8 +4,8 @@
 #   IMPORTS   #
 # ----------- #
 
-import fusionengine as fe
 import sys as kys
+import fusionengine as fe
 
 # ----------- #
 #  FUNCTIONS  #
