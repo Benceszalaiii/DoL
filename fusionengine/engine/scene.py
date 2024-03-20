@@ -1,5 +1,5 @@
 class Scene:
-    def __init__(self, name: str, function):
+    def __init__(self, name: str, function: callable, *args):
         """
         Create a new Scene object. Can be later used with SceneManager
 
@@ -9,12 +9,13 @@ class Scene:
         """
         self.name = name
         self.function = function
+        self.args = args
 
     def run(self):
         """
         Run the functions (Do not use youself. This is ment for SceneManager)
         """
-        self.function()
+        self.function(*self.args)
 
     def change_function(self, function):
         """

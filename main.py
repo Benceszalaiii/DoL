@@ -1,8 +1,14 @@
-from game import Game
+# MAIN FILE TO RUN
+from app import App
+
+
+# ------------- #
+#  MAIN SCRIPT  #
+# ------------- #
 
 
 def main():
-    Game()
+    App()
 
 
 if __name__ == "__main__":

@@ -78,7 +78,14 @@ class Node:
             color (tuple): The color of the rectangle
         """
         self.to_draw.append(Rect(self.x, self.y, self.width, self.height, color))
-
+    
+    @property
+    def get_cx(self):
+        return self.width/2 + self.x
+    @property
+    def get_cy(self):
+        return self.height/2 + self.y
+    
     def update(self):
         """
         Update method for the node.
