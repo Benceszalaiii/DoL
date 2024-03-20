@@ -11,7 +11,7 @@ import sys
 import utils
 from player import Player
 from destination import Destination
-
+import time
 
 
 # ------------------- #
@@ -20,17 +20,19 @@ from destination import Destination
 
 
 class Game:
-
+    
 
     # ------------------- # 
     # INITIALIZE SESSION  #
     # ------------------- # 
 
     def __init__(self, win):
+        self.paused: bool = False
         self.window: fe.Window = win
         self.window._running = True
-        self.player = Player(self.window, self.window.width, self.window.height, 75, 175)
-        self.destination = Destination(self.window, self.player.crect.x, self.player.crect.y, 10, 10)
+        self.player: Player = Player(self.window, self.window.width, self.window.height, 75, 175)
+        self.destination: Destination = Destination(self.window, self.player.crect.x, self.player.crect.y, 10, 10)
+        self.resume: fe.Button = fe.Button(200, 200, 200, 75, 32, "Resume game")
         # self.ground_arow_sh = fe.SpriteSheet("./ground_arrows.png", 16, 16)
         # self.ground_arrow_an = fe.Animation(self.window, self.ground_arow_sh, 1 / 3)
         print("Switching to game")
@@ -47,15 +49,18 @@ class Game:
 # ----> GAME LOOP
         @self.window.loop
         def loop():
-            self.player.crect.load_rect(fe.ORANGERED)
             self.window.set_fps(FPS)
-            self.bg.draw()
-            self.player.load_rect( fe.WHITE)
-            self.destination.load_rect( fe.PINK)
-                #self.destination_rect.load_animation(self.ground_arrow_an)
             self.inputs()
-            self.player.update(self.destination)
-            self.destination.update()
+            if self.paused:
+                self.pause()
+            else:
+                self.player.crect.load_rect(fe.ORANGERED)
+                self.bg.draw()
+                self.player.load_rect( fe.WHITE)
+                self.destination.load_rect( fe.PINK)
+                    #self.destination_rect.load_animation(self.ground_arrow_an)
+                self.player.update(self.destination)
+                self.destination.update()
 
 
 
@@ -67,9 +72,13 @@ class Game:
 # Handles global and sessionwide inputs
     def inputs(self):
         global_inputs(self.window)
+        if self.paused and fe.key_down_once(fe.KEY_ESCAPE):
+            self.paused = False
+        if not self.paused and fe.key_down_once(fe.KEY_ESCAPE):
+            self.paused = True
         ev = pg.event.get()
         for event in ev:
-            if pg.mouse.get_pressed()[0]:
+            if not self.paused and pg.mouse.get_pressed()[0]:
                 self.move_player(self.player)
             if event.type == pg.QUIT:
                 print("We wish to see you again!")
@@ -84,3 +93,12 @@ class Game:
         length = max(1, (self.player.dx ** 2 + self.player.dy ** 2) ** 0.5)
         self.player.dx /= length
         self.player.dy /= length
+
+
+
+    # ----------------- #
+    #    PAUSE MENU     #
+    # ----------------- #
+    def pause(self) -> None:
+        self.resume.draw()
+        print("Paused")

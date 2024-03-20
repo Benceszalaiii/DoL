@@ -337,8 +337,7 @@ def TexParameter(target, pname, param):
         pname (int): The name of the parameter
         param (int): The value of the parameter
     """
-    gl.glTexParameter(ctypes.c_uint(target), ctypes.c_uint(pname), ctypes.c_int(param))
-
+    gl.glTexParameteri(ctypes.c_uint(target), ctypes.c_uint(pname), ctypes.c_int(param))
 
 def Flush():
     """

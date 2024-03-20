@@ -19,7 +19,7 @@ def global_inputs(win: fe.Window) -> None:
     - Exit
     - Switch screen
     """
-    if fe.key_down_once(fe.KEY_ESCAPE):
+    if fe.key_down_once(fe.KEY_BACKSPACE):
         kys.exit()
-    if fe.key_down_once(fe.KEY_R):
+    if fe.key_down_once(fe.KEY_TAB):
         win.quit()
