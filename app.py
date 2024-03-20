@@ -16,13 +16,10 @@ from settings import FPS, TITLE, WIDTH, HEIGHT
 
 class App:
     def __init__(self) -> None:
-        self.win = fe.Window(TITLE, WIDTH, HEIGHT)
+        self.win: fe.Window = fe.Window(TITLE, WIDTH, HEIGHT)
+        self.win.set_fps = FPS
         while True:
             menu = Menu(self.win)
             menu.run()
-            # if menu.next == "settings":
-            #    settings = Settings(self.win)
-            #    settings.run()
-            #    continue
             game = Game(self.win)
             game.run()

@@ -5,8 +5,8 @@
 #  IMPORTS  #
 # --------- #
 
-import fusionengine as fe
 import pygame as pg
+import fusionengine as fe
 
 
 # ------------------- #
@@ -33,7 +33,6 @@ class Destination:
 
     def load_rect(self, col: fe.Color):
         self.destination.load_rect(col)
-
     # Update the elements
 
     def update(self):

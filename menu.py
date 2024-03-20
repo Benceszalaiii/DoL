@@ -5,10 +5,8 @@
 # --------- #
 
 import fusionengine as fusion
-from settings import TITLE, FPS, WIDTH, HEIGHT
-import pygame as pg
-import sys
 from inputs import global_inputs
+from settings import FPS
 
 
 # ------------------- #
@@ -27,6 +25,7 @@ class Menu:
         self.win.set_fps(FPS)
         self.background = fusion.Node(self.win, 0, 0, self.win.width, self.win.height)
         print("Welcome to DoL!")
+        self.mode = "main"
 
     # ------------------- #
     #    START SESSION    #
@@ -36,10 +35,15 @@ class Menu:
 
         @self.win.loop
         def loop():
-            self.win.change_icon("logo.png")
-            self.background.load_image("menu_background.jpg")
-            self.inputs()
-            self.background.update()
+            if self.mode == "settings":
+                # Settings menu
+                pass
+            elif self.mode == "main":
+                # Main Menu
+                self.win.change_icon("logo.png")
+                self.background.load_image("menu_background.jpg")
+                self.inputs()
+                self.background.update()
 
 # <---- END OF GAME LOOP
 
