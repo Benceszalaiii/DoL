@@ -19,7 +19,11 @@ def global_inputs(win: fe.Window) -> None:
     - Exit
     - Switch screen
     """
+
+# LEAVE GAME ON BACKSPACE
     if fe.key_down_once(fe.KEY_BACKSPACE):
         kys.exit()
+
+# SWITCH MENU/GAME ON TAB
     if fe.key_down_once(fe.KEY_TAB):
         win.quit()

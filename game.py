@@ -26,18 +26,39 @@ class Game:
     # INITIALIZE SESSION  #
     # ------------------- # 
 
+# Load all components
     def __init__(self, win):
+        self.window_load()
+        self.characters_load()
+        self.animations_load()
+        self.pause_load()
+        
+# Signal start of game
+        print("Switching to game")
+
+# Load window
+    def window_load(self, win):
         self.paused: bool = False
         self.window: fe.Window = win
         self.window._running = True
+        
+# Load characters and animations
+    def characters_load(self):
         self.player: Player = Player(self.window, self.window.width, self.window.height, 75, 175)
         self.destination: Destination = Destination(self.window, self.player.crect.x, self.player.crect.y, 10, 10)
+        self.animations_load()
+        
+# Load pause menu
+    def pause_load(self):
         self.resume: fe.Button = fe.Button(200, 200, 200, 75, 32, "Resume game")
+        
+# Load animations -> initialized inside characters_load
+    def animations_load(self):
+        pass
         # self.ground_arow_sh = fe.SpriteSheet("./ground_arrows.png", 16, 16)
         # self.ground_arrow_an = fe.Animation(self.window, self.ground_arow_sh, 1 / 3)
-        print("Switching to game")
-
-
+        
+        
 # ------------------- # 
 #    START SESSION    # 
 # ------------------- #
@@ -61,7 +82,7 @@ class Game:
                     #self.destination_rect.load_animation(self.ground_arrow_an)
                 self.player.update(self.destination)
                 self.destination.update()
-
+# <---- END OF GAME LOOP
 
 
 
@@ -72,7 +93,7 @@ class Game:
 # Handles global and sessionwide inputs
     def inputs(self):
         global_inputs(self.window)
-        if self.paused and fe.key_down_once(fe.KEY_ESCAPE):
+        if self.paused and self.resume.is_pressed():
             self.paused = False
         if not self.paused and fe.key_down_once(fe.KEY_ESCAPE):
             self.paused = True
