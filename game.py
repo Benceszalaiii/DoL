@@ -5,16 +5,15 @@
 #  IMPORTS  #
 # --------- #
 
-import pygame as pg
-from inputs import global_inputs
-import fusionengine as fe
-from settings import FPS, WIDTH, HEIGHT, TITLE
 import sys
-import utils
-from player import Player
-from destination import Destination
-import time
 
+import pygame as pg
+
+import fusionengine as fe
+from destination import Destination
+from inputs import global_inputs
+from player import Player
+from settings import FPS, HEIGHT, WIDTH
 
 # ------------------- #
 #      SESSION        #
@@ -28,7 +27,7 @@ class Game:
     # ------------------- #
 
     # Load all components
-    def __init__(self, win):
+    def __init__(self, win: fe.Window):
         self.window_load(win)
         self.characters_load()
         self.animations_load()
@@ -38,7 +37,7 @@ class Game:
         print("Switching to game")
 
     # Load window
-    def window_load(self, win):
+    def window_load(self, win: fe.Window):
         self.paused: bool = False
         self.window: fe.Window = win
         self.window.isrunning = True
@@ -114,8 +113,8 @@ class Game:
     def move_player(self, player: Player):
         dest_x, dest_y = fe.get_mouse_pos(self)
         self.destination.destination.x, self.destination.destination.y = dest_x, dest_y
-        self.player.dx = dest_x - player.crect.x
-        self.player.dy = dest_y - player.crect.y
+        self.player.dx = float(dest_x - player.crect.x)
+        self.player.dy = float(dest_y - player.crect.y)
         length = max(1, (self.player.dx ** 2 + self.player.dy ** 2) ** 0.5)
         self.player.dx /= length
         self.player.dy /= length
