@@ -1,5 +1,5 @@
 # THIS IS THE FILE FOR THE GAME SESSION
-
+#pylint: disable=too-many-arguments
 
 # --------- #
 #  IMPORTS  #

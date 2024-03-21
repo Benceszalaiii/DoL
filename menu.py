@@ -1,4 +1,5 @@
 # THIS IS THE FILE FOR THE MENU SESSION
+#pylint: disable=too-many-arguments
 
 # --------- #
 #  IMPORTS  #

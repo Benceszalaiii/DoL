@@ -1,5 +1,5 @@
 # THIS IS THE FILE FOR THE DESTINATION NODE
-
+#pylint: disable=too-many-arguments
 
 # --------- #
 #  IMPORTS  #
@@ -19,7 +19,7 @@ class Destination:
     #   INITIALIZE NODE   #
     # ------------------- #
 
-    def __init__(self, win, x, y, width, height):
+    def __init__(self, win: fe.Window, x: float, y: float , width: int, height: int):
         self.destination: fe.Node = fe.Node(win, x, y, width, height)
         self.rect = pg.Rect(self.destination.x, self.destination.y, self.destination.width, self.destination.height)
         self.rect = pg.Rect(self.destination.x, self.destination.y,

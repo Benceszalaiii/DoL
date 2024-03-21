@@ -21,7 +21,7 @@ class Player:
     #   INITIALIZE NODE   #
     # ------------------- #
 
-    def __init__(self, win: fe.Window, x: float, y: float, w: int, h: int):
+    def __init__(self, win: fe.Window, x: float, y: float, w: int, h: int): 
         self.crect_init(win)
         self.hitbox_init(win, x, y, w, h)
         self.dest_init()
@@ -32,7 +32,7 @@ class Player:
         self.rect = pg.Rect(self.crect.x, self.crect.y, self.crect.width, self.crect.height)
 
 # Initializes the hitbox (also the image holder)
-    def hitbox_init(self, win: fe.Window, x: float, y: float, w: int, h: int) -> None:
+    def hitbox_init(self, win: fe.Window, x: float, y: float, w: int, h: int) -> None: 
         self.hitbox: fe.Node = fe.Node(win, x, y, w, h)
         self.hitboxrect: pg.rect.Rect = pg.Rect(self.hitbox.x, self.hitbox.y, self.hitbox.width, self.hitbox.height)
 
