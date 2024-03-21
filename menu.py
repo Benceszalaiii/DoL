@@ -26,9 +26,6 @@ class Menu:
         self.win._running = True
         self.win.set_fps(FPS)
         self.background = fusion.Node(self.win, 0, 0, self.win.width, self.win.height)
-        
-        #self.settings_button = fusion.Button(533, 600, 533, 25, 50, "Settings")
-
         print("Welcome to DoL!")
 
     # ------------------- #
