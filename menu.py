@@ -4,7 +4,7 @@
 #  IMPORTS  #
 # --------- #
 
-import fusionengine as fusion
+import fusionengine as fe
 from inputs import global_inputs
 from settings import FPS
 
@@ -19,11 +19,11 @@ class Menu:
     # INITIALIZE SESSION  #
     # ------------------- #
 
-    def __init__(self, win):
+    def __init__(self, win: fe.Window):
         self.win = win
-        self.win._running = True
+        self.win.isrunning = True
         self.win.set_fps(FPS)
-        self.background = fusion.Node(self.win, 0, 0, self.win.width, self.win.height)
+        self.background = fe.Node(self.win, 0, 0, self.win.width, self.win.height)
         print("Welcome to DoL!")
         self.mode = "main"
 
@@ -32,8 +32,7 @@ class Menu:
     # ------------------- #
 
     def run(self):
-
-        @self.win.loop
+        @self.win.loop # type: ignore
         def loop():
             if self.mode == "settings":
                 # Settings menu

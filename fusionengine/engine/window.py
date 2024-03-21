@@ -21,7 +21,7 @@ class Window:
         except Exception:
             print("Error: Can't initialize pygame.")
 
-        self._running = False
+        self.isrunning = False
         self._fps = 60
         self._quittable = True
         self._clock = pg.time.Clock()
@@ -40,7 +40,7 @@ class Window:
             program_icon = pg.image.load(DEBUGIMAGE)
             pg.display.set_icon(program_icon)
 
-            self._running = True
+            self.isrunning = True
 
         except Exception:
             print("Error: Can't create a window.")
@@ -86,7 +86,7 @@ class Window:
             bool: returns true if the window is running else false
         """
         self._refresh()
-        return self._running
+        return self.isrunning
 
     def set_fps(self, fps: int) -> None:
         """
@@ -181,7 +181,7 @@ class Window:
         """
         Quits the window. Specifically, stops and deletes window.
         """
-        self._running = False
+        self.isrunning = False
 
     def toggle_quittable(self) -> None:
         """

@@ -41,7 +41,7 @@ class Game:
     def window_load(self, win):
         self.paused: bool = False
         self.window: fe.Window = win
-        self.window._running = True
+        self.window.isrunning = True
         self.tick_count = FPS
 
     # Load characters and animations
