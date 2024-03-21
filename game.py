@@ -13,6 +13,7 @@ import sys
 import utils
 from player import Player
 from destination import Destination
+from projectile import Projectile
 import time
 
 
