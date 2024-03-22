@@ -1,18 +1,30 @@
 import random
 import pygame
 import fusionengine as fe
-from settings import WIDTH, HEIGHT, TITLE
+from settings import WIDTH, HEIGHT
 
+proj_speed = 8
+class Projectile():
 
-class Projectile:
-    def load_projectile(self):
-        pass
+    def __init__(self, win: fe.Window, dx: float, dy: float):
+        #self.top_x: float = random.randint(0, WIDTH)
+        #self.top_y: float = 0
+        self.dx = dx
+        self.dy = dy
+        #                         Fentrol jon                                                            Balrol jon                                                     Lentrol jon                                                                                 Jobbrol jon
+        self.proj_x, self.proj_y = (random.randint(0, WIDTH), 0) if bool(random.randint(0, 1)) else (0, random.randint(0, HEIGHT)) if bool(random.randint(0, 1))  else (random.randint(0, WIDTH), HEIGHT - 50) if bool(random.randint(0, 1)) else (WIDTH - 50, random.randint(0, HEIGHT))
+        self.top_proj: fe.Node = fe.Node(win, self.proj_x, self.proj_y, 50, 50)
+        #self.top_proj: fe.Node = fe.Node(win, self.top_x, self.top_y, 50, 50)
 
-    def run(self):
-        pass
+    #def _one_to_four(self) -> int:
+        #_chance: int = random.randint(0, 4)
+        #return _chance
 
-    def __init__(self, win: fe.Window):
-        top_x: float = random.randint(0, WIDTH)
-        top_y: float = 0
-        top_x, top_y = random.randint(0, WIDTH), 0 if bool(random.randint(0, 1)) else 0, random.randint(0, WIDTH) if bool(random.randint(0, 1))  else random.randint(0, WIDTH), WIDTH if bool(random.randint(0, 1)) else WIDTH, random.randint(0, WIDTH) 
-        top_proj: fe.Node = fe.Node(win, top_x, top_y, 50, 50)
+    #def _move(self):
+        #self.top_proj.x += proj_speed * self.dx
+        #self.top_proj.y += proj_speed * self.dy
+
+    def update(self):
+        self.top_proj.load_rect(fe.BLUE)
+        #self._move()
+        self.top_proj.update()
