@@ -20,7 +20,7 @@ class Screen:
         """
         root = tkinter.Tk()
 
-        self.width = int(root.winfo_screenwidth()),
+        self.width = int(root.winfo_screenwidth())
         self.height = int(root.winfo_screenheight())
 
 
