@@ -22,19 +22,20 @@ class Player:
     # ------------------- #
 
     def __init__(self, win: fe.Window, x: float, y: float, w: int, h: int): 
-        self.crect_init(win)
         self.hitbox_init(win, x, y, w, h)
+        self.crect_init(win)
         self.dest_init()
+
+# Initializes the hitbox (also the image holder)
+    def hitbox_init(self, win: fe.Window, x: float, y: float, w: int, h: int) -> None: 
+        self.hitbox: fe.Node = fe.Node(win, x, y, w, h)
+        self.hitboxrect: pg.rect.Rect = pg.Rect(self.hitbox.x, self.hitbox.y, self.hitbox.width, self.hitbox.height)
 
 # Initialize the center rect (used for movement)
     def crect_init(self, win: fe.Window) -> None:
         self.crect = fe.Node(win, self.hitbox.x/2 - 5, self.hitbox.y/2 - 5, 10, 10)
         self.rect = pg.Rect(self.crect.x, self.crect.y, self.crect.width, self.crect.height)
 
-# Initializes the hitbox (also the image holder)
-    def hitbox_init(self, win: fe.Window, x: float, y: float, w: int, h: int) -> None: 
-        self.hitbox: fe.Node = fe.Node(win, x, y, w, h)
-        self.hitboxrect: pg.rect.Rect = pg.Rect(self.hitbox.x, self.hitbox.y, self.hitbox.width, self.hitbox.height)
 
 
     def dest_init(self) -> None:

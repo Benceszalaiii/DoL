@@ -4,7 +4,7 @@
 #   IMPORTS   #
 # ----------- #
 
-import sys as kys
+import sys as kys   # KEY YOUR SHUTDOWN
 import fusionengine as fe
 
 # ----------- #

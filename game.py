@@ -13,7 +13,7 @@ import fusionengine as fe
 from destination import Destination
 from inputs import global_inputs
 from player import Player
-from settings import FPS, HEIGHT, WIDTH
+
 
 # ------------------- #
 #      SESSION        #
@@ -41,7 +41,7 @@ class Game:
         self.paused: bool = False
         self.window: fe.Window = win
         self.window.isrunning = True
-        self.tick_count = FPS
+        self.tick_count = self.window.get_fps()
 
     # Load characters and animations
     def characters_load(self):
@@ -69,12 +69,11 @@ class Game:
 
     def run(self):
         self.window.change_icon("logo.png")
-        self.bg = fe.Image("background.jpg", 0, 0, WIDTH, HEIGHT)
+        self.bg = fe.Image("background.jpg", 0, 0, self.window.width, self.window.height)
 
         # ----> GAME LOOP
         @self.window.loop
         def loop():
-            self.window.set_fps(FPS)
             self.inputs()
             if self.paused:
                 self.pause()

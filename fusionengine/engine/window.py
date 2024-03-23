@@ -1,6 +1,6 @@
 from fusionengine.engine.debug import DEBUGIMAGE
 import fusionengine.fusiongl as gl
-
+from settings import FPS as def_fps
 import pygame as pg
 from pygame.locals import DOUBLEBUF, OPENGL
 
@@ -22,7 +22,7 @@ class Window:
             print("Error: Can't initialize pygame.")
 
         self.isrunning = False
-        self._fps = 60
+        self.fps = def_fps
         self._quittable = True
         self._clock = pg.time.Clock()
 
@@ -32,6 +32,9 @@ class Window:
         self.title = title
         self.width = width
         self.height = height
+        
+        self.prev_width = 0
+        self.prev_height = 0
 
         try:
             self.window = pg.display.set_mode((width, height), DOUBLEBUF | OPENGL)
@@ -88,15 +91,6 @@ class Window:
         self._refresh()
         return self.isrunning
 
-    def set_fps(self, fps: int) -> None:
-        """
-        Sets the desired frames per second for the game loop.
-
-        Args:
-            fps (int): The desired frames per second
-        """
-        self._fps = fps
-
     def get_fps(self) -> int:
         """
         Returns the current desired frames per second for the game
@@ -105,7 +99,7 @@ class Window:
             int: The current desired FPS
         """
 
-        return self._fps
+        return self.fps
 
     def toggle_fullscreen(self) -> None:
         """
@@ -194,7 +188,7 @@ class Window:
         Does all things for refreshing window. (Do not use!)
         """
 
-        self.DELTATIME = self._clock.tick(self._fps)
+        self.DELTATIME = self._clock.tick(self.fps)
 
         for event in pg.event.get():
             if event.type == pg.QUIT and self._quittable:
@@ -205,3 +199,16 @@ class Window:
 
         gl.Clear(gl.DEPTH_BUFFER_BIT)
         gl.Clear(gl.COLOR_BUFFER_BIT)
+
+    def resize(self, screen_size) -> None:
+        """
+           Resizes the window to given sizes
+           
+           Args:
+           (width, height)
+        """
+        self.prev_width = self.width
+        self.prev_height = self.height
+        self.width = screen_size[0]
+        self.height = screen_size[1]
+        self.window = pg.display.set_mode((self.width, self.height), DOUBLEBUF | OPENGL)
