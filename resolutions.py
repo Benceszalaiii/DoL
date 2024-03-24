@@ -48,6 +48,8 @@ class Screen:
         self.collect_garbage()
         self.current: Resolution = Resolution(WIDTH, HEIGHT)
         self.previous: Resolution
+        self.offset_x: int = 0
+        self.offset_y: int = 0
 
     # Get active screen's resolution
     def screen_size(self) -> Resolution:
@@ -68,6 +70,17 @@ class Screen:
                 check_res = Resolution(w, h)
                 if self.max_res.get_resolution != check_res.get_resolution:
                     self.resolutions.append(check_res)
+    @property
+    def get_offset(self) -> None:
+        """
+        Gets the offset of the screen compared to previous resolution in pixels
+        """
+        self.offset_x = self.previous.width - self.current.width
+        if self.previous.width > self.current.width:
+            self.offset_x = -self.offset_x
+        self.offset_y = self.previous.height - self.current.height
+        if self.previous.height > self.current.height:
+            offset_y = -self.offset_y
     def collect_garbage(self):
         del RESOLUTIONS[:]
         gc.collect()

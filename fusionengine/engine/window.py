@@ -23,7 +23,7 @@ class Window:
             print("Error: Can't initialize pygame.")
 
         self.isrunning = False
-        self.fps = def_fps
+        self.fps = 60
         self._quittable = True
         self._clock = pg.time.Clock()
 
@@ -56,7 +56,6 @@ class Window:
 
         except Exception:
             print("Error: Can't setup OpenGL.")
-
     def change_icon(self, image_path: str) -> None:
         """
         Changes icon of the window.

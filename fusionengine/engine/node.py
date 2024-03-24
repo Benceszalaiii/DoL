@@ -4,7 +4,7 @@ from fusionengine.engine.image import Image
 from fusionengine.engine.vector import Vector2D
 from fusionengine.engine.animation import Animation
 from fusionengine.engine.color import Color
-
+import pygame as pg
 
 class Node:
     def __init__(self, window: Window, x: float, y: float, width: int, height: int):
@@ -52,7 +52,7 @@ class Node:
         """
         return self.frame
 
-    def load_image(self, image_path: str) -> None:
+    def load_image(self, image_path: str | pg.Surface) -> None:
         """
         Gives the entity an image and laters draws it on the screen.
 
