@@ -1,4 +1,8 @@
 
+# ----------- #
+#  FUNCTIONS  #
+# ----------- #
+
 def resolution_parse(resolution: str | tuple[int]) -> tuple[int] | str:
     """
         Returns a resolution string as tuple(width: int, height: int)
@@ -39,3 +43,18 @@ def resolution_parse(resolution: str | tuple[int]) -> tuple[int] | str:
         else:
             print("More/Less arguments than expected")
             return "error"
+
+print(type(RESOLUTIONS))
+print(RESOLUTIONS)
+def available_resolutions():
+    global RESOLUTIONS
+    screen_size = Screen()
+    available = [(screen_size.width, screen_size.height)]
+    for res in RESOLUTIONS:
+        print(type(res))
+        print(type(screen_size.width))
+        if not res[0] > screen_size.width or not res[1] > screen_size.height and not res in available:
+            available.append(res)
+    RESOLUTIONS = available
+available_resolutions()
+print(RESOLUTIONS)
