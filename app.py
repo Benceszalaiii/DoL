@@ -8,7 +8,7 @@ import fusionengine as fe
 from menu import Menu
 from game import Game
 from settings import FPS, TITLE, WIDTH, HEIGHT
-
+from resolutions import Screen
 
 # ----------------- #
 #  SESSION MANAGER  #
@@ -16,11 +16,12 @@ from settings import FPS, TITLE, WIDTH, HEIGHT
 
 class App:
     def __init__(self) -> None:
-        self.win: fe.Window = fe.Window(TITLE, WIDTH, HEIGHT)
-        self.win.fps = FPS
+        self.screen = Screen()
+        self.win: fe.Window = fe.Window(TITLE, self.screen.current.width, self.screen.current.height)
         while True:
-            menu = Menu(self.win)
+            menu = Menu(self.win, self.screen)
             menu.run()
+            self.win.resize(menu.screen.current)
             cmd("cls")
             game = Game(self.win)
             game.run()

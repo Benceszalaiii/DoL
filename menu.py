@@ -5,10 +5,12 @@
 #  IMPORTS  #
 # --------- #
 
+
 import fusionengine as fe
 from inputs import global_inputs
 from settings import FPS
 from os import system as cmd
+from resolutions import Resolution, Screen
 
 # ------------------- #
 #       SESSION       #
@@ -20,17 +22,17 @@ class Menu:
     # INITIALIZE SESSION  #
     # ------------------- #
 
-    def __init__(self, win: fe.Window):
+    def __init__(self, win: fe.Window, screen: Screen):
         self.win = win
         self.win.isrunning = True
-        self.win._fps = 60
+        self.screen = screen
         print("Welcome to DoL!")
         self.mode = "main"
         self.startb = fe.Button(self.win.width/2, self.win.height/2, 200, 100, 24, "Start game")
-        self.bg = fe.Image("menu_background.jpg", 0, 0, self.win.width, self.win.height)
-        self.elements = (self.bg, self.startb)
+        self.background = fe.Node(self.win, 0, 0, self.screen.current.width, self.screen.current.height)
         self.curr_resized: bool = False
-        self.res =
+        self.win.change_icon("logo.png")
+
     # ------------------- #
     #    START SESSION    #
     # ------------------- #
@@ -42,14 +44,9 @@ class Menu:
                 # Settings menu
                 pass
             elif self.mode == "main":
-                if self.curr_resized:
-                    cmd("cls")
-                    print("Resizing..")
-                    self.refresh_after_change()
-                    self.curr_resized = False
                 # Main Menu
-                self.win.change_icon("logo.png")
-                self.bg.draw()
+                self.background.load_image("menu_background.jpg")
+                self.background.update()
                 self.startb.draw()
                 self.inputs()
 
@@ -59,16 +56,25 @@ class Menu:
     #       INPUTS        #
     # ------------------- #
 # Handle global and sessionwide inputs
-    def refresh_after_change(self):
-        self.bg.width = self.win.width
-        self.bg.height = self.win.height
     def inputs(self):
         global_inputs(self.win)
-        if self.startb.is_pressed() and self.res == "1600x900":
-            self.win.resize((1000, 1000))
-            self.res = "1000x1000"
-            self.curr_resized = True
-        elif self.startb.is_pressed() and self.res == "1000x1000":
-            self.win.resize((1600, 900))
-            self.res = "1600x900"
-            self.curr_resized = True
+        self.handle_resolution()
+    def handle_resolution(self):
+        if fe.key_down_once(fe.KEY_2) and self.screen.current.as_str != "1280x720":
+            self.swap_resolution(Resolution(1280, 720))
+            self.refresh_after_change()
+        if fe.key_down_once(fe.KEY_1) and self.screen.current.as_str != "1600x900":
+            self.swap_resolution(Resolution(1600, 900))
+            self.refresh_after_change()
+
+    def refresh_after_change(self):
+        self.background.width, self.background.height, self.background.x, self.background.y = self.screen.current.width, self.screen.current.height, 0, 0
+        cmd("cls")
+        print("Resizing..")
+        self.curr_resized = False
+
+    def swap_resolution(self, new_res: Resolution):
+        self.win.resize(new_res)
+        self.res = new_res.as_str
+        self.screen.current = new_res
+        self.curr_resized = True

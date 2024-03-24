@@ -1,6 +1,7 @@
 from fusionengine.engine.debug import DEBUGIMAGE
 import fusionengine.fusiongl as gl
 from settings import FPS as def_fps
+from resolutions import Resolution
 import pygame as pg
 from pygame.locals import DOUBLEBUF, OPENGL
 
@@ -32,9 +33,6 @@ class Window:
         self.title = title
         self.width = width
         self.height = height
-        
-        self.prev_width = 0
-        self.prev_height = 0
 
         try:
             self.window = pg.display.set_mode((width, height), DOUBLEBUF | OPENGL)
@@ -200,15 +198,13 @@ class Window:
         gl.Clear(gl.DEPTH_BUFFER_BIT)
         gl.Clear(gl.COLOR_BUFFER_BIT)
 
-    def resize(self, screen_size) -> None:
+    def resize(self, screen_size: Resolution) -> None:
         """
            Resizes the window to given sizes
            
            Args:
            (width, height)
         """
-        self.prev_width = self.width
-        self.prev_height = self.height
-        self.width = screen_size[0]
-        self.height = screen_size[1]
+        self.width = screen_size.width
+        self.height = screen_size.height
         self.window = pg.display.set_mode((self.width, self.height), DOUBLEBUF | OPENGL)
