@@ -5,7 +5,7 @@
 # ----------- #
 
 import sys as kys   # KEY YOUR SHUTDOWN
-import fusionengine as fe
+ 
 
 # ----------- #
 #  FUNCTIONS  #
@@ -18,7 +18,4 @@ def global_inputs() -> None:
     
     - Exit
     """
-
-# LEAVE GAME ON BACKSPACE
-    if fe.key_down_once(fe.KEY_BACKSPACE):
-        kys.exit()
+    pass
