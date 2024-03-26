@@ -5,11 +5,18 @@ from state import State
 class PauseMenu(State):
     def __init__(self, game):
         self.game = game
+        self.title = "DoL - Currently Playing (Paused)"
         State.__init__(self, game)
+        pg.display.set_caption(self.title)
+        self.resume = pg.rect.Rect(0, 0, 128, 72)
+        self.resume.center = (self.game.SCREEN_WIDTH, self.game.SCREEN_HEIGHT)
+    def update(self, delta_time, actions):
+        self.inputs(actions)
 
+    def render(self, screen):
+        pg.draw.rect(screen, "blue", self.resume)
 
-    def update(self, delta_time, actions):  
-        pass
-
-    def render(self, display):
-        pass
+    def inputs(self, actions):
+        if actions["pause"]:
+            actions["pause"] = False
+            self.exit_state()

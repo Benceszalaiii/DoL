@@ -1,8 +1,11 @@
 from state import State
 from game import Game
+import pygame as pg
 class Menu(State):
     def __init__(self, game):
         State.__init__(self, game)
+        self.title = "DoL - Main Menu"
+        pg.display.set_caption(self.title)
     def update(self, delta_time, actions):
         if actions["start"]:
             new_state = Game(self.game)

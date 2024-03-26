@@ -7,17 +7,16 @@ from settings import WIDTH, HEIGHT
 class Stack():
         def __init__(self):
             pg.init()
-            self.GAME_WIDTH,self.GAME_HEIGHT = 480, 270
             self.SCREEN_WIDTH,self.SCREEN_HEIGHT = WIDTH, HEIGHT
-            self.game_canvas = pg.Surface((self.GAME_WIDTH,self.GAME_HEIGHT))
+            self.GAME_WIDTH, self.GAME_HEIGHT = self.SCREEN_WIDTH, self.SCREEN_HEIGHT
             self.screen = pg.display.set_mode((self.SCREEN_WIDTH,self.SCREEN_HEIGHT))
+            pg.display.set_caption("DoL - Loading..")
             self.running, self.playing = True, True
-            self.actions = {"left": False, "right": False, "up" : False, "down" : False, "pause" : False, "click" : False, "start" : False}
+            self.actions = {"resume" : False, "pause" : False, "click" : False, "start" : False}
             self.dt, self.prev_time = 0, 0
             self.state_stack = []
             self.load_assets()
             self.load_states()
-            pg.display.set_caption("DoL Dodge of Legends")
             self.logo = pg.image.load(os.path.join("assets", "logo.png"))
             pg.display.set_icon(self.logo)
 
@@ -27,6 +26,7 @@ class Stack():
                 self.get_events()
                 self.update()
                 self.render()
+                time.sleep(1/100)
 
         def get_events(self):
             for event in pg.event.get():
@@ -39,27 +39,15 @@ class Stack():
                     if event.key == pg.K_ESCAPE:
                         self.playing = False
                         self.running = False
-                    if event.key == pg.K_a:
-                        self.actions['left'] = True
-                    if event.key == pg.K_d:
-                        self.actions['right'] = True
-                    if event.key == pg.K_w:
-                        self.actions['up'] = True
-                    if event.key == pg.K_s:
-                        self.actions['down'] = True
+                    if event.key == pg.K_SPACE:
+                        self.actions['resume'] = True
                     if event.key == pg.K_TAB:
                         self.actions['pause'] = True
                     if event.key == pg.K_RETURN:
                         self.actions['start'] = True  
                 if event.type == pg.KEYUP:
-                    if event.key == pg.K_a:
-                        self.actions['left'] = False
-                    if event.key == pg.K_d:
-                        self.actions['right'] = False
-                    if event.key == pg.K_w:
-                        self.actions['up'] = False
-                    if event.key == pg.K_s:
-                        self.actions['down'] = False
+                    if event.key == pg.K_SPACE:
+                        self.actions['resume'] = False
                     if event.key == pg.K_TAB:
                         self.actions['pause'] = False
                     if event.key == pg.K_RETURN:
@@ -69,9 +57,9 @@ class Stack():
             self.state_stack[-1].update(self.dt,self.actions)
 
         def render(self):
-            self.state_stack[-1].render(self.game_canvas)
+            self.state_stack[-1].render(self.screen)
             # Render current state to the screen
-            self.screen.blit(pg.transform.scale(self.game_canvas,(self.SCREEN_WIDTH, self.SCREEN_HEIGHT)), (0,0))
+            self.screen.blit(self.screen, (0, 0))
             pg.display.flip()
 
 
