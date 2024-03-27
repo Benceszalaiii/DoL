@@ -1,4 +1,4 @@
-DEBUGMODE = False
+DEBUGMODE = True
 # ----------- #
 #   IMPORTS   #
 # ----------- #
