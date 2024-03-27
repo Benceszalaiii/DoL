@@ -1,9 +1,18 @@
-import os, time
-import pygame as pg
+
+print("Loading module: os")
+import os
+print("Loading module: time")
+import time
+print("Loading module: contextlib")
+import contextlib
+from utils import empty_terminal
+with contextlib.redirect_stdout(None):
+    import pygame as pg
+
 # Load our scenes
 from menu import Menu
 from settings import WIDTH, HEIGHT
-
+print("Starting game..")
 class Stack():
         def __init__(self):
             pg.init()
@@ -92,5 +101,8 @@ class Stack():
 
 if __name__ == "__main__":
     g = Stack()
+    empty_terminal()
+    print("Loading successful")
+    print("Welcome to DoL")
     while g.running:
         g.game_loop()

@@ -6,7 +6,7 @@ from state import State
 
 from pause import PauseMenu
 from player import Player
-
+print("Loading game")
 class Game(State):
 
     def __init__(self, game):

@@ -7,9 +7,8 @@
 import os
 import pygame as pg
 from settings import SPEED
-from utils import empty_terminal
 import math
-
+print("Loading player")
 # ------------------- #
 #         NODE        #
 # ------------------- #

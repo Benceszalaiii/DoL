@@ -1,6 +1,8 @@
 from state import State
 from game import Game
 import pygame as pg
+
+print("Loading menu")
 class Menu(State):
     def __init__(self, game):
         State.__init__(self, game)

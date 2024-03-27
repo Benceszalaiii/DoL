@@ -1,7 +1,9 @@
 import os
 import pygame as pg
 from state import State
+from utils import empty_terminal
 
+print("Loading pause")
 class PauseMenu(State):
     def __init__(self, game):
         self.game = game

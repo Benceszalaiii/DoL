@@ -1,6 +1,7 @@
 # Parent class to handle states
 import pygame as pg
 
+print("Loading preset")
 class State():
     def __init__(self, game):
         self.game = game

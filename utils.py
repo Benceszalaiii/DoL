@@ -4,7 +4,6 @@ DEBUGMODE = False
 # ----------- #
 
 from os import system as cmd
-
 # ----------- #
 #  FUNCTIONS  #
 # ----------- #
@@ -14,6 +13,5 @@ def empty_terminal() -> None:
     Clears the running CLI (command line interface)
     """
     if not DEBUGMODE:
-        pass
-    else:
         cmd("cls")
+print("Utilities loaded")
