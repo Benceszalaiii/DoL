@@ -4,63 +4,87 @@
 # --------- #
 #  IMPORTS  #
 # --------- #
-
-import fusionengine as fe
+import os
 import pygame as pg
-from destination import Destination
 from settings import SPEED
-
-
+import math
+print("Loading player")
 # ------------------- #
 #         NODE        #
 # ------------------- #
 
-class Player:
+class Player():
 
     # ------------------- #
     #   INITIALIZE NODE   #
     # ------------------- #
 
-    def __init__(self, win, x, y, width, height):
-        self.hitbox: fe.Node = fe.Node(win, win.width, win.height, 75, 175)
-        self.crect = fe.Node(win, self.hitbox.x/2 - 5, self.hitbox.y/2 - 5, 10, 10)
-        self.rect = pg.Rect(self.crect.x, self.crect.y, self.crect.width, self.crect.height)
-        self.hitboxrect: pg.rect.Rect = pg.Rect(self.hitbox.x, self.hitbox.y, self.hitbox.width, self.hitbox.height)
-        self.dx = 0
-        self.dy = 0
+    def __init__(self, image_source: str, x: float, y: float, w: int, h: int):
+        self.model = pg.image.load(image_source)
+        self.model = pg.transform.scale(self.model, (w, h))
+        self.rect = self.model.get_rect()
+        self.rect.topright = (1400, 800)
+        self.crect = pg.rect.Rect((self.rect.centerx - 3), (self.rect.centery - 3), 6, 6)
+        self.dest_cord = (self.crect.size)
+        self.dest = pg.Rect(self.crect.x, self.crect.y, self.crect.width, self.crect.height)
+        self.dx, self.dy = 0, 0
 
     # ----------- #
     #   METHODS   #
     # ----------- #
 
-# Handle coloring the hitbox
-
-    def load_rect(self, col: fe.Color):
-        self.hitbox.load_rect(col)
-
-# Handle images on the hitbox
-
-    def load_image(self, img: str):
-        self.hitbox.load_image(img)
-
 # Updates elements of player
 
-    def update(self, dest: Destination):
-        # Update calls
-        self.hitbox.update()
-        self.crect.update()
-        # Movement
-        self.walk(dest)
-        # Pygame update calls
-        self.rect.update(self.crect.x, self.crect.y, self.crect.width, self.crect.height)
-        self.hitboxrect.update(self.hitbox.x, self.hitbox.y, self.hitbox.width, self.hitbox.height)
-        # Syncronize hitbox with center rect (for movement)
-        self.hitbox.x = self.crect.x - self.hitbox.width/2
-        self.hitbox.y = self.crect.y - self.hitbox.height/2
+    def update(self, delta, actions):
+        if actions["click"]:
+            actions["click"] = False
+            self.move_player(pg.mouse.get_pos())
+        self.dest.center = self.dest_cord
+        # Move the character towards the target on each tick
+        self.walk(delta)
 
-    # Move the character towards the target on each tick
+        # Update the character's rect to match the updated position
+        self.rect.update(self.crect.centerx - (self.crect.width/2), self.crect.centery - (self.crect.height/2), self.rect.width, self.rect.height)
 
-    def walk(self, dest: Destination):
-        if not dest.rect.colliderect(self.rect):
-            self.crect.x += SPEED * self.dx
-            self.crect.y += SPEED * self.dy
+    def render(self, screen: pg.Surface):
+        screen.blit(self.model, self.rect)
+        pg.draw.rect(screen, "blue", self.rect)
+        pg.draw.rect(screen, "red", self.dest)
+        pg.draw.rect(screen, "green", self.crect)
+    """    def walk(self, delta) -> None:
+        
+    Calculates the distance to the target position and updates the character's position.
+    
+    Args:
+        delta (int): Time since last update in milliseconds.
+
+    Returns:
+        None
+
+        
+        if not self.crect.colliderect(self.dest):
+        # Calculate the distance to the target position
+            self.dx, self.dy = self.dest_cord[0] - self.crect.centery, self.dest_cord[1] - self.crect.centery
+            self.dx = self.dx * SPEED * delta
+            self.dy = self.dy * SPEED * delta
+            self.crect.center = (self.crect.centerx + self.dx, self.crect.centery + self.dy)
+            self.dest.center = (self.crect.centerx, self.crect.centery)
+        else:
+            print("Collided")"""
+    def move_player(self, target_pos):
+        # Set the target position to move towards
+        self.dest_cord = target_pos
+        dest_x, dest_y =  self.dest_cord
+        self.dest.center = (dest_x, dest_y)
+        self.dx = float(dest_x - self.crect.x)
+        self.dy = float(dest_y - self.crect.y)
+        length = max(1, (self.dx ** 2 + self.dy ** 2) ** 0.5)
+        print(self.dx, self.dy)
+        self.dx /= length
+        self.dy /= length
+    def walk(self, delta):
+        if not self.crect.colliderect(self.dest):
+            self.crect.centerx += SPEED * self.dx * delta
+            self.crect.centery += SPEED * self.dy * delta
+        else:
+            print("Collided")

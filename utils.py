@@ -1,28 +1,17 @@
+DEBUGMODE = True
 # ----------- #
 #   IMPORTS   #
 # ----------- #
-import tkinter
 
-
+from os import system as cmd
 # ----------- #
 #  FUNCTIONS  #
 # ----------- #
 
-
-# Get active screen's resolution in dict
-def screen_size() -> dict[str, int]:
+def empty_terminal() -> None:
     """
-    Get the current screen's dimensions
-
-    Returns:
-        dict(str, int)
-        ["width"] -> width of screen
-        ["height"] -> height of screen
-
+    Clears the running CLI (command line interface)
     """
-    root = tkinter.Tk()
-    result = {
-        "width": root.winfo_screenwidth(),
-        "height": root.winfo_screenheight()
-    }
-    return result
+    if not DEBUGMODE:
+        cmd("cls")
+print("Utilities loaded")
