@@ -11,31 +11,32 @@ with contextlib.redirect_stdout(None):
 
 # Load our scenes
 from menu import Menu
-from settings import WIDTH, HEIGHT
+from settings import WIDTH, HEIGHT, FPS
 print("Starting game..")
 class Stack():
         def __init__(self):
             pg.init()
+            self.mainClock = pg.time.Clock()
             self.SCREEN_WIDTH,self.SCREEN_HEIGHT = WIDTH, HEIGHT
             self.GAME_WIDTH, self.GAME_HEIGHT = self.SCREEN_WIDTH, self.SCREEN_HEIGHT
             self.screen = pg.display.set_mode((self.SCREEN_WIDTH,self.SCREEN_HEIGHT))
             pg.display.set_caption("DoL - Loading..")
             self.running, self.playing = True, True
             self.actions = {"resume" : False, "pause" : False, "click" : False, "start" : False}
-            self.dt, self.prev_time = 0, 0
+            self.dt= time.time()
+            self.prev_time = time.time()
             self.state_stack = []
             self.load_assets()
             self.load_states()
             self.logo = pg.image.load(os.path.join("assets", "logo.png"))
             pg.display.set_icon(self.logo)
-
         def game_loop(self):
             while self.playing:
                 self.get_dt()
                 self.get_events()
                 self.update()
                 self.render()
-                time.sleep(1/100)
+                self.mainClock.tick(FPS)
 
         def get_events(self):
             for event in pg.event.get():
@@ -73,9 +74,9 @@ class Stack():
 
 
         def get_dt(self):
-            now = time.time()
-            self.dt = now - self.prev_time
-            self.prev_time = now
+            self.dt = time.time() - self.prev_time
+            self.dt *= FPS
+            self.prev_time = time.time()
 
         def draw_text(self, surface, text, color, x, y):
             text_surface = self.font.render(text, True, color)

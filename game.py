@@ -33,7 +33,7 @@ class Game(State):
 
             new_state.enter_state()
 
-        self.player.update(delta_time, actions, self.game.SCREEN_WIDTH, self.game.SCREEN_HEIGHT)
+        self.player.update(delta_time, actions)
 
     def render(self, display):
         display.blit(self.background_img, (0,0))
