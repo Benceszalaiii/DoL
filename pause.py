@@ -20,5 +20,7 @@ class PauseMenu(State):
 
     def inputs(self, actions):
         if actions["pause"]:
-            actions["pause"] = False
+            actions["start"] = False
+        if actions["resume"]:
+            actions["start"] = True
             self.exit_state()

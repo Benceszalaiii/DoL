@@ -35,6 +35,6 @@ class Game(State):
 
         self.player.update(delta_time, actions)
 
-    def render(self, display):
-        display.blit(self.background_img, (0,0))
-        self.player.render(display)
+    def render(self, screen: pg.Surface):
+        screen.blit(self.background_img, (0,0))
+        self.player.render(screen)
