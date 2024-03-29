@@ -1,5 +1,6 @@
 import random
 import pygame
+import math
 import fusionengine as fe
 from settings import SPEED, WIDTH, HEIGHT
 from player import Player
@@ -15,6 +16,7 @@ class Projectile:
         self.dx = dx
         self.dy = dy
         self._one_to_four()
+        self.all_bullets: list[float] = []
         #                         Fentrol jon                                                            Balrol jon                                                     Lentrol jon                                                                                 Jobbrol jon
         # self.proj_x, self.proj_y = (random.randint(0, WIDTH), 0) if bool(random.randint(0, 1)) else (0, random.randint(0, HEIGHT)) if bool(random.randint(0, 1))  else (random.randint(0, WIDTH), HEIGHT - 50) if bool(random.randint(0, 1)) else (WIDTH - 50, random.randint(0, HEIGHT))
         self.top_proj: fe.Node = fe.Node(win, self.proj_x, self.proj_y, 50, 50)
@@ -39,5 +41,16 @@ class Projectile:
         # self._move()
         self.top_proj.update()
 
-    def ellesznevezve(self):
-        pass
+    def distance_math(self):
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        distance_x = mouse_x - player.x
+        distance_y = mouse_y - player.y
+        angle = math.atan2(distance_y, distance_x)
+        speed_x = SPEED * math.cos(angle)
+        speed_y = SPEED * math.sin(angle)
+        self.all_bullets.append([player.x, player.y, speed_x, speed_y])
+
+    def position(self):
+        for event in pygame.event.get():
+            if event == pygame.MOUSEBUTTONDOWN:
+                self.mouse_x, self.mouse_y = pygame.mouse.get_pos()
