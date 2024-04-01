@@ -6,7 +6,6 @@
 # --------- #
 
 import pygame as pg
-from fusionengine.engine.window import Window
 from inputs import global_inputs
 import fusionengine as fe
 from settings import FPS, WIDTH, HEIGHT, TITLE
