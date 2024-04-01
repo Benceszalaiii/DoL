@@ -14,7 +14,6 @@ import sys
 import utils
 from player import Player
 from destination import Destination
-from projectile import Projectile
 import time
 
 
@@ -35,14 +34,12 @@ class Game:
         self.characters_load()
         self.animations_load()
         self.pause_load()
-        self.pr: Projectile = Projectile(self.window, self.player.crect.x, self.player.crect.y)
-        self.inv_rect: fe.Node = fe.Node(win, 0, 0, 0, 0)
 
         # Signal start of game
         print("Switching to game")
 
     # Load window
-    def window_load(self, win: fe.Window):
+    def window_load(self, win):
         self.paused: bool = False
         self.window: fe.Window = win
         self.window._running = True
@@ -88,12 +85,9 @@ class Game:
                 self.bg.draw()
                 self.player.load_rect(fe.WHITE)
                 self.destination.load_rect(fe.PINK)
-                self.inv_rect.load_rect(fe.WHITE)
-                self.pr.update()
                 # self.destination_rect.load_animation(self.ground_arrow_an)
                 self.player.update(self.destination)
                 self.destination.update()
-                self.inv_rect.update()
 
     # <---- END OF GAME LOOP
 
