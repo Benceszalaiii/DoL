@@ -27,7 +27,7 @@ class Stack():
             self.prev_time = time.time()
             self.state_stack = []
             self.load_assets()
-            self.load_states()
+            self.load_states(self.screen)
             self.logo = pg.image.load(os.path.join("assets", "logo.png"))
             pg.display.set_icon(self.logo)
         def game_loop(self):
@@ -91,8 +91,8 @@ class Stack():
             self.sprite_dir = os.path.join(self.assets_dir, "sprites")
             self.font= pg.font.Font(os.path.join("DigitalDisco.ttf"), 20)
 
-        def load_states(self):
-            self.menu_screen = Menu(self)
+        def load_states(self, screen: pg.Surface):
+            self.menu_screen = Menu(self, screen)
             self.state_stack.append(self.menu_screen)
 
         def reset_keys(self):
