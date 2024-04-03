@@ -4,7 +4,7 @@
 #  CONFIG SETTINGS  #
 # ----------------- #
 
-SPEED = 5
+SPEED = 0.3
 
 
 # ----------------- #
@@ -12,10 +12,14 @@ SPEED = 5
 # ----------------- #
 
 FPS = 250
-WIDTH, HEIGHT = 1600, 900
-TITLE = "DoL - Dodge of Legends"
+WIDTH, HEIGHT = 1280, 720
 BG_COLOR = (255, 255, 255)
-
+RESOLUTIONS = [(3840, 2160),
+            (2560, 1440),
+            (1920, 1080),
+            (1600, 900),
+            (1280, 720),
+            (640, 480)]
 
 # ------------- #
 #  PREFERENCES  #

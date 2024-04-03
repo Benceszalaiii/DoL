@@ -1,52 +1,19 @@
-# THIS IS THE FILE FOR THE MENU SESSION
-
-# --------- #
-#  IMPORTS  #
-# --------- #
-
-import fusionengine as fusion
-from settings import TITLE, FPS, WIDTH, HEIGHT
+from state import State
+from game import Game
 import pygame as pg
-import sys
-from inputs import global_inputs
 
-
-# ------------------- #
-#       SESSION       #
-# ------------------- #
-
-class Menu:
-
-    # ------------------- #
-    # INITIALIZE SESSION  #
-    # ------------------- #
-
-    def __init__(self, win):
-        self.win = win
-        self.win._running = True
-        self.win.set_fps(FPS)
-        self.background = fusion.Node(self.win, 0, 0, self.win.width, self.win.height)
-        print("Welcome to DoL!")
-
-    # ------------------- #
-    #    START SESSION    #
-    # ------------------- #
-
-    def run(self):
-
-        @self.win.loop
-        def loop():
-            self.win.change_icon("logo.png")
-            self.background.load_image("menu_background.jpg")
-            self.inputs()
-            self.background.update()
-
-# <---- END OF GAME LOOP
-
-    # ------------------- #
-    #       INPUTS        #
-    # ------------------- #
-# Handle global and sessionwide inputs
-
-    def inputs(self):
-        global_inputs(self.win)
+print("Loading menu")
+class Menu(State):
+    def __init__(self, game):
+        State.__init__(self, game)
+        self.title = "DoL - Main Menu"
+        pg.display.set_caption(self.title)
+    def update(self, delta_time, actions):
+        if actions["start"]:
+            new_state = Game(self.game)
+            new_state.enter_state()
+        self.game.reset_keys()
+        
+    def render(self, display):
+        display.fill((255, 255, 255))
+        self.game.draw_text(display, "DoL", (0, 0, 0), self.game.GAME_WIDTH/2, self.game.GAME_HEIGHT/2)
