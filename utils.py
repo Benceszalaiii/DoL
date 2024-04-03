@@ -1,12 +1,14 @@
-DEBUGMODE = True
+from os import system as cmd
+
+DEBUGMODE = False
 # ----------- #
 #   IMPORTS   #
 # ----------- #
 
-from os import system as cmd
 # ----------- #
 #  FUNCTIONS  #
 # ----------- #
+
 
 def empty_terminal() -> None:
     """
@@ -14,4 +16,6 @@ def empty_terminal() -> None:
     """
     if not DEBUGMODE:
         cmd("cls")
+
+
 print("Utilities loaded")

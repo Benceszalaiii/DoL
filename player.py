@@ -8,10 +8,12 @@ import os
 import pygame as pg
 from settings import SPEED
 import math
+from utils import empty_terminal as clr
 print("Loading player")
 # ------------------- #
 #         NODE        #
 # ------------------- #
+
 
 class Player():
 
@@ -24,9 +26,9 @@ class Player():
         self.model = pg.transform.scale(self.model, (w, h))
         self.rect = self.model.get_rect()
         self.rect.topright = (1400, 800)
-        self.crect = pg.rect.Rect((self.rect.centerx - 3), (self.rect.centery - 3), 6, 6)
+        self.crect = pg.rect.Rect((self.rect.centerx - 3), (self.rect.centery - 3), self.rect.width/4, self.rect.height/4)
         self.dest_cord = (self.crect.size)
-        self.dest = pg.Rect(self.crect.x, self.crect.y, self.crect.width, self.crect.height)
+        self.dest = pg.Rect(self.crect.x, self.crect.y, 12, 12)
         self.dx, self.dy = 0, 0
 
     # ----------- #
@@ -39,16 +41,14 @@ class Player():
         if actions["click"]:
             actions["click"] = False
             self.move_player(pg.mouse.get_pos())
-        self.dest.center = self.dest_cord
         # Move the character towards the target on each tick
         self.walk(delta)
 
         # Update the character's rect to match the updated position
-        self.rect.update(self.crect.centerx - (self.crect.width/2), self.crect.centery - (self.crect.height/2), self.rect.width, self.rect.height)
+        self.rect.update(self.crect.centerx - (self.rect.width/2), self.crect.centery - (self.rect.height/2), self.rect.width, self.rect.height)
 
     def render(self, screen: pg.Surface):
         screen.blit(self.model, self.rect)
-        pg.draw.rect(screen, "blue", self.rect)
         pg.draw.rect(screen, "red", self.dest)
         pg.draw.rect(screen, "green", self.crect)
     """    def walk(self, delta) -> None:
@@ -73,18 +73,23 @@ class Player():
             print("Collided")"""
     def move_player(self, target_pos):
         # Set the target position to move towards
-        self.dest_cord = target_pos
-        dest_x, dest_y =  self.dest_cord
+        dest_x, dest_y = target_pos
         self.dest.center = (dest_x, dest_y)
         self.dx = float(dest_x - self.crect.x)
         self.dy = float(dest_y - self.crect.y)
         length = max(1, (self.dx ** 2 + self.dy ** 2) ** 0.5)
-        print(self.dx, self.dy)
+        length = 81.7
         self.dx /= length
         self.dy /= length
+
     def walk(self, delta):
         if not self.crect.colliderect(self.dest):
             self.crect.centerx += SPEED * self.dx * delta
             self.crect.centery += SPEED * self.dy * delta
+            clr()
+            print("Dest:", self.dx, self.dy)
+            print("Rect:", self.crect.centerx, self.crect.centery)
+            print("xy diff: ", self.dx - self.dy)
+            print(SPEED * self.dx * delta, SPEED * self.dy * delta)
         else:
             print("Collided")
