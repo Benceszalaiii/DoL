@@ -26,12 +26,11 @@ class Game(State):
     def update(self, delta_time, actions):
 
         # Check if the game was paused 
-
         if actions["pause"]:
+            self.exit_state()
+            """ new_state = PauseMenu(self.game)
 
-            new_state = PauseMenu(self.game)
-
-            new_state.enter_state()
+            new_state.enter_state()"""
 
         self.player.update(delta_time, actions)
 

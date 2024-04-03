@@ -25,7 +25,7 @@ class Player():
         self.model = pg.image.load(image_source)
         self.model = pg.transform.scale(self.model, (w, h))
         self.rect = self.model.get_rect()
-        self.rect.topright = (1400, 800)
+        self.rect.topright = (x, y)
         self.crect = pg.rect.Rect((self.rect.centerx - 3), (self.rect.centery - 3), self.rect.width/4, self.rect.height/4)
         self.dest_cord = (self.crect.size)
         self.dest = pg.Rect(self.crect.x, self.crect.y, 12, 12)
@@ -72,22 +72,23 @@ class Player():
         else:
             print("Collided")"""
     def move_player(self, target_pos):
-        # Set the target position to move towards
         dest_x, dest_y = target_pos
         self.dest.center = (dest_x, dest_y)
-        self.dx = float(dest_x - self.crect.x)
-        self.dy = float(dest_y - self.crect.y)
-        length = max(1, (self.dx ** 2 + self.dy ** 2) ** 0.5)
-        length = 81.7
-        self.dx /= length
-        self.dy /= length
+
 
     def walk(self, delta):
         if not self.crect.colliderect(self.dest):
+            dest_x, dest_y = self.dest.center
+            self.dx = dest_x - self.crect.x
+            self.dy = dest_y - self.crect.y
+            length = math.hypot(self.dx, self.dy)
+            if length != 0:
+                self.dx /= length
+                self.dy /= length
             self.crect.centerx += SPEED * self.dx * delta
             self.crect.centery += SPEED * self.dy * delta
             clr()
-            print("Dest:", self.dx, self.dy)
+            print("Dest:", self.dest.center)
             print("Rect:", self.crect.centerx, self.crect.centery)
             print("xy diff: ", self.dx - self.dy)
             print(SPEED * self.dx * delta, SPEED * self.dy * delta)
