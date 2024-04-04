@@ -33,6 +33,7 @@ class Stack:
         self.load_states()
         self.logo = pg.image.load(os.path.join("assets", "logo.png"))
         pg.display.set_icon(self.logo)
+        self.new_res = (self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
 
     def game_loop(self):
         while self.playing:
@@ -60,7 +61,10 @@ class Stack:
                 if event.key == pg.K_RETURN:
                     self.actions['start'] = True
                 if event.key == pg.K_1:
-                    pg.display.set_mode((1600, 900))
+                    if not self.actions['recent_resize']:
+                        self.actions['recent_resize'] = True
+                        self.actions['resize'] = True
+                        self.new_res = (1600, 900)
             if event.type == pg.KEYUP:
                 if event.key == pg.K_SPACE:
                     self.actions['resume'] = False
@@ -75,8 +79,13 @@ class Stack:
     def render(self):
         self.state_stack[-1].render(self.game_screen)
         # Render current state to the screen
-        self.screen.blit(pg.transform.scale(self.game_screen, (self.SCREEN_WIDTH, self.SCREEN_HEIGHT)), (0,0))
+        self.screen.blit(pg.transform.scale(self.game_screen, (self.screen.get_width(), self.screen.get_height())), (0,0))
         pg.display.flip()
+    def check_resize(self):
+        if not self.actions['recent_resize'] and self.new_res != (self.SCREEN_WIDTH, self.SCREEN_HEIGHT):
+            self.actions['resize'] = False
+            self.SCREEN_WIDTH, self.SCREEN_HEIGHT = self.new_res
+            self.screen = pg.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
 
     def get_dt(self):
         self.dt = time.time() - self.prev_time

@@ -26,6 +26,8 @@ class Player():
         self.model = pg.transform.scale(self.model, (w, h))
         self.rect = self.model.get_rect()
         self.rect.topright = (x, y)
+        self.erect = pg.rect.Rect(x, y, w, h)
+        self.erect.center = (x, y)
         self.crect = pg.rect.Rect((self.rect.centerx - 3), (self.rect.centery - 3), self.rect.width/4, self.rect.height/4)
         self.dest_cord = (self.crect.size)
         self.dest = pg.Rect(self.crect.x, self.crect.y, 12, 12)
@@ -49,8 +51,10 @@ class Player():
 
     def render(self, screen: pg.Surface):
         screen.blit(self.model, self.rect)
+        pg.draw.rect(screen, (255, 0, 255), self.erect)
         pg.draw.rect(screen, "red", self.dest)
-        pg.draw.rect(screen, "green", self.crect)
+        """
+        pg.draw.rect(screen, "green", self.crect)"""
     """    def walk(self, delta) -> None:
         
     Calculates the distance to the target position and updates the character's position.
@@ -77,19 +81,19 @@ class Player():
 
 
     def walk(self, delta):
-        if not self.crect.colliderect(self.dest):
+        if not self.erect.colliderect(self.dest):
             dest_x, dest_y = self.dest.center
-            self.dx = dest_x - self.crect.x
-            self.dy = dest_y - self.crect.y
+            self.dx = dest_x - self.erect.x
+            self.dy = dest_y - self.erect.y
             length = math.hypot(self.dx, self.dy)
             if length != 0:
                 self.dx /= length
                 self.dy /= length
-            self.crect.centerx += SPEED * self.dx * delta
-            self.crect.centery += SPEED * self.dy * delta
+            self.erect.centerx += SPEED * self.dx * delta
+            self.erect.centery += SPEED * self.dy * delta
             clr()
             print("Dest:", self.dest.center)
-            print("Rect:", self.crect.centerx, self.crect.centery)
+            print("Rect:", self.erect.centerx, self.erect.centery)
             print("xy diff: ", self.dx - self.dy)
             print(SPEED * self.dx * delta, SPEED * self.dy * delta)
         else:
