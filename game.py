@@ -36,8 +36,9 @@ class Game(State):
             new_state.enter_state()
 
         self.player.update(delta_time, actions)
-        self.proj.update()
+        
 
     def render(self, screen: pg.Surface):
         screen.blit(self.background_img, (0,0))
         self.player.render(screen)
+        self.proj.update()
