@@ -15,7 +15,8 @@ class Projectile:
         self.screen = screen
         self.lefutás_száma: int = 0
         self.all_bullets = []
-        #self.projectile = pygame.image.load("projectile_próba.png")
+        self.projectile = pygame.image.load("projpróba2.png")
+        self.proj = pygame.transform.scale(self.projectile, [50, 30])
 
     def _one_to_four(self):
         _chance: int = random.randint(1, 4)
@@ -43,11 +44,11 @@ class Projectile:
         # self.proj.update()
 
     def distance_math(self):
-        distance_x: float = WIDTH/2 - self.proj_x
-        distance_y: float = HEIGHT/2 - self.proj_y
-        angle: float = math.atan2(distance_y, distance_x)
-        self.speed_x: float = 1 * math.cos(angle)
-        self.speed_y: float = 1 * math.sin(angle)
+        distance_x: float = WIDTH / 2 - self.proj_x
+        distance_y: float = HEIGHT / 2 - self.proj_y
+        self.angle: float = math.atan2(distance_y, distance_x)
+        self.speed_x: float = 1 * math.cos(self.angle)
+        self.speed_y: float = 1 * math.sin(self.angle)
         self.all_bullets.append([self.proj_x, self.proj_y, self.speed_x, self.speed_y])
 
     def mozgatás(self):
@@ -59,9 +60,10 @@ class Projectile:
         for pos_x, pos_y, speed_x, speed_y in self.all_bullets:
             # pos_x = int(posi_x)
             # pos_y = int(posi_y)
-            print(pos_x, pos_y)
-            pygame.draw.rect(self.screen, (255, 0, 0), ((pos_x, pos_y), (30, 30)))
-            #self.screen.blit(self.projectile, ((pos_x, pos_y), (30, 30)))
+            # pygame.draw.rect(self.screen, (255, 0, 0), ((pos_x, pos_y), (30, 30)))
+            degree: float = angle * 57.2957795
+            rotated_proj = pygame.transform.rotate(self.proj, degree)
+            self.screen.blit(rotated_proj, ((pos_x, pos_y), (30, 30)))
 
     def despawn(self):
         for pos_x, pos_y, speed_x, speed_y in self.all_bullets:
