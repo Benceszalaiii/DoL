@@ -10,6 +10,7 @@ class Menu(State):
         self.title = "DoL - Main Menu"
         pg.display.set_caption(self.title)
         self.start = Button(self.game.GAME_WIDTH/2, self.game.GAME_HEIGHT/2 + 50, 200, 100, text="Start", size=36, color=(0, 0, 0), rect_color=(100, 100, 100))
+
     def update(self, delta_time, actions):
         self.start.update(actions)
         if actions["start"]:

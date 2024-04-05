@@ -25,7 +25,7 @@ class Stack:
         self.screen = pg.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         pg.display.set_caption("DoL - Loading..")
         self.running, self.playing = True, True
-        self.actions = {"resume": False, "pause": False, "click": False, "start": False}
+        self.actions = {"resume": False, "pause": False, "click": False, "start": False, "recent_resize": False, "resize": False, "resize": False}
         self.dt = time.time()
         self.prev_time = time.time()
         self.state_stack = []
