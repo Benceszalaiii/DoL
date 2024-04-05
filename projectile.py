@@ -1,6 +1,7 @@
 import random
 import pygame
 import math
+import pygame.math as pymath
 from settings import SPEED, WIDTH, HEIGHT
 
 # from player import Player
@@ -49,7 +50,7 @@ class Projectile:
         self.angle: float = math.atan2(distance_y, distance_x)
         self.speed_x: float = 1 * math.cos(self.angle)
         self.speed_y: float = 1 * math.sin(self.angle)
-        self.all_bullets.append([self.proj_x, self.proj_y, self.speed_x, self.speed_y])
+        self.all_bullets.append([self.proj_x, self.proj_y, self.speed_x, self.speed_y, self.angle])
 
     def mozgatás(self):
         for item in self.all_bullets:
@@ -57,18 +58,19 @@ class Projectile:
             item[1] += item[3]
 
     def spawn(self):
-        for pos_x, pos_y, speed_x, speed_y in self.all_bullets:
+        for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
             # pos_x = int(posi_x)
             # pos_y = int(posi_y)
             # pygame.draw.rect(self.screen, (255, 0, 0), ((pos_x, pos_y), (30, 30)))
-            degree: float = angle * 57.2957795
+            degree = 90
+            print(degree)
             rotated_proj = pygame.transform.rotate(self.proj, degree)
             self.screen.blit(rotated_proj, ((pos_x, pos_y), (30, 30)))
 
     def despawn(self):
-        for pos_x, pos_y, speed_x, speed_y in self.all_bullets:
+        for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
             if pos_x > WIDTH or pos_x < 0 or pos_y > HEIGHT or pos_y < 0:
-                self.all_bullets.remove([pos_x, pos_y, speed_x, speed_y])
+                self.all_bullets.remove([pos_x, pos_y, speed_x, speed_y, angle])
 
     # def spawn_circumstance()
 
