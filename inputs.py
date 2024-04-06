@@ -4,26 +4,20 @@
 #   IMPORTS   #
 # ----------- #
 
-import sys as kys
-import fusionengine as fe
+import sys as kys   # KEY YOUR SHUTDOWN
+import pygame as pg
 
 # ----------- #
 #  FUNCTIONS  #
 # ----------- #
 
 
-def global_inputs(win: fe.Window) -> None:
+def global_inputs(event) -> None:
     """
     Handles the inputs that handle the window
 
     - Exit
-    - Switch screen
     """
-
-# LEAVE GAME ON BACKSPACE
-    if fe.key_down_once(fe.KEY_BACKSPACE):
+    if event.type == pg.QUIT:
+        pg.quit()
         kys.exit()
-
-# SWITCH MENU/GAME ON TAB
-    if fe.key_down_once(fe.KEY_TAB):
-        win.quit()
