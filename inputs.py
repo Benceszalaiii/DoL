@@ -5,17 +5,19 @@
 # ----------- #
 
 import sys as kys   # KEY YOUR SHUTDOWN
-
+import pygame as pg
 
 # ----------- #
 #  FUNCTIONS  #
 # ----------- #
 
 
-def global_inputs() -> None:
+def global_inputs(event) -> None:
     """
     Handles the inputs that handle the window
 
     - Exit
     """
-    pass
+    if event.type == pg.QUIT:
+        pg.quit()
+        kys.exit()

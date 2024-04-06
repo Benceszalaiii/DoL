@@ -4,18 +4,16 @@
 # --------- #
 #  IMPORTS  #
 # --------- #
-import os
 import pygame as pg
 from settings import SPEED
 from math import atan2, cos, sin
-from utils import empty_terminal as clr
 print("Loading player")
 # ------------------- #
 #         NODE        #
 # ------------------- #
 
 
-class Player():
+class Player:
 
     # ------------------- #
     #   INITIALIZE NODE   #
@@ -37,15 +35,15 @@ class Player():
         self.speed_y = 0
         self.hp = 100
         self.regen_counter = 0
+
     # ----------- #
     #   METHODS   #
     # ----------- #
 
 # Updates elements of player
 
-    def update(self, delta, actions):
+    def update(self, delta: float, actions: dict[str, bool]):
         if actions["click"]:
-            actions["click"] = False
             self.move_player(pg.mouse.get_pos())
         # Move the character towards the target on each tick
         self.walk(delta)
@@ -59,15 +57,7 @@ class Player():
         pg.draw.rect(screen, "red", self.crect)
         pg.draw.rect(screen, "green", self.dest)
 
-        """
-        pg.draw.rect(screen, "green", self.crect)"""
-    """    def walk(self, delta) -> None:
-
-    Calculates the distance to the target position and updates the character's position.
-    :param delta: Time since last update in milliseconds.
-    :return: None"""
-
-    def move_player(self, target_pos) -> None:
+    def move_player(self, target_pos: tuple[int, int]) -> None:
         """
         Calculates the distance and deltas needed to move each frame.
         :param target_pos: The position of the mouse.

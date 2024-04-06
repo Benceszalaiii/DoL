@@ -10,7 +10,7 @@ DEBUGMODE = False
 # ----------- #
 
 
-def empty_terminal() -> None:
+def clr() -> None:
     """
     Clears the running CLI (command line interface)
     """
@@ -21,7 +21,7 @@ def empty_terminal() -> None:
 print("Utilities loaded")
 
 
-def sqrt(number):
+def sqrt(number: float):
     threehalfs = 1.5
     x2 = number * 0.5
     y = np.float32(number)

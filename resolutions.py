@@ -66,7 +66,7 @@ class Screen:
         root.quit()  # Quit TCL interpeter, freeing up memory
         return Resolution(w, h)  # Get screen resolution, return it
 
-    def _available_resolutions(self) -> list[Resolution]:
+    def _available_resolutions(self) -> list[Resolution] | None:
         global RESOLUTIONS
         for res in RESOLUTIONS:
             w, h = res[0], res[1]
@@ -85,7 +85,7 @@ class Screen:
             self.offset_x = -self.offset_x
         self.offset_y = self.previous.height - self.current.height
         if self.previous.height > self.current.height:
-            offset_y = -self.offset_y
+            _ = -self.offset_y
 
     def collect_garbage(self):
         del RESOLUTIONS[:]
