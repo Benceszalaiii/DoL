@@ -17,9 +17,12 @@ class Game(State):
         State.__init__(self, game)
         self.game = game
         self.load_dir_ptrs()
-        self.background_img = pg.image.load(os.path.join(self.map_dir, "background.jpg"))
-        self.background_img = pg.transform.scale(self.background_img, (self.game.GAME_WIDTH, self.game.GAME_HEIGHT))
-        self.player = Player(os.path.join(self.sprite_dir, "player.jpg"), self.background_img.get_rect().centerx, self.background_img.get_rect().centery, 200, 150)
+        self.background_img = pg.image.load(
+            os.path.join(self.map_dir, "background.jpg"))
+        self.background_img = pg.transform.scale(
+            self.background_img, (self.game.GAME_WIDTH, self.game.GAME_HEIGHT))
+        self.player = Player(os.path.join(self.sprite_dir, "player.jpg"), self.background_img.get_rect(
+        ).centerx, self.background_img.get_rect().centery, 200, 150)
 
     def load_dir_ptrs(self):
         self.sprite_dir = os.path.join(self.game.assets_dir, "sprites")
@@ -36,5 +39,5 @@ class Game(State):
         self.player.update(delta_time, actions)
 
     def render(self, screen: pg.Surface):
-        screen.blit(self.background_img, (0,0))
+        screen.blit(self.background_img, (0, 0))
         self.player.render(screen)

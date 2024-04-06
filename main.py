@@ -1,16 +1,16 @@
-print("Loading module: os")
-import os
-print("Loading module: time")
-import time
-print("Loading module: contextlib")
-import contextlib
+from settings import WIDTH, HEIGHT, FPS
+from menu import Menu
+import pygame as pg
 from utils import empty_terminal
+import contextlib
+import time
+import os
+print("Loading module: os")
+print("Loading module: time")
+print("Loading module: contextlib")
 with contextlib.redirect_stdout(None):
     import pygame as pg
-import pygame as pg
 # Load our scenes
-from menu import Menu
-from settings import WIDTH, HEIGHT, FPS
 
 print("Starting game..")
 
@@ -22,10 +22,12 @@ class Stack:
         self.SCREEN_WIDTH, self.SCREEN_HEIGHT = WIDTH, HEIGHT
         self.GAME_WIDTH, self.GAME_HEIGHT = self.SCREEN_WIDTH, self.SCREEN_HEIGHT
         self.game_screen = pg.Surface((self.GAME_WIDTH, self.GAME_HEIGHT))
-        self.screen = pg.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
+        self.screen = pg.display.set_mode(
+            (self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
         pg.display.set_caption("DoL - Loading..")
         self.running, self.playing = True, True
-        self.actions = {"resume": False, "pause": False, "click": False, "start": False, "recent_resize": False, "resize": False, "resize": False}
+        self.actions = {"resume": False, "pause": False, "click": False,
+                        "start": False, "recent_resize": False, "resize": False, "resize": False}
         self.dt = time.time()
         self.prev_time = time.time()
         self.state_stack = []
@@ -79,13 +81,16 @@ class Stack:
     def render(self):
         self.state_stack[-1].render(self.game_screen)
         # Render current state to the screen
-        self.screen.blit(pg.transform.scale(self.game_screen, (self.screen.get_width(), self.screen.get_height())), (0,0))
+        self.screen.blit(pg.transform.scale(
+            self.game_screen, (self.screen.get_width(), self.screen.get_height())), (0, 0))
         pg.display.flip()
+
     def check_resize(self):
         if not self.actions['recent_resize'] and self.new_res != (self.SCREEN_WIDTH, self.SCREEN_HEIGHT):
             self.actions['resize'] = False
             self.SCREEN_WIDTH, self.SCREEN_HEIGHT = self.new_res
-            self.screen = pg.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
+            self.screen = pg.display.set_mode(
+                (self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
 
     def get_dt(self):
         self.dt = time.time() - self.prev_time

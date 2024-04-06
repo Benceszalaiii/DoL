@@ -5,7 +5,7 @@
 # ----------- #
 
 import sys as kys   # KEY YOUR SHUTDOWN
- 
+
 
 # ----------- #
 #  FUNCTIONS  #
@@ -15,7 +15,7 @@ import sys as kys   # KEY YOUR SHUTDOWN
 def global_inputs() -> None:
     """
     Handles the inputs that handle the window
-    
+
     - Exit
     """
     pass

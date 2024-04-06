@@ -7,10 +7,12 @@ from settings import RESOLUTIONS, WIDTH, HEIGHT
 # ----------- #
 #  FUNCTIONS  #
 # ----------- #
+
+
 class Resolution:
     """
     Stores details about a resolution (width, height) as integers
-    
+
     Methods: 
         initialize -> arguments: width, height
         get_resolution -> returns with tuple(width, height)             -- property
@@ -25,20 +27,22 @@ class Resolution:
     def get_resolution(self):
         """
         Returns width and height as a tuple(width: int, height: int)
-        
+
         Example:
         width: 1600, height: 900 --> (1600, 900)
         """
         return (self.width, self.height)
+
     @property
     def as_str(self) -> str:
         """
         Returns resolution as string
-        
+
         Example:
             width: 1600, height: 900 --> "1600x900"
         """
         return str(self.width) + "x" + str(self.height)
+
 
 class Screen:
     def __init__(self):
@@ -59,7 +63,7 @@ class Screen:
         """
         root = tkinter.Tk()  # Initialize TCL interpreter
         w, h = root.winfo_screenwidth(), root.winfo_screenheight()
-        root.quit() # Quit TCL interpeter, freeing up memory
+        root.quit()  # Quit TCL interpeter, freeing up memory
         return Resolution(w, h)  # Get screen resolution, return it
 
     def _available_resolutions(self) -> list[Resolution]:
@@ -70,6 +74,7 @@ class Screen:
                 check_res = Resolution(w, h)
                 if self.max_res.get_resolution != check_res.get_resolution:
                     self.resolutions.append(check_res)
+
     @property
     def get_offset(self) -> None:
         """
@@ -81,6 +86,7 @@ class Screen:
         self.offset_y = self.previous.height - self.current.height
         if self.previous.height > self.current.height:
             offset_y = -self.offset_y
+
     def collect_garbage(self):
         del RESOLUTIONS[:]
         gc.collect()
