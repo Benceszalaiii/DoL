@@ -24,7 +24,7 @@ class Stack:
         self.game_screen = pg.Surface((self.GAME_WIDTH, self.GAME_HEIGHT))
         self.screen = pg.display.set_mode(
             (self.screen_width, self.screen_height))
-        self.FPS = pg.display.get_current_refresh_rate()
+        self.FPS = 60
         pg.display.set_caption("DoL - Loading..")
         self.running, self.playing = True, True
         self.dt = time.time()
@@ -57,7 +57,6 @@ class Stack:
         self.screen.blit(pg.transform.scale(
             self.game_screen, (self.screen.get_width(), self.screen.get_height())), (0, 0))
         pg.display.flip()
-
 
     def get_dt(self):
         self.dt = time.time() - self.prev_time

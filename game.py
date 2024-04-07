@@ -24,7 +24,7 @@ class Game(State):
         self.background_img = pg.transform.scale(
             self.background_img, (self.game.GAME_WIDTH, self.game.GAME_HEIGHT))
         self.player = Player(os.path.join(self.sprite_dir, "player.jpg"), self.background_img.get_rect(
-        ).centerx, self.background_img.get_rect().centery, 200, 150)
+        ).centerx, self.background_img.get_rect().centery, 100, 150)
         self.actions = {"pause": False, "quit": False, "click": False}
 
     def load_dir_ptrs(self):
@@ -40,8 +40,12 @@ class Game(State):
         if self.actions["pause"]:
             new_state = PauseMenu(self.game)
             new_state.enter_state()
+
         self.player.update(delta_time, self.actions)
         self.reset_keys()
+
+        
+
 
     def render(self, screen: pg.Surface):
         screen.blit(self.background_img, (0, 0))
