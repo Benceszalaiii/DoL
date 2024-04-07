@@ -20,6 +20,7 @@ class Projectile:
         # self.frame: int = 0
         self.all_bullets = []
         self.pictures_init()
+        self.crop_pictures()
         self.resize_pictures()
         # self.starttime = time.time()
         # self.timer = Timer(3, self._spawn_place, self._spawn_place(), self.projectile_logic())
@@ -42,10 +43,18 @@ class Projectile:
             pygame.image.load("assets/sprites/projectile (11).png"),
         ]
 
+    def crop_pictures(self):
+        self.cropped_animation = []
+        for item in range(len(self.proj_animation)):
+            cropped_item = self.proj_animation[item].subsurface(400, 200, 900, 600)
+            self.cropped_animation.append(cropped_item)
+
     def resize_pictures(self):
         self.resized_animation = []
-        for item in range(len(self.proj_animation)):
-            resized_item = pygame.transform.scale(self.proj_animation[item], [100, 60])
+        for item in range(len(self.cropped_animation)):
+            resized_item = pygame.transform.scale(
+                self.cropped_animation[item], [75, 45]
+            )
             self.resized_animation.append(resized_item)
 
     def _spawn_place(self):
