@@ -110,7 +110,7 @@ class Slider:
 
     def render(self, screen: pg.Surface):
         pg.draw.rect(screen, "darkgray", self.container_rect)
-        pg.draw.rect(screen, "green", self.button_rect)
+        pg.draw.rect(screen, "black", self.button_rect)
         screen.blit(self.font.render(str(int(self.get_value() * 1)), True, (255, 255, 255)), (self.button_rect.centerx, self.button_rect.centery))
 
     def get_value(self) -> float:
