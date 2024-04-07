@@ -13,6 +13,14 @@
     "--disable=no-else-return",
     "--disable=too-few-public-methods",
     "--disable=cell-var-from-loop",
-    "--extension-pkg-whitelist=pygame"
-  ]
+    "--extension-pkg-whitelist=pygame",
+  ],
+  "editor.defaultFormatter": "ms-python.autopep8",
+  "editor.formatOnSave": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  }
 }
