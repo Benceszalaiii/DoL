@@ -38,7 +38,7 @@ class Menu(State):
             font_color=(200, 200, 200),
             background_color=(100, 100, 100),
             hover_font_color=(200, 200, 200),
-            hover_background_color=(100, 0, 0),
+            hover_background_color=(255, 150, 0),
         )
         self.quit_button = Button(
             x=self.game.screen_width /2 - 100,
@@ -50,7 +50,7 @@ class Menu(State):
             font_color=(200, 200, 200),
             background_color=(100, 100, 100),
             hover_font_color=(255, 255, 255),
-            hover_background_color=(255, 0, 0),
+            hover_background_color=(100, 0, 0),
         )
         self.actions = {"start": False, "click": False, "settings": False}
 
