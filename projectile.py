@@ -3,8 +3,6 @@ import pygame
 from math import atan2, cos, sin
 from settings import SPEED, WIDTH, HEIGHT
 
-# from player import Player
-
 proj_speed = 0
 
 
@@ -14,6 +12,7 @@ class Projectile:
         self.delay_number: int = 0
         self.animation_frame: int = 0
         self.all_bullets = []
+        self.destination_place: int = 1
         self.pictures_init()
         self.crop_pictures()
         self.resize_pictures()
@@ -36,7 +35,8 @@ class Projectile:
     def crop_pictures(self):
         self.cropped_animation = []
         for item in range(len(self.proj_animation)):
-            cropped_item = self.proj_animation[item].subsurface(400, 200, 900, 600)
+            cropped_item = self.proj_animation[item].subsurface(
+                400, 200, 900, 600)
             self.cropped_animation.append(cropped_item)
 
     def resize_pictures(self):
@@ -63,17 +63,21 @@ class Projectile:
         print(self.delay_number)
         if self.delay_number % 250 == 0:
             self._spawn_place()
+            self.destination_place = random.randint(1, 200)
             self.projectile_logic()
         self.proj_movement(delta)
-
 
     def render(self, screen: pygame.Surface):
         self.spawn(screen)
         self.despawn()
 
+    def destination_logic(self, pl_x: float, pl_y: float, pl_speed_x: float, pl_speed_y: float, delta: float):
+        self.proj_dest_x = pl_x + pl_speed_x * delta * self.destination_place
+        self.proj_dest_y = pl_y + pl_speed_y * delta * self.destination_place
+
     def projectile_logic(self):
-        distance_x: float = WIDTH / 2 - self.proj_x
-        distance_y: float = HEIGHT / 2 - self.proj_y
+        distance_x: float = self.proj_dest_x - self.proj_x
+        distance_y: float = self.proj_dest_y - self.proj_y
         angle: float = atan2(distance_y, distance_x)
         self.rotation_math()
         speed_x: float = 2 * cos(angle)
@@ -89,7 +93,7 @@ class Projectile:
         )
 
     def rotation_math(self):
-        destination = pygame.Vector2(WIDTH / 2, HEIGHT / 2)
+        destination = pygame.Vector2(self.proj_dest_x, self.proj_dest_y)
         self_pos = pygame.Vector2(self.proj_x, self.proj_y)
         self.rotation_vector = destination - self_pos
 
@@ -117,4 +121,5 @@ class Projectile:
     def despawn(self):
         for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
             if pos_x > WIDTH or pos_x < 0 or pos_y > HEIGHT or pos_y < 0:
-                self.all_bullets.remove([pos_x, pos_y, speed_x, speed_y, angle])
+                self.all_bullets.remove(
+                    [pos_x, pos_y, speed_x, speed_y, angle])

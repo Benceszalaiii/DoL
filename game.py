@@ -7,7 +7,6 @@ from settings import CLICK
 from state import State
 from pause import PauseMenu  # type: ignore
 from player import Player
-from projectile import Projectile
 print("Loading game")
 CLICK_PREFERENCE = 3 if CLICK == "right" else 1
 
@@ -27,7 +26,6 @@ class Game(State):
         self.player = Player(os.path.join(self.sprite_dir, "player.jpg"), self.background_img.get_rect(
         ).centerx, self.background_img.get_rect().centery, 100, 150)
         self.actions = {"pause": False, "quit": False, "click": False}
-        self.projectile = Projectile()
 
     def load_dir_ptrs(self):
         self.sprite_dir = os.path.join(self.game.assets_dir, "sprites")
@@ -44,7 +42,6 @@ class Game(State):
             new_state.enter_state()
 
         self.player.update(delta_time, self.actions)
-        self.projectile.update(delta_time)
         self.reset_keys()
 
         
@@ -53,7 +50,6 @@ class Game(State):
     def render(self, screen: pg.Surface):
         screen.blit(self.background_img, (0, 0))
         self.player.render(screen)
-        self.projectile.render(screen)
 
     def handle_events(self):
         for event in pg.event.get():

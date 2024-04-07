@@ -7,6 +7,7 @@
 import pygame as pg
 from settings import SPEED
 from math import atan2, cos, sin
+from projectile import Projectile
 print("Loading player")
 # ------------------- #
 #         NODE        #
@@ -35,6 +36,7 @@ class Player:
         self.speed_y = 0
         self.hp = 100
         self.regen_counter = 0
+        self.projectile = Projectile()
 
     # ----------- #
     #   METHODS   #
@@ -51,11 +53,13 @@ class Player:
         # Update the character's rect to match the updated position
         self.rect.update(self.crect.centerx - (self.rect.width/2), self.crect.centery -
                          (self.rect.height/2), self.rect.width, self.rect.height)
+        self.projectile.update(delta)
 
     def render(self, screen: pg.Surface):
         screen.blit(self.model, self.rect)
         pg.draw.rect(screen, "red", self.crect)
         pg.draw.rect(screen, "green", self.dest)
+        self.projectile.render(screen)
 
     def move_player(self, target_pos: tuple[int, int]) -> None:
         """
@@ -76,3 +80,4 @@ class Player:
         if not self.dest.colliderect(self.crect):
             self.pos_x += self.speed_x * delta  # pos_x += speed_x
             self.pos_y += self.speed_y * delta
+        self.projectile.destination_logic(self.pos_x, self.pos_y, self.speed_x, self.speed_y, delta)
