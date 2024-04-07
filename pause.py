@@ -1,7 +1,7 @@
 import pygame as pg
 from state import State
 from button import Button
-
+from inputs import global_inputs
 print("Loading pause")
 
 
@@ -33,6 +33,7 @@ class PauseMenu(State):
 
     def inputs(self):
         for event in pg.event.get():
+            global_inputs(event)
             if event.type == pg.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     self.actions["click"] = True

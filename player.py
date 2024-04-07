@@ -6,7 +6,7 @@
 # --------- #
 import pygame as pg
 from config import SPEED
-from math import atan2, cos, sin
+from math import atan2, cos, sin, sqrt
 
 print("Loading player")
 # ------------------- #
@@ -37,6 +37,8 @@ class Player:
         self.speed_y = 0
         self.hp = 100
         self.regen_counter = 0
+        self.dash_timer = 0
+        self.dash_radius = 250
 
     # ----------- #
     #   METHODS   #
@@ -45,9 +47,15 @@ class Player:
     # Updates elements of player
 
     def update(self, delta: float, actions: dict[str, bool]):
+        if self.dash_timer >= 0:
+            self.dash_timer -= delta
+
         if actions["click"]:
             self.move_player(pg.mouse.get_pos())
         # Move the character towards the target on each tick
+        if actions["dash"]:
+            self.dash(delta, pg.mouse.get_pos())
+        
         self.walk(delta)
         self.crect.center = (self.pos_x, self.pos_y)
         # Update the character's rect to match the updated position
@@ -81,3 +89,40 @@ class Player:
         if not self.dest.colliderect(self.crect):
             self.pos_x += self.speed_x * delta  # pos_x += speed_x
             self.pos_y += self.speed_y * delta
+    def dash(self, delta: float, mouse_pos: tuple[int, int])-> None:
+        if self.dash_timer <= 0:
+            self.speed_x, self.speed_y = 0, 0
+            distance = self.dash_range(mouse_pos)
+            if distance <= self.dash_radius:
+                self.pos_x, self.pos_y = mouse_pos
+            else:
+                self.pos_x, self.pos_y = self.closest_point_on_radius(mouse_pos, self.dash_radius)
+            self.dash_timer = 5 * pg.display.get_current_refresh_rate()
+
+
+    def dash_range(self, point: tuple[int, int]) -> float:
+        point_x, point_y = point
+        center_x, center_y = self.crect.center
+
+        # Calculate distance
+        return sqrt((point_x - center_x) ** 2 + (point_y - center_y) ** 2)
+    
+    def closest_point_on_radius(self, point: tuple[int, int], radius: int):
+        point_x, point_y = point
+        circle_center_x, circle_center_y = self.crect.center
+
+        # Direction vector
+        dx = point_x - circle_center_x
+        dy = point_y - circle_center_y
+
+        # Normalize direction vector
+        magnitude = sqrt(dx ** 2 + dy ** 2)
+        if magnitude > 0:  # Avoid division by zero
+            dx /= magnitude
+            dy /= magnitude
+
+        # Project onto circle with radius
+        closest_x = circle_center_x + dx * radius
+        closest_y = circle_center_y + dy * radius
+
+        return (closest_x, closest_y)

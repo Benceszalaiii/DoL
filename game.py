@@ -37,8 +37,10 @@ class Game(State):
             90,
             140,
         )
-        self.actions = {"pause": False, "quit": False, "click": False}
-
+        self.actions = {"pause": False, "quit": False, "click": False, "dash": False}
+        self.dash_rect_full = pg.Rect(30, 30, 200, 50)
+        self.dash_rect_active = pg.Rect(30, 30, 0, 50)
+        
     def load_dir_ptrs(self):
         self.sprite_dir = os.path.join(self.game.assets_dir, "sprites")
         self.map_dir = os.path.join(self.game.assets_dir, "map")
@@ -53,11 +55,14 @@ class Game(State):
             new_state = PauseMenu(self.game)
             new_state.enter_state()
         self.player.update(delta_time, self.actions)
+        self.dash_rect_active.update(30, 30, min(200, self.player.dash_timer), 50)   #  /5 * 200 (Because 5 second is the cooldown and 200px is max width)
         self.reset_keys()
 
     def render(self, screen: pg.Surface):
         screen.blit(self.background_img, (0, 0))
         self.player.render(screen)
+        pg.draw.rect(screen, "black", self.dash_rect_full)
+        pg.draw.rect(screen, "yellow", self.dash_rect_active)
 
     def handle_events(self):
         for event in pg.event.get():
@@ -67,6 +72,8 @@ class Game(State):
                     self.actions["pause"] = True
                 if event.key == pg.K_BACKSPACE:
                     self.actions["quit"] = True
+                if event.key == pg.K_f:
+                    self.actions["dash"] = True
             if event.type == pg.MOUSEBUTTONDOWN:
                 if event.button == click_preference:
                     self.actions["click"] = True
