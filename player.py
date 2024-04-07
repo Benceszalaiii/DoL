@@ -54,6 +54,7 @@ class Player:
         self.rect.update(self.crect.centerx - (self.rect.width/2), self.crect.centery -
                          (self.rect.height/2), self.rect.width, self.rect.height)
         self.projectile.update(delta)
+        self.projectile.collision(self.rect, self.crect)
 
     def render(self, screen: pg.Surface):
         screen.blit(self.model, self.rect)

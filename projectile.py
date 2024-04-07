@@ -1,7 +1,7 @@
 import random
 import pygame
 from math import atan2, cos, sin
-from settings import SPEED, WIDTH, HEIGHT
+from settings import WIDTH, HEIGHT
 
 proj_speed = 0
 
@@ -18,7 +18,7 @@ class Projectile:
         self.resize_pictures()
 
     def pictures_init(self):
-        self.proj_animation = [
+        self.proj_animation: list[pygame.Surface] = [
             pygame.image.load("assets/sprites/projectile (1).png"),
             pygame.image.load("assets/sprites/projectile (2).png"),
             pygame.image.load("assets/sprites/projectile (3).png"),
@@ -33,14 +33,14 @@ class Projectile:
         ]
 
     def crop_pictures(self):
-        self.cropped_animation = []
+        self.cropped_animation: list[pygame.Surface] = []
         for item in range(len(self.proj_animation)):
             cropped_item = self.proj_animation[item].subsurface(
                 400, 200, 900, 600)
             self.cropped_animation.append(cropped_item)
 
     def resize_pictures(self):
-        self.resized_animation = []
+        self.resized_animation: list[pygame.Surface] = []
         for item in range(len(self.cropped_animation)):
             resized_item = pygame.transform.scale(
                 self.cropped_animation[item], [75, 45]
@@ -60,20 +60,15 @@ class Projectile:
 
     def update(self, delta: float):
         self.delay_number += 1
-        print(self.delay_number)
         if self.delay_number % 250 == 0:
             self._spawn_place()
-            self.destination_place = random.randint(1, 200)
+            self.destination_place: int = random.randint(1, 200)
             self.projectile_logic()
         self.proj_movement(delta)
 
     def render(self, screen: pygame.Surface):
         self.spawn(screen)
         self.despawn()
-
-    def destination_logic(self, pl_x: float, pl_y: float, pl_speed_x: float, pl_speed_y: float, delta: float):
-        self.proj_dest_x = pl_x + pl_speed_x * delta * self.destination_place
-        self.proj_dest_y = pl_y + pl_speed_y * delta * self.destination_place
 
     def projectile_logic(self):
         distance_x: float = self.proj_dest_x - self.proj_x
@@ -106,11 +101,11 @@ class Projectile:
         for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
             speed_x += speed_y
             self.animation()
-            degree = angle.as_polar()[1]
-            rotated_proj = pygame.transform.rotate(
+            degree: float = angle.as_polar()[1]
+            rotated_proj: pygame.Surface = pygame.transform.rotate(
                 self.resized_animation[self.animation_frame], -degree
             )
-            screen.blit(rotated_proj, ((pos_x, pos_y), (100, 100)))
+            screen.blit(rotated_proj, ((pos_x, pos_y), (75, 45)))
 
     def animation(self):
         if self.delay_number % 15 == 0:
@@ -120,6 +115,16 @@ class Projectile:
 
     def despawn(self):
         for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
-            if pos_x > WIDTH or pos_x < 0 or pos_y > HEIGHT or pos_y < 0:
+            if pos_x > WIDTH + 75 or pos_x < -75 or pos_y > HEIGHT + 75 or pos_y < -75:
                 self.all_bullets.remove(
                     [pos_x, pos_y, speed_x, speed_y, angle])
+                
+    def destination_logic(self, pl_x: float, pl_y: float, pl_speed_x: float, pl_speed_y: float, delta: float):
+        self.proj_dest_x: float = pl_x + pl_speed_x * delta * self.destination_place
+        self.proj_dest_y: float = pl_y + pl_speed_y * delta * self.destination_place
+
+    def collision(self, player: pygame.Rect, center: pygame.Rect):
+        for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
+            proj = pygame.Rect(pos_x, pos_y, 75, 45)
+            if proj.colliderect(player):
+                print("hehe")
