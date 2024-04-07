@@ -32,10 +32,10 @@ class Game(State):
         )
         self.player = Player(
             os.path.join(self.sprite_dir, "player.jpg"),
-            self.background_img.get_rect().centerx,
-            self.background_img.get_rect().centery,
-            200,
-            150,
+            self.game.screen_width /2,
+            self.game.screen_height /2,
+            90,
+            140,
         )
         self.actions = {"pause": False, "quit": False, "click": False}
 

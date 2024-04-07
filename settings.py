@@ -1,7 +1,7 @@
 import pygame as pg
 from state import State
 from button import Button
-
+from inputs import global_inputs
 print("Loading settings menu")
 
 
@@ -12,9 +12,10 @@ class SettingsMenu(State):
         State.__init__(self, game)
         pg.display.set_caption(self.title)
         self.preferences: dict[str, str | bool] = {}
+        self.lines = []
         self.save_button = Button(
             x=self.game.screen_width / 2 - 100,
-            y=self.game.screen_height / 2,
+            y=self.game.screen_height - 200,
             width=200,
             height=100,
             text="Save",
@@ -30,10 +31,14 @@ class SettingsMenu(State):
         self.reset_keys()
 
     def render(self, screen: pg.surface.Surface):
+        screen.fill((255, 255, 255))
+        pg.display.flip()
         self.save_button.render(screen)
+        self.game.draw_text(screen, "Volume", (0, 0, 0), 100, 200)
 
     def inputs(self):
         for event in pg.event.get():
+            global_inputs(event)
             if event.type == pg.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     self.actions["click"] = True
@@ -41,5 +46,7 @@ class SettingsMenu(State):
             self.save_preferences()
             self.exit_state()
 
+
     def save_preferences(self):
         pass  # TODO
+

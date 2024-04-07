@@ -23,18 +23,16 @@ class Player:
         self.model = pg.image.load(image_source)
         self.model = pg.transform.scale(self.model, (w, h))
         self.rect = self.model.get_rect()
-        self.rect.topright = (x, y)
         self.crect = pg.rect.Rect(
-            (self.rect.centerx - 3),
-            (self.rect.centery - 3),
-            self.rect.width / 4,
-            self.rect.height / 4,
+            x,
+            y,
+            self.rect.width / 6,
+            self.rect.height / 6,
         )
         self.dest_cord = self.crect.size
         self.dest = pg.Rect(self.crect.x, self.crect.y, 12, 12)
-        self.movement = []
-        self.pos_x = 0
-        self.pos_y = 0
+        self.pos_x = x
+        self.pos_y = y
         self.speed_x = 0
         self.speed_y = 0
         self.hp = 100
@@ -62,8 +60,8 @@ class Player:
 
     def render(self, screen: pg.Surface):
         screen.blit(self.model, self.rect)
-        pg.draw.rect(screen, "red", self.crect)
         pg.draw.rect(screen, "green", self.dest)
+        pg.draw.rect(screen, "red", self.crect)
 
     def move_player(self, target_pos: tuple[int, int]) -> None:
         """
@@ -78,7 +76,6 @@ class Player:
         angle = atan2(distance_y, distance_x)
         self.speed_x = SPEED * cos(angle)
         self.speed_y = SPEED * sin(angle)
-        # self.movement.append([self.pos_x, self.pos_y, self.speed_x, self.speed_y])
 
     def walk(self, delta: float):
         if not self.dest.colliderect(self.crect):
