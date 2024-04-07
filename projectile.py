@@ -1,6 +1,6 @@
 import random
 import pygame
-import math
+from math import atan2, cos, sin
 from settings import SPEED, WIDTH, HEIGHT
 
 # from player import Player
@@ -10,8 +10,7 @@ proj_speed = 0
 
 class Projectile:
 
-    def __init__(self, screen: pygame.Surface):
-        self.screen = screen
+    def __init__(self):
         self.delay_number: int = 0
         self.animation_frame: int = 0
         self.all_bullets = []
@@ -59,22 +58,26 @@ class Projectile:
         else:
             self.proj_x, self.proj_y = (WIDTH - 50, random.randint(0, HEIGHT))
 
-    def update(self):
+    def update(self, delta: float):
         self.delay_number += 1
-        if self.delay_number % 500 == 0:
+        print(self.delay_number)
+        if self.delay_number % 250 == 0:
             self._spawn_place()
             self.projectile_logic()
-        self.proj_movement()
-        self.spawn()
+        self.proj_movement(delta)
+
+
+    def render(self, screen: pygame.Surface):
+        self.spawn(screen)
         self.despawn()
 
     def projectile_logic(self):
         distance_x: float = WIDTH / 2 - self.proj_x
         distance_y: float = HEIGHT / 2 - self.proj_y
-        angle: float = math.atan2(distance_y, distance_x)
+        angle: float = atan2(distance_y, distance_x)
         self.rotation_math()
-        speed_x: float = 1 * math.cos(angle)
-        speed_y: float = 1 * math.sin(angle)
+        speed_x: float = 2 * cos(angle)
+        speed_y: float = 2 * sin(angle)
         self.all_bullets.append(
             [
                 self.proj_x,
@@ -90,12 +93,12 @@ class Projectile:
         self_pos = pygame.Vector2(self.proj_x, self.proj_y)
         self.rotation_vector = destination - self_pos
 
-    def proj_movement(self):
+    def proj_movement(self, delta: float):
         for item in self.all_bullets:
-            item[0] += item[2]
-            item[1] += item[3]
+            item[0] += item[2] * delta
+            item[1] += item[3] * delta
 
-    def spawn(self):
+    def spawn(self, screen: pygame.Surface):
         for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
             speed_x += speed_y
             self.animation()
@@ -103,10 +106,10 @@ class Projectile:
             rotated_proj = pygame.transform.rotate(
                 self.resized_animation[self.animation_frame], -degree
             )
-            self.screen.blit(rotated_proj, ((pos_x, pos_y), (100, 100)))
+            screen.blit(rotated_proj, ((pos_x, pos_y), (100, 100)))
 
     def animation(self):
-        if self.delay_number % 30 == 0:
+        if self.delay_number % 15 == 0:
             self.animation_frame += 1
             if self.animation_frame >= len(self.resized_animation):
                 self.animation_frame = 0
