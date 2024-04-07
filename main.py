@@ -59,6 +59,7 @@ class Stack:
             ),
             (0, 0),
         )
+        self.draw_text(self.screen, "FPS: " + str(int(self.mainClock.get_fps())), pg.color.Color(200, 0, 200), self.screen_width - 100, 100)
         pg.display.flip()
 
     def get_dt(self):
@@ -73,7 +74,7 @@ class Stack:
         color: pg.Color,
         x: float,
         y: float,
-    ):
+    ) -> None:
         text_surface = self.font.render(text, True, color)
         # text_surface.set_colorkey((0,0,0))
         text_rect = text_surface.get_rect()

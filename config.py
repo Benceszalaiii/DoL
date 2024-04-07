@@ -28,3 +28,4 @@ RESOLUTIONS = [
 # ------------- #
 
 CLICK = "left"
+FLASH = "D"

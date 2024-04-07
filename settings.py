@@ -22,6 +22,8 @@ class SettingsMenu(State):
             font_size=20,
             font_color=(200, 200, 200),
             background_color=(100, 100, 100),
+            hover_font_color=(255, 255, 0),
+            hover_background_color=(0, 255, 0),
         )
         self.actions = {"click": False}
 

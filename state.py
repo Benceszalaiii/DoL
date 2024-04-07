@@ -26,7 +26,9 @@ class State:
 
     def exit_state(self):  # Basically kys command
         self.game.state_stack.pop()
-
+    def exit_state_twice(self):
+        self.game.state_stack.pop()
+        self.game.state_stack.pop()
     def set_title(self):
         pg.display.set_caption(self.title)
 

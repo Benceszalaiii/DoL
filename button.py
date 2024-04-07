@@ -17,6 +17,8 @@ class Button:
         font_size: int,
         font_color: tuple[int, int, int],
         background_color: tuple[int, int, int],
+        hover_font_color: tuple[int, int, int],
+        hover_background_color: tuple[int, int, int],
     ):
         """
         Initializes a button object
@@ -29,9 +31,11 @@ class Button:
         self.font_size = font_size
         self.font_color = font_color
         self.background_color = background_color
-        self.font = pg.font.Font(None, self.font_size)
+        self.font = pg.font.Font("DigitalDisco.ttf", self.font_size)
         self.text_surface = self.font.render(self.text, True, self.font_color)
         self.rect = pg.Rect(self.x, self.y, self.width, self.height)
+        self.hover_font_color = hover_font_color
+        self.hover_backround_color = hover_background_color
         self.is_hovered = False
         self.is_clicked = False
 
@@ -40,19 +44,19 @@ class Button:
         Draws the button on the screen with centered text
         """
         if self.is_hovered:
-            background_color = (100, 100, 100)
-            text = self.font.render(self.text, True, (0, 0, 0))
+            background_color = self.hover_backround_color
         else:
             background_color = self.background_color
-            text = self.text_surface
         pg.draw.rect(screen, background_color, self.rect)
         text_x = self.rect.centerx - (self.text_surface.get_width() // 2)
         text_y = self.rect.centery - (self.text_surface.get_height() // 2)
-        screen.blit(text, (text_x, text_y))
+        screen.blit(self.text_surface, (text_x, text_y))
 
     def update(self, click: bool) -> None:
         mouse_pos = pg.mouse.get_pos()
         self.check_hovered(mouse_pos)
+        if self.is_hovered:
+            self.text_surface = self.font.render(self.text, True, self.hover_font_color)
         self.check_clicked(mouse_pos, click)
 
     def check_hovered(self, pos: tuple[int, int]) -> None:
@@ -72,4 +76,3 @@ class Button:
             self.is_clicked = True
         else:
             self.is_clicked = False
-        print(click)

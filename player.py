@@ -68,8 +68,6 @@ class Player:
 
     def render(self, screen: pg.Surface):
         screen.blit(self.model, self.rect)
-        pg.draw.rect(screen, "green", self.dest)
-        pg.draw.rect(screen, "red", self.crect)
 
     def move_player(self, target_pos: tuple[int, int]) -> None:
         """
@@ -97,7 +95,7 @@ class Player:
                 self.pos_x, self.pos_y = mouse_pos
             else:
                 self.pos_x, self.pos_y = self.closest_point_on_radius(mouse_pos, self.dash_radius)
-            self.dash_timer = 5 * pg.display.get_current_refresh_rate()
+            self.dash_timer = 5 * 250
 
 
     def dash_range(self, point: tuple[int, int]) -> float:
