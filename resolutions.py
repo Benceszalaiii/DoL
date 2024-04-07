@@ -3,7 +3,7 @@
 # ----------- #
 import tkinter
 import gc
-from settings import RESOLUTIONS, WIDTH, HEIGHT
+from config import RESOLUTIONS, WIDTH, HEIGHT
 # ----------- #
 #  FUNCTIONS  #
 # ----------- #
@@ -13,7 +13,7 @@ class Resolution:
     """
     Stores details about a resolution (width, height) as integers
 
-    Methods: 
+    Methods:
         initialize -> arguments: width, height
         get_resolution -> returns with tuple(width, height)             -- property
         as_str -> returns with string formatted resolution ("1600x900") -- property

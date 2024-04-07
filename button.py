@@ -6,7 +6,18 @@ class Button:
     A button that can be clicked
     """
 
-    def __init__(self, x: int, y: int, width: int, height: int, text: str, font_size: int, font_color: tuple[int, int, int], background_color: tuple[int, int, int]):
+    def __init__(
+        self,
+        *,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        text: str,
+        font_size: int,
+        font_color: tuple[int, int, int],
+        background_color: tuple[int, int, int],
+    ):
         """
         Initializes a button object
         """

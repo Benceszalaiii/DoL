@@ -1,6 +1,7 @@
 import pygame as pg
 from state import State
 from button import Button
+
 print("Loading pause")
 
 
@@ -10,8 +11,16 @@ class PauseMenu(State):
         self.title = "DoL - Currently Playing (Paused)"
         State.__init__(self, game)
         pg.display.set_caption(self.title)
-        self.resume = Button(self.game.screen_width/2 - 100, self.game.screen_height/2,
-                             200, 100,  "Resume", 20, (200, 200, 200), (100, 100, 100))
+        self.resume = Button(
+            x=self.game.screen_width / 2 - 100,
+            y=self.game.screen_height / 2,
+            width=200,
+            height=100,
+            text="Resume",
+            font_size=20,
+            font_color=(200, 200, 200),
+            background_color=(100, 100, 100),
+        )
         self.actions = {"click": False}
 
     def update(self, delta_time: float):

@@ -5,8 +5,9 @@
 #  IMPORTS  #
 # --------- #
 import pygame as pg
-from settings import SPEED
+from config import SPEED
 from math import atan2, cos, sin
+
 print("Loading player")
 # ------------------- #
 #         NODE        #
@@ -14,7 +15,6 @@ print("Loading player")
 
 
 class Player:
-
     # ------------------- #
     #   INITIALIZE NODE   #
     # ------------------- #
@@ -25,8 +25,12 @@ class Player:
         self.rect = self.model.get_rect()
         self.rect.topright = (x, y)
         self.crect = pg.rect.Rect(
-            (self.rect.centerx - 3), (self.rect.centery - 3), self.rect.width/4, self.rect.height/4)
-        self.dest_cord = (self.crect.size)
+            (self.rect.centerx - 3),
+            (self.rect.centery - 3),
+            self.rect.width / 4,
+            self.rect.height / 4,
+        )
+        self.dest_cord = self.crect.size
         self.dest = pg.Rect(self.crect.x, self.crect.y, 12, 12)
         self.movement = []
         self.pos_x = 0
@@ -40,7 +44,7 @@ class Player:
     #   METHODS   #
     # ----------- #
 
-# Updates elements of player
+    # Updates elements of player
 
     def update(self, delta: float, actions: dict[str, bool]):
         if actions["click"]:
@@ -49,8 +53,12 @@ class Player:
         self.walk(delta)
         self.crect.center = (self.pos_x, self.pos_y)
         # Update the character's rect to match the updated position
-        self.rect.update(self.crect.centerx - (self.rect.width/2), self.crect.centery -
-                         (self.rect.height/2), self.rect.width, self.rect.height)
+        self.rect.update(
+            self.crect.centerx - (self.rect.width / 2),
+            self.crect.centery - (self.rect.height / 2),
+            self.rect.width,
+            self.rect.height,
+        )
 
     def render(self, screen: pg.Surface):
         screen.blit(self.model, self.rect)

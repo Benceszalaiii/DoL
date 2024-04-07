@@ -4,7 +4,7 @@ import pygame as pg
 print("Loading preset")
 
 
-class State():
+class State:
     def __init__(self, game):  # type: ignore
         self.game = game
         self.prev_state = None
@@ -24,7 +24,7 @@ class State():
         self.set_title()
         self.reset_keys()
 
-    def exit_state(self):   # Basically kys command
+    def exit_state(self):  # Basically kys command
         self.game.state_stack.pop()
 
     def set_title(self):

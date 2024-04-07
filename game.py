@@ -3,16 +3,21 @@ import os
 
 import pygame as pg
 
-from settings import CLICK
+from config import CLICK
 from state import State
-from pause import PauseMenu  # type: ignore
+from pause import PauseMenu
 from player import Player
+
 print("Loading game")
-CLICK_PREFERENCE = 3 if CLICK == "right" else 1
+if CLICK == "right":  # type: ignore STUPID PYLANCE
+    click_preference = 3
+elif CLICK == "left":
+    click_preference = 1
+else:
+    raise ImportError("Could not import click, or its value cannot be implemented")
 
 
 class Game(State):
-
     def __init__(self, game):  # type: ignore
         self.title = "DoL - Currently Playing"
         pg.display.set_caption(self.title)
@@ -20,11 +25,18 @@ class Game(State):
         self.game = game
         self.load_dir_ptrs()
         self.background_img = pg.image.load(
-            os.path.join(self.map_dir, "background.jpg"))
+            os.path.join(self.map_dir, "background.jpg")
+        )
         self.background_img = pg.transform.scale(
-            self.background_img, (self.game.GAME_WIDTH, self.game.GAME_HEIGHT))
-        self.player = Player(os.path.join(self.sprite_dir, "player.jpg"), self.background_img.get_rect(
-        ).centerx, self.background_img.get_rect().centery, 200, 150)
+            self.background_img, (self.game.GAME_WIDTH, self.game.GAME_HEIGHT)
+        )
+        self.player = Player(
+            os.path.join(self.sprite_dir, "player.jpg"),
+            self.background_img.get_rect().centerx,
+            self.background_img.get_rect().centery,
+            200,
+            150,
+        )
         self.actions = {"pause": False, "quit": False, "click": False}
 
     def load_dir_ptrs(self):
@@ -56,5 +68,5 @@ class Game(State):
                 if event.key == pg.K_BACKSPACE:
                     self.actions["quit"] = True
             if event.type == pg.MOUSEBUTTONDOWN:
-                if event.button == CLICK_PREFERENCE:
+                if event.button == click_preference:
                     self.actions["click"] = True

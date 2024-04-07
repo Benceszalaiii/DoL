@@ -4,7 +4,7 @@
 #   IMPORTS   #
 # ----------- #
 
-import sys as kys   # KEY YOUR SHUTDOWN
+import sys as kys  # KEY YOUR SHUTDOWN
 import pygame as pg
 
 # ----------- #
@@ -12,7 +12,7 @@ import pygame as pg
 # ----------- #
 
 
-def global_inputs(event) -> None:
+def global_inputs(event: pg.event.Event) -> None:
     """
     Handles the inputs that handle the window
 

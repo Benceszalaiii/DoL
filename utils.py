@@ -1,5 +1,6 @@
 from os import system as cmd
 import numpy as np
+
 DEBUGMODE = False
 # ----------- #
 #   IMPORTS   #
@@ -26,7 +27,7 @@ def sqrt(number: float):
     x2 = number * 0.5
     y = np.float32(number)
     i = y.view(np.int32)
-    i = np.int32(0x5f3759df) - np.int32(i >> 1)  # what the fuck?
+    i = np.int32(0x5F3759DF) - np.int32(i >> 1)  # what the fuck?
     y = i.view(np.float32)
     y = y * (threehalfs - (x2 * y * y))
     return float(y)
