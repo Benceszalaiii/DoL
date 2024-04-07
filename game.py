@@ -3,31 +3,16 @@ import os
 
 import pygame as pg
 
-from config import CLICK, FLASH
 from state import State
 from pause import PauseMenu
 from player import Player
 
-print("Loading game")
-if CLICK == "right":  # type: ignore STUPID PYLANCE
-    click_preference = 3
-elif CLICK == "left":
-    click_preference = 1
-else:
-    raise ValueError("Unknown click preference, click must either be 'right' or 'left")
-
-if FLASH == "D":
-    flash_preference = pg.K_d
-elif FLASH == "F":
-    flash_preference = pg.K_f
-else:
-    raise ValueError("The imported value for FLASH must be either D or F")
 
 class Game(State):
-    def __init__(self, game):  # type: ignore
+    def __init__(self, game, config):  # type: ignore
         self.title = "DoL - Currently Playing"
         pg.display.set_caption(self.title)
-        State.__init__(self, game)
+        State.__init__(self, game, config)
         self.game = game
         self.load_dir_ptrs()
         self.background_img = pg.image.load(
@@ -38,16 +23,17 @@ class Game(State):
         )
         self.player = Player(
             os.path.join(self.sprite_dir, "player.jpg"),
-            self.game.screen_width /2,
-            self.game.screen_height /2,
+            self.game.screen_width / 2,
+            self.game.screen_height / 2,
             90,
             140,
+            self.config.speed,
         )
         self.actions = {"pause": False, "quit": False, "click": False, "dash": False}
         self.dash_rect_thickness = 20
         self.dash_rect_full = pg.Rect(30, 30, 200, self.dash_rect_thickness)
         self.dash_rect_active = pg.Rect(30, 30, 0, self.dash_rect_thickness)
-        
+
     def load_dir_ptrs(self):
         self.sprite_dir = os.path.join(self.game.assets_dir, "sprites")
         self.map_dir = os.path.join(self.game.assets_dir, "map")
@@ -59,10 +45,12 @@ class Game(State):
             self.reset_keys()
             self.exit_state()
         if self.actions["pause"]:
-            new_state = PauseMenu(self.game)
+            new_state = PauseMenu(self.game, self.config)
             new_state.enter_state()
         self.player.update(delta_time, self.actions)
-        self.dash_rect_active.update(30, 30, min(200, self.player.dash_timer), self.dash_rect_thickness)   #  /5 * 200 (Because 5 second is the cooldown and 200px is max width)
+        self.dash_rect_active.update(
+            30, 30, min(200, self.player.dash_timer), self.dash_rect_thickness
+        )  #  /5 * 200 (Because 5 second is the cooldown and 200px is max width)
         self.reset_keys()
 
     def render(self, screen: pg.Surface):
@@ -79,8 +67,8 @@ class Game(State):
                     self.actions["pause"] = True
                 if event.key == pg.K_BACKSPACE:
                     self.actions["quit"] = True
-                if event.key == flash_preference:
+                if event.key == self.config.FLASH_KEY:
                     self.actions["dash"] = True
             if event.type == pg.MOUSEBUTTONDOWN:
-                if event.button == click_preference:
+                if event.button == self.config.CLICK_KEY:
                     self.actions["click"] = True

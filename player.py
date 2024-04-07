@@ -5,7 +5,6 @@
 #  IMPORTS  #
 # --------- #
 import pygame as pg
-from config import SPEED
 from math import atan2, cos, sin, sqrt
 
 print("Loading player")
@@ -19,7 +18,7 @@ class Player:
     #   INITIALIZE NODE   #
     # ------------------- #
 
-    def __init__(self, image_source: str, x: float, y: float, w: int, h: int):
+    def __init__(self, image_source: str, x: float, y: float, w: int, h: int, speed: float):
         self.model = pg.image.load(image_source)
         self.model = pg.transform.scale(self.model, (w, h))
         self.rect = self.model.get_rect()
@@ -39,6 +38,7 @@ class Player:
         self.regen_counter = 0
         self.dash_timer = 0
         self.dash_radius = 250
+        self.speed = speed
 
     # ----------- #
     #   METHODS   #
@@ -80,8 +80,8 @@ class Player:
         distance_x = mouse_x - self.pos_x
         distance_y = mouse_y - self.pos_y
         angle = atan2(distance_y, distance_x)
-        self.speed_x = SPEED * cos(angle)
-        self.speed_y = SPEED * sin(angle)
+        self.speed_x = self.speed * cos(angle)
+        self.speed_y = self.speed * sin(angle)
 
     def walk(self, delta: float):
         if not self.dest.colliderect(self.crect):

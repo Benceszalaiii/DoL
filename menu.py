@@ -10,8 +10,8 @@ print("Loading menu")
 
 
 class Menu(State):
-    def __init__(self, game: Any):
-        State.__init__(self, game)
+    def __init__(self, game: Any, config: Any):
+        State.__init__(self, game, config)
         self.title = "DoL - Main Menu"
         pg.display.set_caption(self.title)
         self.button_height = 100
@@ -64,10 +64,10 @@ class Menu(State):
                 if event.button == 1:
                     print("Click")
         if self.actions["settings"]:
-            new_state = SettingsMenu(self.game)
+            new_state = SettingsMenu(self.game, self.config)
             new_state.enter_state()
         if self.actions["start"]:
-            new_state = Game(self.game)
+            new_state = Game(self.game, self.config)
             self.reset_keys()
             new_state.enter_state()
             

@@ -1,23 +1,16 @@
 # ----------- #
 #   IMPORTS   #
 # ----------- #
-import tkinter
-import gc
-from config import RESOLUTIONS, WIDTH, HEIGHT
+"""import tkinter
+import gc"""
+
 # ----------- #
 #  FUNCTIONS  #
 # ----------- #
-
+"""
 
 class Resolution:
-    """
-    Stores details about a resolution (width, height) as integers
 
-    Methods:
-        initialize -> arguments: width, height
-        get_resolution -> returns with tuple(width, height)             -- property
-        as_str -> returns with string formatted resolution ("1600x900") -- property
-    """
 
     def __init__(self, w: int, h: int):
         self.width = w
@@ -25,22 +18,12 @@ class Resolution:
 
     @property
     def get_resolution(self):
-        """
-        Returns width and height as a tuple(width: int, height: int)
 
-        Example:
-        width: 1600, height: 900 --> (1600, 900)
-        """
         return (self.width, self.height)
 
     @property
     def as_str(self) -> str:
-        """
-        Returns resolution as string
 
-        Example:
-            width: 1600, height: 900 --> "1600x900"
-        """
         return str(self.width) + "x" + str(self.height)
 
 
@@ -57,10 +40,7 @@ class Screen:
 
     # Get active screen's resolution
     def screen_size(self) -> Resolution:
-        """
-        Get the current screen's dimensions
-        Returns with a Resolution object
-        """
+
         root = tkinter.Tk()  # Initialize TCL interpreter
         w, h = root.winfo_screenwidth(), root.winfo_screenheight()
         root.quit()  # Quit TCL interpeter, freeing up memory
@@ -77,9 +57,7 @@ class Screen:
 
     @property
     def get_offset(self) -> None:
-        """
-        Gets the offset of the screen compared to previous resolution in pixels
-        """
+
         self.offset_x = self.previous.width - self.current.width
         if self.previous.width > self.current.width:
             self.offset_x = -self.offset_x
@@ -91,3 +69,4 @@ class Screen:
         del RESOLUTIONS[:]
         gc.collect()
         print("Garbage collected")
+"""

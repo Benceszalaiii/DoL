@@ -5,3 +5,4 @@ __pycache__/*
 __pycache__/game.cpython-312.pyc
 __pycache__/settings.cpython-312.pyc
 test.py
+out/linecounter.txt

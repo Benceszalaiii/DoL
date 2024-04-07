@@ -7,10 +7,10 @@ print("Loading pause")
 
 
 class PauseMenu(State):
-    def __init__(self, game):  # type: ignore
+    def __init__(self, game, config):  # type: ignore
         self.game = game
         self.title = "DoL - Currently Playing (Paused)"
-        State.__init__(self, game)
+        State.__init__(self, game, config)
         pg.display.set_caption(self.title)
         self.resume = Button(
             x=self.game.screen_width / 2 - 100,

@@ -1,15 +1,16 @@
 # Parent class to handle states
 import pygame as pg
-
+from config import Configuration
 print("Loading preset")
 
 
 class State:
-    def __init__(self, game):  # type: ignore
+    def __init__(self, game, config: Configuration):  # type: ignore
         self.game = game
         self.prev_state = None
         self.title = "DoL - Dodge Of Legends"
         self.actions = {}
+        self.config = config
 
     def update(self, delta_time: float):
         pass

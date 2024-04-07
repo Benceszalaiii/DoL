@@ -1,4 +1,4 @@
-from config import WIDTH, HEIGHT
+from config import Configuration
 from menu import Menu
 from utils import clr
 import contextlib
@@ -18,8 +18,9 @@ print("Starting game..")
 class Stack:
     def __init__(self):
         pg.init()
+        self.config = Configuration()
         self.mainClock = pg.time.Clock()
-        self.screen_width, self.screen_height = WIDTH, HEIGHT
+        self.screen_width, self.screen_height = self.config.width, self.config.height
         self.GAME_WIDTH, self.GAME_HEIGHT = self.screen_width, self.screen_height
         self.game_screen = pg.Surface((self.GAME_WIDTH, self.GAME_HEIGHT))
         self.screen = pg.display.set_mode((self.screen_width, self.screen_height))
@@ -33,6 +34,7 @@ class Stack:
         self.load_states()
         self.logo = pg.image.load(os.path.join("assets", "logo.png"))
         pg.display.set_icon(self.logo)
+        self.needs_reload = False
 
     def game_loop(self):
         while self.playing:
@@ -88,14 +90,18 @@ class Stack:
         self.font = pg.font.Font(os.path.join("DigitalDisco.ttf"), 20)
 
     def load_states(self):
-        self.menu_screen = Menu(self)
+        self.menu_screen = Menu(self, self.config)
         self.state_stack.append(self.menu_screen)
 
 
 if __name__ == "__main__":
-    g = Stack()
-    clr()
-    print("Loading successful")
-    print("Welcome to DoL")
-    while g.running:
-        g.game_loop()
+    looping = True
+    while looping:
+        g = Stack()
+        clr()
+        print("Loading successful")
+        print("Welcome to DoL")
+        while g.running:
+            g.game_loop()
+        if not g.needs_reload:
+            looping = False
