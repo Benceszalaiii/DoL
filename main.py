@@ -24,7 +24,7 @@ class Stack:
         self.GAME_WIDTH, self.GAME_HEIGHT = self.screen_width, self.screen_height
         self.game_screen = pg.Surface((self.GAME_WIDTH, self.GAME_HEIGHT))
         self.screen = pg.display.set_mode((self.screen_width, self.screen_height))
-        self.FPS = pg.display.get_current_refresh_rate()
+        self.FPS = self.config.fps
         pg.display.set_caption("DoL - Loading..")
         self.running, self.playing = True, True
         self.dt = time.time()
@@ -74,8 +74,8 @@ class Stack:
         surface: pg.surface.Surface,
         text: str,
         color: pg.Color,
-        x: float,
-        y: float,
+        x: int,
+        y: int,
     ) -> None:
         text_surface = self.font.render(text, True, color)
         # text_surface.set_colorkey((0,0,0))

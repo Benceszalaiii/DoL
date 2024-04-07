@@ -21,8 +21,8 @@ class SettingsMenu(State):
             font_size=20,
             font_color=(200, 200, 200),
             background_color=(100, 100, 100),
-            hover_font_color=(255, 255, 0),
-            hover_background_color=(0, 255, 0),
+            hover_font_color=(200, 200, 200),
+            hover_background_color=(0, 100, 0),
         )
         self.volume_slider = Slider((700, 200), (300, 50), 0.7, 0, 100, self.game.font)
         self.actions = {"click": False}
@@ -35,7 +35,7 @@ class SettingsMenu(State):
         self.reset_keys()
 
     def render(self, screen: pg.surface.Surface):
-        screen.fill((255, 255, 255))
+        screen.fill((150, 150, 150))
         pg.display.flip()
         self.save_button.render(screen)
         self.game.draw_text(screen, "Volume", (0, 0, 0), 100, 200)

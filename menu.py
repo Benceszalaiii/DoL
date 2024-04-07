@@ -1,3 +1,4 @@
+from turtle import width
 from typing import Any
 from state import State
 from game import Game
@@ -24,8 +25,8 @@ class Menu(State):
             font_size=36,
             font_color=(200, 200, 200),
             background_color=(100, 100, 100),
-            hover_font_color=(100, 100, 100),
-            hover_background_color=(200, 200, 200),
+            hover_font_color=(200, 200, 200),
+            hover_background_color=(0, 100, 0),
         )
         self.settings_button = Button(
             x=self.game.screen_width / 2 - 100,
@@ -41,7 +42,7 @@ class Menu(State):
         )
         self.quit_button = Button(
             x=self.game.screen_width /2 - 100,
-            y=self.game.screen_height -200,
+            y=self.game.screen_height -160,
             width=200,
             height=100,
             text="Exit",
@@ -79,7 +80,7 @@ class Menu(State):
             "DoL",
             (0, 0, 0),
             self.game.GAME_WIDTH / 2,
-            self.game.GAME_HEIGHT / 2 - 400,
+            self.game.GAME_HEIGHT / 2 -200,
         )
         self.settings_button.render(screen)
         self.start.render(screen)

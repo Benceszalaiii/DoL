@@ -22,19 +22,19 @@ class PauseMenu(State):
             font_color=(200, 200, 0),
             background_color=(100, 100, 100),
             hover_font_color=(200, 200, 200),
-            hover_background_color=(100, 150, 150),
+            hover_background_color=(0, 150, 0),
         )
         self.main_menu_button = Button(
             x=self.game.screen_width / 2 - 100,
-            y=self.game.screen_height / 2 + 300,
+            y=self.game.screen_height / 2 ,
             width=200,
             height=100,
             text="Back to main menu",
             font_size=20,
             font_color=(200, 200, 200),
             background_color=(100, 100, 100),
-            hover_font_color=(100, 100, 100),
-            hover_background_color=(200, 200, 200),
+            hover_font_color=(200, 200, 200),
+            hover_background_color=(150, 0, 0),
         )
         self.actions = {"click": False}
 
