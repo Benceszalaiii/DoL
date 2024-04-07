@@ -7,6 +7,7 @@ from settings import CLICK
 from state import State
 from pause import PauseMenu  # type: ignore
 from player import Player
+from projectile import Projectile
 print("Loading game")
 CLICK_PREFERENCE = 3 if CLICK == "right" else 1
 
@@ -40,8 +41,12 @@ class Game(State):
         if self.actions["pause"]:
             new_state = PauseMenu(self.game)
             new_state.enter_state()
+
         self.player.update(delta_time, self.actions)
         self.reset_keys()
+
+        
+
 
     def render(self, screen: pg.Surface):
         screen.blit(self.background_img, (0, 0))
