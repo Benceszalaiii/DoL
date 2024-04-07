@@ -97,7 +97,7 @@ class Projectile:
 
     def spawn(self):
         for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
-            speed_x, speed_y += 0
+            speed_x += speed_y
             self.animation()
             degree = angle.as_polar()[1]
             rotated_proj = pygame.transform.rotate(
