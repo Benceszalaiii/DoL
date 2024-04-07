@@ -1,9 +1,6 @@
-from operator import methodcaller
 import random
 import pygame
 import math
-import time
-import pygame.math as pymath
 from settings import SPEED, WIDTH, HEIGHT
 
 # from player import Player
@@ -15,18 +12,12 @@ class Projectile:
 
     def __init__(self, screen: pygame.Surface):
         self.screen = screen
-        self.lefutás_száma: int = 0
+        self.delay_number: int = 0
         self.animation_frame: int = 0
-        # self.frame: int = 0
         self.all_bullets = []
         self.pictures_init()
         self.crop_pictures()
         self.resize_pictures()
-        # self.starttime = time.time()
-        # self.timer = Timer(3, self._spawn_place, self._spawn_place(), self.projectile_logic())
-
-        # proj = pygame.image.load("projpróba2.png")
-        # self.resized_proj = pygame.transform.scale(proj, [50, 30])
 
     def pictures_init(self):
         self.proj_animation = [
@@ -69,11 +60,8 @@ class Projectile:
             self.proj_x, self.proj_y = (WIDTH - 50, random.randint(0, HEIGHT))
 
     def update(self):
-        # self.spawn_circumstance()
-        # cur_time = time.time()
-        # time_passed = cur_time - self.starttime
-        self.lefutás_száma += 1
-        if self.lefutás_száma % 500 == 0:
+        self.delay_number += 1
+        if self.delay_number % 500 == 0:
             self._spawn_place()
             self.projectile_logic()
         self.proj_movement()
@@ -109,7 +97,7 @@ class Projectile:
 
     def spawn(self):
         for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
-            # pygame.draw.rect(self.screen, (255, 0, 0), ((pos_x, pos_y), (30, 30)))
+            speed_x, speed_y += 0
             self.animation()
             degree = angle.as_polar()[1]
             rotated_proj = pygame.transform.rotate(
@@ -118,7 +106,7 @@ class Projectile:
             self.screen.blit(rotated_proj, ((pos_x, pos_y), (100, 100)))
 
     def animation(self):
-        if self.lefutás_száma % 30 == 0:
+        if self.delay_number % 30 == 0:
             self.animation_frame += 1
             if self.animation_frame >= len(self.resized_animation):
                 self.animation_frame = 0
