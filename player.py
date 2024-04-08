@@ -7,6 +7,7 @@
 import pygame as pg
 from projectile import Projectile
 from math import atan2, cos, sin, sqrt
+from config import Configuration
 
 print("Loading player")
 # ------------------- #
@@ -19,7 +20,7 @@ class Player:
     #   INITIALIZE NODE   #
     # ------------------- #
 
-    def __init__(self, image_source: str, x: float, y: float, w: int, h: int, speed: float):
+    def __init__(self, image_source: str, x: float, y: float, w: int, h: int, speed: float, config: Configuration):
         self.model = pg.image.load(image_source)
         self.model = pg.transform.scale(self.model, (w, h))
         self.rect = self.model.get_rect()
@@ -37,7 +38,7 @@ class Player:
         self.speed_y = 0
         self.hp = 100
         self.regen_counter = 0
-        self.projectile = Projectile()
+        self.projectile = Projectile(config)
         self.dash_timer = 0
         self.dash_radius = 250
         self.speed = speed

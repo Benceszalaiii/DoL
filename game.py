@@ -28,6 +28,7 @@ class Game(State):
             90,
             140,
             self.config.speed,
+            self.config
         )
         self.actions = {"pause": False, "quit": False, "click": False, "dash": False}
         self.dash_rect_thickness = 20

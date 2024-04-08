@@ -1,14 +1,15 @@
 import random
 import pygame
 from math import atan2, cos, sin
-from settings import WIDTH, HEIGHT
+from config import Configuration
 
 proj_speed = 0
 
 
 class Projectile:
 
-    def __init__(self):
+    def __init__(self, config: Configuration):
+        self.config = config
         self.delay_number: int = 0
         self.animation_frame: int = 0
         self.all_bullets = []
@@ -50,13 +51,13 @@ class Projectile:
     def _spawn_place(self):
         _side: int = random.randint(1, 4)
         if _side == 1:
-            self.proj_x, self.proj_y = (random.randint(0, WIDTH), 0)
+            self.proj_x, self.proj_y = (random.randint(0, self.config.width), 0)
         elif _side == 2:
-            self.proj_x, self.proj_y = (0, random.randint(0, HEIGHT))
+            self.proj_x, self.proj_y = (0, random.randint(0, self.config.height))
         elif _side == 3:
-            self.proj_x, self.proj_y = (random.randint(0, WIDTH), HEIGHT - 50)
+            self.proj_x, self.proj_y = (random.randint(0, self.config.width), self.config.height - 50)
         else:
-            self.proj_x, self.proj_y = (WIDTH - 50, random.randint(0, HEIGHT))
+            self.proj_x, self.proj_y = (self.config.width - 50, random.randint(0, self.config.height))
 
     def update(self, delta: float):
         self.delay_number += 1
@@ -115,7 +116,7 @@ class Projectile:
 
     def despawn(self):
         for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
-            if pos_x > WIDTH + 75 or pos_x < -75 or pos_y > HEIGHT + 75 or pos_y < -75:
+            if pos_x > self.config.width + 75 or pos_x < -75 or pos_y > self.config.height + 75 or pos_y < -75:
                 self.all_bullets.remove(
                     [pos_x, pos_y, speed_x, speed_y, angle])
                 

@@ -43,5 +43,3 @@ class Configuration:
         with open("preferences.json", "w") as f:
             json.dump(new_dict, f, indent=4)
 
-
-print(Configuration().flash_preference)
