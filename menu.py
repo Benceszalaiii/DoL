@@ -1,4 +1,3 @@
-from turtle import width
 from typing import Any
 from state import State
 from game import Game
