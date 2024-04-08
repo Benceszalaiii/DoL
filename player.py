@@ -5,6 +5,7 @@
 #  IMPORTS  #
 # --------- #
 import pygame as pg
+from projectile import Projectile
 from math import atan2, cos, sin, sqrt
 
 print("Loading player")
@@ -36,9 +37,11 @@ class Player:
         self.speed_y = 0
         self.hp = 100
         self.regen_counter = 0
+        self.projectile = Projectile()
         self.dash_timer = 0
         self.dash_radius = 250
         self.speed = speed
+
 
     # ----------- #
     #   METHODS   #
@@ -65,9 +68,12 @@ class Player:
             self.rect.width,
             self.rect.height,
         )
+        self.projectile.update(delta)
+        self.projectile.collision(self.rect, self.crect)
 
     def render(self, screen: pg.Surface):
         screen.blit(self.model, self.rect)
+        self.projectile.render(screen)
 
     def move_player(self, target_pos: tuple[int, int]) -> None:
         """
@@ -87,6 +93,8 @@ class Player:
         if not self.dest.colliderect(self.crect):
             self.pos_x += self.speed_x * delta  # pos_x += speed_x
             self.pos_y += self.speed_y * delta
+        self.projectile.destination_logic(self.pos_x, self.pos_y, self.speed_x, self.speed_y, delta)
+
     def dash(self, delta: float, mouse_pos: tuple[int, int])-> None:
         if self.dash_timer <= 0:
             self.speed_x, self.speed_y = 0, 0

@@ -18,6 +18,7 @@ class Game(State):
             os.path.join(self.map_dir, "background.jpg")
         )
         self.background_img = pg.transform.scale(
+
             self.background_img, (self.game.GAME_WIDTH, self.game.GAME_HEIGHT)
         )
         self.player = Player(
@@ -33,6 +34,7 @@ class Game(State):
         self.dash_rect_full = pg.Rect(30, 30, 200, self.dash_rect_thickness)
         self.dash_rect_active = pg.Rect(30, 30, 0, self.dash_rect_thickness)
 
+
     def load_dir_ptrs(self):
         self.sprite_dir = os.path.join(self.game.assets_dir, "sprites")
         self.map_dir = os.path.join(self.game.assets_dir, "map")
@@ -47,11 +49,15 @@ class Game(State):
         if self.actions["pause"]:
             new_state = PauseMenu(self.game, self.config)
             new_state.enter_state()
+
         self.player.update(delta_time, self.actions)
         self.dash_rect_active.update(
             30, 30, min(200, self.player.dash_timer), self.dash_rect_thickness
         )  #  /5 * 200 (Because 5 second is the cooldown and 200px is max width)
         self.reset_keys()
+
+        
+
 
     def render(self, screen: pg.Surface):
         screen.blit(self.background_img, (0, 0))
