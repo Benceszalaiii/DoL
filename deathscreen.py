@@ -9,9 +9,8 @@ print("Loading pause")
 class PauseMenu(State):
     def __init__(self, game, config):  # type: ignore
         self.game = game
-        self.title = "DoL - Currently Playing (Paused)"
+        self.title = "DoL - Death screen"
         State.__init__(self, game, config)
-        pg.display.set_caption(self.title)
         self.button_width = self.game.screen_width / 5
         self.button_height = 75
         self.button_distance = 30

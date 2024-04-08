@@ -15,12 +15,12 @@
     "--disable=cell-var-from-loop",
     "--extension-pkg-whitelist=pygame",
   ],
-  "editor.defaultFormatter": "ms-python.autopep8",
+  "editor.defaultFormatter": "charliermarsh.ruff",
   "editor.formatOnSave": true,
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[python]": {
-    "editor.defaultFormatter": "ms-python.autopep8"
+    "editor.defaultFormatter": "charliermarsh.ruff"
   }
 }
