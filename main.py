@@ -34,7 +34,6 @@ class Stack:
         self.load_states()
         self.logo = pg.image.load(os.path.join("assets", "logo.png"))
         pg.display.set_icon(self.logo)
-        self.needs_reload = False
 
     def game_loop(self):
         while self.playing:
@@ -61,7 +60,13 @@ class Stack:
             ),
             (0, 0),
         )
-        self.draw_text(self.screen, "FPS: " + str(int(self.mainClock.get_fps())), pg.color.Color(200, 0, 200), self.screen_width - 100, 100)
+        """self.draw_text(
+            self.screen,
+            "FPS: " + str(int(self.mainClock.get_fps())),
+            pg.color.Color(200, 0, 200),
+            self.screen_width - 100,
+            100,
+        )"""
         pg.display.flip()
 
     def get_dt(self):
@@ -76,7 +81,9 @@ class Stack:
         color: pg.Color,
         x: int,
         y: int,
+        font_size: int = 20,
     ) -> None:
+        self.font = pg.font.Font(os.path.join("League_font.ttf"), font_size)
         text_surface = self.font.render(text, True, color)
         # text_surface.set_colorkey((0,0,0))
         text_rect = text_surface.get_rect()
@@ -87,7 +94,6 @@ class Stack:
         # Create pointers to directories
         self.assets_dir = os.path.join("assets")
         self.sprite_dir = os.path.join(self.assets_dir, "sprites")
-        self.font = pg.font.Font(os.path.join("DigitalDisco.ttf"), 20)
 
     def load_states(self):
         self.menu_screen = Menu(self, self.config)
@@ -95,13 +101,9 @@ class Stack:
 
 
 if __name__ == "__main__":
-    looping = True
-    while looping:
-        g = Stack()
-        clr()
-        print("Loading successful")
-        print("Welcome to DoL")
-        while g.running:
-            g.game_loop()
-        if not g.needs_reload:
-            looping = False
+    g = Stack()
+    clr()
+    print("Loading successful")
+    print("Welcome to DoL")
+    while g.running:
+        g.game_loop()

@@ -8,7 +8,6 @@ class State:
     def __init__(self, game, config: Configuration):  # type: ignore
         self.game = game
         self.prev_state = None
-        self.title = "DoL - Dodge Of Legends"
         self.actions = {}
         self.config = config
 
@@ -22,7 +21,6 @@ class State:
         if len(self.game.state_stack) > 1:
             self.prev_state = self.game.state_stack[-1]
         self.game.state_stack.append(self)
-        self.set_title()
         self.reset_keys()
 
     def exit_state(self):  # Basically kys command
@@ -30,8 +28,6 @@ class State:
     def exit_state_twice(self):
         self.game.state_stack.pop()
         self.game.state_stack.pop()
-    def set_title(self):
-        pg.display.set_caption(self.title)
 
     def reset_keys(self):
         """

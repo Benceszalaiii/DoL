@@ -11,7 +11,6 @@ from player import Player
 class Game(State):
     def __init__(self, game, config):  # type: ignore
         self.title = "DoL - Currently Playing"
-        pg.display.set_caption(self.title)
         State.__init__(self, game, config)
         self.game = game
         self.load_dir_ptrs()
@@ -39,6 +38,7 @@ class Game(State):
         self.map_dir = os.path.join(self.game.assets_dir, "map")
 
     def update(self, delta_time: float):
+        pg.display.set_caption(self.title)
         self.handle_events()
         # Check if the game was paused
         if self.actions["quit"]:
