@@ -59,9 +59,9 @@ class Projectile:
         else:
             self.proj_x, self.proj_y = (self.config.width - 50, random.randint(0, self.config.height))
 
-    def update(self, delta: float):
+    def update(self, delta: float, spawnrate: int=1):
         self.delay_number += 1
-        if self.delay_number % 250 == 0:
+        if self.delay_number % 250/1 == 0:
             self._spawn_place()
             self.destination_place: int = random.randint(1, 200)
             self.projectile_logic()

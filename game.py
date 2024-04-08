@@ -31,7 +31,7 @@ class Game(State):
             self.config
         )
         self.actions = {"pause": False, "quit": False, "click": False, "dash": False}
-        self.dash_rect_thickness = 20
+        self.dash_rect_thickness = 10
         self.dash_rect_full = pg.Rect(30, 30, 200, self.dash_rect_thickness)
         self.dash_rect_active = pg.Rect(30, 30, 0, self.dash_rect_thickness)
 
@@ -63,7 +63,6 @@ class Game(State):
     def render(self, screen: pg.Surface):
         screen.blit(self.background_img, (0, 0))
         self.player.render(screen)
-        pg.draw.rect(screen, "black", self.dash_rect_full)
         pg.draw.rect(screen, "yellow", self.dash_rect_active)
 
     def handle_events(self):
