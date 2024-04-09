@@ -8,7 +8,7 @@ import pygame as pg
 from projectile import Projectile
 from math import atan2, cos, sin, sqrt
 from config import Configuration
-
+import os
 print("Loading player")
 # ------------------- #
 #         NODE        #
@@ -36,6 +36,9 @@ class Player:
         self.pos_y = y
         self.speed_x = 0
         self.speed_y = 0
+        self.flash_icon = pg.image.load(os.path.join("assets", "flash.jpg"))
+        self.flash_icon = pg.transform.scale(self.flash_icon, (35, 35))
+        self.flash_pos = (0, 0)
         self.hp = 100
         self.regen_counter = 0
         self.projectile = Projectile(config)
@@ -50,7 +53,7 @@ class Player:
 
     # Updates elements of player
 
-    def update(self, delta: float, actions: dict[str, bool]):
+    def update(self, delta: float, actions: dict[str, bool], config: Configuration):
         if self.dash_timer >= 0:
             self.dash_timer -= delta
 
@@ -59,7 +62,8 @@ class Player:
         # Move the character towards the target on each tick
         if actions["dash"]:
             self.dash(delta, pg.mouse.get_pos())
-        
+        if actions["ghost"]:
+            self.ghost(config)        
         self.walk(delta)
         self.crect.center = (self.pos_x, self.pos_y)
         # Update the character's rect to match the updated position
@@ -71,9 +75,11 @@ class Player:
         )
         self.projectile.update(delta)
         self.projectile.collision(self.rect, self.crect)
+        self.hp -= self.projectile.current_damage if self.projectile.current_damage > 0 else -1 * delta  #  Regenerate or damage player
 
     def render(self, screen: pg.Surface):
         screen.blit(self.model, self.rect)
+        screen.blit(self.flash_icon, self.flash_pos)
         self.projectile.render(screen)
 
     def move_player(self, target_pos: tuple[int, int]) -> None:
@@ -104,8 +110,11 @@ class Player:
                 self.pos_x, self.pos_y = mouse_pos
             else:
                 self.pos_x, self.pos_y = self.closest_point_on_radius(mouse_pos, self.dash_radius)
-            self.dash_timer = 5 * 250
-
+            self.dash_timer = 5
+    def ghost(self, config):
+        if self.ghost_timer <= 0:
+            config.speed *= 1.3
+            self.ghost_timer = 15
 
     def dash_range(self, point: tuple[int, int]) -> float:
         point_x, point_y = point

@@ -10,7 +10,6 @@ class Configuration:
             self.data = json.load(f)
         self.click_preference = self.data["click"]
         self.flash_preference = self.data["flash"]
-        self.resolutions = self.data["resolutions"]
         self.volume = self.data["volume"]
         self.width = self.data["width"]
         self.height = self.data["height"]
@@ -32,8 +31,10 @@ class Configuration:
             )
         if self.flash_preference == "D":
             self.FLASH_KEY = pg.K_d
+            self.GHOST_KEY = pg.K_f
         elif self.flash_preference == "F":
             self.FLASH_KEY = pg.K_f  # type: ignore STUPID PYLANCE
+            self.GHOST_KEY = pg.K_d  # type: ignore STUPID PYLANCE
         else:
             raise ValueError(
                 "Unknown flash preference, flash must either be 'D' or 'F'"

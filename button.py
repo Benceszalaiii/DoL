@@ -21,6 +21,11 @@ class Button:
         hover_background_color: tuple[int, int, int],
         cooler: bool = False,
         cooler_color: tuple[int, int, int] = (52, 60, 95),
+        outline: bool = False,
+        outline_color: tuple[int, int, int] = (255, 255, 255),
+        outline_thickness: int = 2,
+        hover_outline_color: tuple[int, int, int] = (255, 255, 255),
+        radius: int = 12,
     ):
         """
         Initializes a button object
@@ -45,11 +50,25 @@ class Button:
         self.original_y_pos = self.y
         self.elevation_rect = pg.Rect(self.x, self.y, self.width, self.elevation)
         self.elevation_color = cooler_color
-        self.border_radius = 12
+        self.border_radius = radius
         self.cooler = cooler
+        self.outline = outline
+        if self.outline:
+            self.outline_color = outline_color
+            self.outline_thickness = outline_thickness
+            self.hover_outline_color = hover_outline_color
+            self.outline_pos = (
+                (self.x, self.y),
+                (self.x + self.rect.width, self.y),
+                (self.x + self.rect.width, self.y + self.rect.height),
+                (self.x, self.y + self.rect.height),
+            )
         if self.cooler:
             self.whole_rect = pg.Rect(
-                self.x , self.y - self.elevation, self.width, self.height + self.elevation
+                self.x,
+                self.y - self.elevation,
+                self.width,
+                self.height + self.elevation,
             )
         else:
             self.whole_rect = self.rect
@@ -75,6 +94,14 @@ class Button:
         text_x = self.rect.centerx - (self.text_surface.get_width() // 2)
         text_y = self.rect.centery - (self.text_surface.get_height() // 2)
         screen.blit(self.text_surface, (text_x, text_y))
+        if self.outline:
+            pg.draw.lines(
+                screen,
+                self.outline_color,
+                True,
+                (self.outline_pos),
+                self.outline_thickness,
+            )
 
     def update(self, click: bool) -> None:
         mouse_pos = pg.mouse.get_pos()

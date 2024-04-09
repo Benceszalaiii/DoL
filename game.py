@@ -30,7 +30,7 @@ class Game(State):
             self.config.speed,
             self.config
         )
-        self.actions = {"pause": False, "quit": False, "click": False, "dash": False}
+        self.actions = {"pause": False, "quit": False, "click": False, "dash": False, "ghost": False}
         self.dash_rect_thickness = 10
         self.dash_rect_full = pg.Rect(30, 30, 200, self.dash_rect_thickness)
         self.dash_rect_active = pg.Rect(30, 30, 0, self.dash_rect_thickness)
@@ -52,7 +52,7 @@ class Game(State):
             new_state = PauseMenu(self.game, self.config)
             new_state.enter_state()
 
-        self.player.update(delta_time, self.actions)
+        self.player.update(delta_time, self.actions, self.config)
         self.dash_rect_active.update(
             30, 30, min(200, self.player.dash_timer), self.dash_rect_thickness
         )  #  /5 * 200 (Because 5 second is the cooldown and 200px is max width)

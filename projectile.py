@@ -17,6 +17,7 @@ class Projectile:
         self.pictures_init()
         self.crop_pictures()
         self.resize_pictures()
+        self.current_damage = 0
 
     def pictures_init(self):
         self.proj_animation: list[pygame.Surface] = [
@@ -60,6 +61,7 @@ class Projectile:
             self.proj_x, self.proj_y = (self.config.width - 50, random.randint(0, self.config.height))
 
     def update(self, delta: float, spawnrate: int=1):
+        self.current_damage = 0
         self.delay_number += 1
         if self.delay_number % 250/1 == 0:
             self._spawn_place()
@@ -128,7 +130,8 @@ class Projectile:
         for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
             proj = pygame.Rect(pos_x, pos_y, 75, 45)
             if proj.colliderect(player):
-                print("hehe")
+                print("You got hit for 5 HP!")
+                self.current_damage += 5
                 self.all_bullets.remove(
                     [pos_x, pos_y, speed_x, speed_y, angle])
                 
