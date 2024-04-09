@@ -116,7 +116,7 @@ class Projectile:
 
     def despawn(self):
         for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
-            if pos_x > self.config.width + 75 or pos_x < -75 or pos_y > self.config.height + 75 or pos_y < -75:
+            if pos_x > self.config.width + 75 or pos_x < -75 or pos_y > self.config.height + 75 or pos_y < -75 :
                 self.all_bullets.remove(
                     [pos_x, pos_y, speed_x, speed_y, angle])
                 
@@ -129,3 +129,6 @@ class Projectile:
             proj = pygame.Rect(pos_x, pos_y, 75, 45)
             if proj.colliderect(player):
                 print("hehe")
+                self.all_bullets.remove(
+                    [pos_x, pos_y, speed_x, speed_y, angle])
+                

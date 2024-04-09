@@ -44,6 +44,7 @@ class Game(State):
         pg.display.set_caption(self.title)
         self.handle_events()
         # Check if the game was paused
+        
         if self.actions["quit"]:
             self.reset_keys()
             self.exit_state()
