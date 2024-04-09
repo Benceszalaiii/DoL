@@ -9,6 +9,7 @@ class ToggleButton:
         active_color: tuple[int, int, int] = (200, 155, 60),
         inactive_color: tuple[int, int, int] = (18, 40, 80),
         outline_color: tuple[int, int, int] = ( 205, 250, 250),
+        active: bool = False
     ):
         self.x, self.y = pos
         self.size = size
@@ -19,7 +20,7 @@ class ToggleButton:
         self.outline_color = outline_color
         self.bg_rect = pg.Rect(self.x, self.y, self.size, self.size)
         self.bg_rect.center = (self.x, self.y)
-        self.active = False
+        self.active = active
         self.base_rect = pg.Rect(self.x, self.y, self.size, self.size)
         self.base_rect.center = (self.x, self.y)
 

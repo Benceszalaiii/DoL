@@ -26,7 +26,7 @@ class Slider:
         self.initial_pos = int(
             (self.slider_right_pos - self.slider_left_pos) * initial_val / 100
         )  # <- %
-        print(self.initial_val)
+
         self.container_rect = pg.Rect(
             self.slider_left_pos, self.slider_top_pos, self.size[0], self.size[1]
         )
@@ -38,7 +38,6 @@ class Slider:
         )
         if self.initial_pos > self.container_rect.right:
             self.initial_pos = self.container_rect.right
-        print(self.initial_pos)
 
     def move_slider(self, mouse_pos: tuple[int, int]):
         pos = mouse_pos[0]
@@ -54,8 +53,8 @@ class Slider:
         screen.blit(
             self.font.render(str(int(self.get_value() * 1)), True, (255, 255, 255)),
             (
-                self.container_rect.right + 25,
-                self.container_rect.centery - self.container_rect.height,
+                self.container_rect.right + 50,
+                self.container_rect.centery - self.container_rect.height + 15,
             ),
         )
         self.outline_pos = (

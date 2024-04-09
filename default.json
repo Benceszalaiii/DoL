@@ -1,7 +1,7 @@
 {
-    "click": "RIGHT",
+    "click": "right",
     "flash": "F",
-    "volume": 30,
+    "volume": 4,
     "show_fps": false,
     "width": 1280,
     "height": 720,
