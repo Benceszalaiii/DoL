@@ -18,6 +18,7 @@ print("Starting game..")
 class Stack:
     def __init__(self):
         pg.init()
+        pg.mouse.set_visible(False)
         self.config = Configuration()
         self.mainClock = pg.time.Clock()
         self.screen_width, self.screen_height = self.config.width, self.config.height
@@ -34,6 +35,11 @@ class Stack:
         self.load_states()
         self.logo = pg.image.load(os.path.join("assets", "logo.png"))
         pg.display.set_icon(self.logo)
+        self.cursor_img = pg.image.load(
+            os.path.join("assets", "cursor.png")
+        ).convert_alpha()
+        self.cursor_img = pg.transform.scale(self.cursor_img, (24, 24))
+        self.cursor_rect = self.cursor_img.get_rect()
 
     def game_loop(self):
         while self.playing:
@@ -49,7 +55,8 @@ class Stack:
                 self.running = False
 
     def update(self):
-        self.state_stack[-1].update(self.dt)
+        self.state_stack[-1].update(self.dt, self.config)
+        self.cursor_rect.topleft = pg.mouse.get_pos()
 
     def render(self):
         self.state_stack[-1].render(self.game_screen)
@@ -60,13 +67,15 @@ class Stack:
             ),
             (0, 0),
         )
-        """self.draw_text(
-            self.screen,
-            "FPS: " + str(int(self.mainClock.get_fps())),
-            pg.color.Color(200, 0, 200),
-            self.screen_width - 100,
-            100,
-        )"""
+        if self.config.show_fps:
+            self.draw_text(
+                self.screen,
+                "FPS: " + str(int(self.mainClock.get_fps())),
+                pg.color.Color(200, 0, 200),
+                self.screen_width - 100,
+                100,
+            )
+        self.screen.blit(self.cursor_img, self.cursor_rect)
         pg.display.flip()
 
     def get_dt(self):

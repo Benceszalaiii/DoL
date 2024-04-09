@@ -1,4 +1,5 @@
 from typing import Any
+from config import Configuration
 from state import State
 from game import Game
 import pygame as pg
@@ -7,7 +8,7 @@ from inputs import global_inputs, exit
 from settings import SettingsMenu
 from utils import clr
 import os
-
+from sound import Soundtrack
 print("Loading menu")
 
 
@@ -18,7 +19,8 @@ class Menu(State):
         self.button_height = 100
         self.button_width = 400
         self.button_distance = 25
-
+        self.soundtrack = Soundtrack(config.volume)
+        self.soundtrack.start_menu()
         self.start = Button(
             x=self.game.GAME_WIDTH / 2 + 100,
             y=self.game.GAME_HEIGHT / 3 + 75,
@@ -70,10 +72,15 @@ class Menu(State):
         )
         self.background = pg.transform.box_blur(self.background, 10)
 
-    def update(self, delta_time: float):
+    def update(self, delta_time: float, config: Configuration):
+        if config.pause_quitted:
+            self.soundtrack.start_menu()
+            config.pause_quitted = False
         pg.display.set_caption(self.title)
         self.reset_keys()
         self.handle_events()
+        if self.soundtrack.volume != config.volume:
+            self.soundtrack.set_volume(config.volume)
         self.start.update(self.actions["click"])
         self.settings_button.update(self.actions["click"])
         self.quit_button.update(self.actions["click"])

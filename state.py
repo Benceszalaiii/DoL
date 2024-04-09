@@ -11,7 +11,7 @@ class State:
         self.actions = {}
         self.config = config
 
-    def update(self, delta_time: float):
+    def update(self, delta_time: float, config: Configuration):
         pass
 
     def render(self, screen: pg.surface.Surface):
@@ -25,9 +25,10 @@ class State:
 
     def exit_state(self):  # Basically kys command
         self.game.state_stack.pop()
-    def exit_state_twice(self):
+    def exit_state_twice(self, config: Configuration):
         self.game.state_stack.pop()
         self.game.state_stack.pop()
+        config.pause_quitted = True
 
     def reset_keys(self):
         """

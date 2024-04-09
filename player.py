@@ -55,7 +55,8 @@ class Player:
 
     def update(self, delta: float, actions: dict[str, bool], config: Configuration):
         if self.dash_timer >= 0:
-            self.dash_timer -= delta
+            self.dash_timer -= delta/100
+            print(self.dash_timer)
 
         if actions["click"]:
             self.move_player(pg.mouse.get_pos())
@@ -110,8 +111,8 @@ class Player:
                 self.pos_x, self.pos_y = mouse_pos
             else:
                 self.pos_x, self.pos_y = self.closest_point_on_radius(mouse_pos, self.dash_radius)
-            self.dash_timer = 5
-    def ghost(self, config):
+            self.dash_timer = 15
+    def ghost(self, config: Configuration):
         if self.ghost_timer <= 0:
             config.speed *= 1.3
             self.ghost_timer = 15

@@ -99,7 +99,7 @@ class Button:
                 screen,
                 self.outline_color,
                 True,
-                (self.outline_pos),
+                (self.outline_pos),  # type: ignore It works so shut up
                 self.outline_thickness,
             )
 

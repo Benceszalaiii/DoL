@@ -4,6 +4,7 @@
     "speed": 0.8,
     "width": 1280,
     "height": 720,
-    "volume": 27,
-    "fps": 144
+    "volume": 25,
+    "fps": 144,
+    "show_fps": true
 }

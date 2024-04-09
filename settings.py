@@ -2,7 +2,8 @@ import pygame as pg
 from state import State
 from button import Button
 from inputs import global_inputs
-
+from toggle_button import ToggleButton
+from slider import Slider
 print("Loading settings menu")
 
 
@@ -12,6 +13,7 @@ class SettingsMenu(State):
         self.title = "DoL - Currently Playing (Paused)"
         State.__init__(self, game, config)
         pg.display.set_caption(self.title)
+        self.toggle_button = ToggleButton((800, 100), 36)
         self.save_button = Button(
             x=config.width / 2 - 100,
             y=config.height - 200,
@@ -33,18 +35,19 @@ class SettingsMenu(State):
         self.actions = {"click": False}
         self.active_preferences = self.config.data
 
-    def update(self, delta_time: float):
+    def update(self, delta_time: float, config):  # type: ignore
         self.inputs()
         self.save_button.update(self.actions["click"])
         self.update_slider()
+        self.toggle_button.update(self.actions["click"])
         self.reset_keys()
 
     def render(self, screen: pg.surface.Surface):
-        screen.fill((10, 20, 40))
-        pg.display.flip()
+        screen.fill((9, 20, 40))
         self.save_button.render(screen)
         self.game.draw_text(screen, "Volume", (200, 155, 60), 100, 200)
         self.volume_slider.render(screen)
+        self.toggle_button.render(screen)
 
     def update_slider(self):
         if (
@@ -65,70 +68,7 @@ class SettingsMenu(State):
             self.exit_state()
 
     def save_preferences(self):
-        current_settings = self.config.data
+        # current_settings = self.config.data
 
         pass  # TODO: Save preferences
 
-
-class Slider:
-    def __init__(
-        self,
-        pos: tuple[int, int],
-        size: tuple[int, int],
-        initial_val: float,
-        min: int,
-        max: int,
-        font: pg.font.Font,
-    ) -> None:
-        self.pos = pos
-        self.size = size
-        self.hovered = False
-        self.grabbed = False
-        self.font = font
-        self.slider_left_pos = self.pos[0] - (size[0] // 2)
-        self.slider_right_pos = self.pos[0] + (size[0] // 2)
-        self.slider_top_pos = self.pos[1] - (size[1] // 2)
-        self.initial_val = initial_val
-        self.min = min
-        self.max = max
-        self.initial_pos = int(
-            (self.slider_right_pos - self.slider_left_pos) * initial_val / 100
-        )  # <- %
-        print(self.initial_val)
-        self.container_rect = pg.Rect(
-            self.slider_left_pos, self.slider_top_pos, self.size[0], self.size[1]
-        )
-        self.button_rect = pg.Rect(
-            self.slider_left_pos + self.initial_pos - 3,
-            self.slider_top_pos,
-            20,
-            self.size[1],
-        )
-        print(self.initial_pos)
-
-    def move_slider(self, mouse_pos: tuple[int, int]):
-        pos = mouse_pos[0]
-        if pos < self.slider_left_pos:
-            pos = self.slider_left_pos
-        if pos > self.slider_right_pos:
-            pos = self.slider_right_pos
-        self.button_rect.x = pos
-
-    def render(self, screen: pg.Surface):
-        pg.draw.rect(screen, "darkgray", self.container_rect)
-        pg.draw.rect(screen, "black", self.button_rect)
-        screen.blit(
-            self.font.render(str(int(self.get_value() * 1)), True, (255, 255, 255)),
-            (
-                self.container_rect.right + 25,
-                self.container_rect.centery - self.container_rect.height,
-            ),
-        )
-
-    def get_value(self) -> float:
-        val_range = self.slider_right_pos - self.slider_left_pos - 1
-        button_val = self.button_rect.centerx - self.slider_left_pos
-
-        return abs(
-            round((button_val / val_range) * (self.max - self.min) + self.min - 2)
-        )

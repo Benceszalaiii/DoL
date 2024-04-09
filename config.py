@@ -15,6 +15,8 @@ class Configuration:
         self.height = self.data["height"]
         self.speed = self.data["speed"]
         self.fps = self.data["fps"]
+        self.show_fps = self.data["show_fps"]
+        self.pause_quitted = False
         self.handle_preferences()
 
     def __repr__(self) -> str:
@@ -43,4 +45,3 @@ class Configuration:
     def rewrite(self, new_dict):  # type: ignore Will not typehint all possibilities (int float string listlistint)
         with open("preferences.json", "w") as f:
             json.dump(new_dict, f, indent=4)
-

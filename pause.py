@@ -1,4 +1,5 @@
 import pygame as pg
+from config import Configuration
 from state import State
 from button import Button
 from inputs import global_inputs
@@ -43,10 +44,10 @@ class PauseMenu(State):
         self.blur_amt = 0
         self.active = False
 
-    def update(self, delta_time: float):
+    def update(self, delta_time: float, config: Configuration):
         pg.display.set_caption(self.title)
         if self.active:
-            self.inputs()
+            self.inputs(config)
             self.resume.update(self.actions["click"])
             self.main_menu_button.update(self.actions["click"])
         self.reset_keys()
@@ -61,7 +62,7 @@ class PauseMenu(State):
         if self.blur_amt == 36:
             self.blur_amt += 1
             self.active = True
-    def inputs(self):
+    def inputs(self, config: Configuration):
         for event in pg.event.get():
             global_inputs(event)
             if event.type == pg.MOUSEBUTTONDOWN:
@@ -70,4 +71,4 @@ class PauseMenu(State):
         if self.resume.is_clicked:
             self.exit_state()
         if self.main_menu_button.is_clicked:
-            self.exit_state_twice()
+            self.exit_state_twice(config)

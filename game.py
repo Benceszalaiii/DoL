@@ -2,7 +2,7 @@ from inputs import global_inputs
 import os
 
 import pygame as pg
-
+from sound import Soundtrack
 from state import State
 from pause import PauseMenu
 from player import Player
@@ -32,21 +32,24 @@ class Game(State):
         )
         self.actions = {"pause": False, "quit": False, "click": False, "dash": False, "ghost": False}
         self.dash_rect_thickness = 10
-        self.dash_rect_full = pg.Rect(30, 30, 200, self.dash_rect_thickness)
+        self.dash_rect_max_width = 200
         self.dash_rect_active = pg.Rect(30, 30, 0, self.dash_rect_thickness)
+        self.soundtrack = Soundtrack(self.config.volume)
+        self.soundtrack.start_game()
 
 
     def load_dir_ptrs(self):
         self.sprite_dir = os.path.join(self.game.assets_dir, "sprites")
         self.map_dir = os.path.join(self.game.assets_dir, "map")
 
-    def update(self, delta_time: float):
+    def update(self, delta_time: float, config):  # type: ignore
         pg.display.set_caption(self.title)
         self.handle_events()
         # Check if the game was paused
         
         if self.actions["quit"]:
             self.reset_keys()
+            self.soundtrack.start_menu()
             self.exit_state()
         if self.actions["pause"]:
             new_state = PauseMenu(self.game, self.config)
@@ -54,7 +57,7 @@ class Game(State):
 
         self.player.update(delta_time, self.actions, self.config)
         self.dash_rect_active.update(
-            30, 30, min(200, self.player.dash_timer), self.dash_rect_thickness
+            30, 30, min(self.dash_rect_max_width, self.dash_rect_max_width - self.dash_rect_max_width / 15 * self.player.dash_timer), self.dash_rect_thickness
         )  #  /5 * 200 (Because 5 second is the cooldown and 200px is max width)
         self.reset_keys()
 
