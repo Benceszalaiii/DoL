@@ -116,7 +116,7 @@ class Projectile:
             item[1] += item[3] * delta
 
     def spawn(self, screen: pg.Surface):
-        for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
+        for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:  #  type: ignore
             self.animation()
             degree: float = angle.as_polar()[1]
             rotated_proj: pg.Surface = pg.transform.rotate(
