@@ -1,17 +1,17 @@
 # Parent class to handle states
 import pygame as pg
-
+from config import Configuration
 print("Loading preset")
 
 
-class State():
-    def __init__(self, game):  # type: ignore
+class State:
+    def __init__(self, game, config: Configuration):  # type: ignore
         self.game = game
         self.prev_state = None
-        self.title = "DoL - Dodge Of Legends"
         self.actions = {}
+        self.config = config
 
-    def update(self, delta_time: float):
+    def update(self, delta_time: float, config: Configuration):
         pass
 
     def render(self, screen: pg.surface.Surface):
@@ -21,14 +21,14 @@ class State():
         if len(self.game.state_stack) > 1:
             self.prev_state = self.game.state_stack[-1]
         self.game.state_stack.append(self)
-        self.set_title()
         self.reset_keys()
 
-    def exit_state(self):   # Basically kys command
+    def exit_state(self):  # Basically kys command
         self.game.state_stack.pop()
-
-    def set_title(self):
-        pg.display.set_caption(self.title)
+    def exit_state_twice(self, config: Configuration):
+        self.game.state_stack.pop()
+        self.game.state_stack.pop()
+        config.pause_quitted = True
 
     def reset_keys(self):
         """

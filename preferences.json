@@ -1,0 +1,11 @@
+{
+    "click": "RIGHT",
+    "flash": "F",
+    "volume": 30,
+    "show_fps": false,
+    "width": 1280,
+    "height": 720,
+    "fps": 144,
+    "speed": 0.7,
+    "easter_egg": false
+}
