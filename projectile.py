@@ -1,5 +1,5 @@
 import random
-import pygame
+import pygame as pg
 from math import atan2, cos, sin
 from config import Configuration
 
@@ -20,31 +20,31 @@ class Projectile:
         self.current_damage = 0
 
     def pictures_init(self):
-        self.proj_animation: list[pygame.Surface] = [
-            pygame.image.load("assets/sprites/projectile (1).png"),
-            pygame.image.load("assets/sprites/projectile (2).png"),
-            pygame.image.load("assets/sprites/projectile (3).png"),
-            pygame.image.load("assets/sprites/projectile (4).png"),
-            pygame.image.load("assets/sprites/projectile (5).png"),
-            pygame.image.load("assets/sprites/projectile (6).png"),
-            pygame.image.load("assets/sprites/projectile (7).png"),
-            pygame.image.load("assets/sprites/projectile (8).png"),
-            pygame.image.load("assets/sprites/projectile (9).png"),
-            pygame.image.load("assets/sprites/projectile (10).png"),
-            pygame.image.load("assets/sprites/projectile (11).png"),
+        self.proj_animation: list[pg.Surface] = [
+            pg.image.load("assets/sprites/projectile (1).png"),
+            pg.image.load("assets/sprites/projectile (2).png"),
+            pg.image.load("assets/sprites/projectile (3).png"),
+            pg.image.load("assets/sprites/projectile (4).png"),
+            pg.image.load("assets/sprites/projectile (5).png"),
+            pg.image.load("assets/sprites/projectile (6).png"),
+            pg.image.load("assets/sprites/projectile (7).png"),
+            pg.image.load("assets/sprites/projectile (8).png"),
+            pg.image.load("assets/sprites/projectile (9).png"),
+            pg.image.load("assets/sprites/projectile (10).png"),
+            pg.image.load("assets/sprites/projectile (11).png"),
         ]
 
     def crop_pictures(self):
-        self.cropped_animation: list[pygame.Surface] = []
+        self.cropped_animation: list[pg.Surface] = []
         for item in range(len(self.proj_animation)):
             cropped_item = self.proj_animation[item].subsurface(
                 400, 200, 900, 600)
             self.cropped_animation.append(cropped_item)
 
     def resize_pictures(self):
-        self.resized_animation: list[pygame.Surface] = []
+        self.resized_animation: list[pg.Surface] = []
         for item in range(len(self.cropped_animation)):
-            resized_item = pygame.transform.scale(
+            resized_item = pg.transform.scale(
                 self.cropped_animation[item], [75, 45]
             )
             self.resized_animation.append(resized_item)
@@ -69,7 +69,7 @@ class Projectile:
             self.projectile_logic()
         self.proj_movement(delta)
 
-    def render(self, screen: pygame.Surface):
+    def render(self, screen: pg.Surface):
         self.spawn(screen)
         self.despawn()
 
@@ -91,8 +91,8 @@ class Projectile:
         )
 
     def rotation_math(self):
-        destination = pygame.Vector2(self.proj_dest_x, self.proj_dest_y)
-        self_pos = pygame.Vector2(self.proj_x, self.proj_y)
+        destination = pg.Vector2(self.proj_dest_x, self.proj_dest_y)
+        self_pos = pg.Vector2(self.proj_x, self.proj_y)
         self.rotation_vector = destination - self_pos
 
     def proj_movement(self, delta: float):
@@ -100,12 +100,11 @@ class Projectile:
             item[0] += item[2] * delta
             item[1] += item[3] * delta
 
-    def spawn(self, screen: pygame.Surface):
+    def spawn(self, screen: pg.Surface):
         for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
-            speed_x += speed_y
             self.animation()
             degree: float = angle.as_polar()[1]
-            rotated_proj: pygame.Surface = pygame.transform.rotate(
+            rotated_proj: pg.Surface = pg.transform.rotate(
                 self.resized_animation[self.animation_frame], -degree
             )
             screen.blit(rotated_proj, ((pos_x, pos_y), (75, 45)))
@@ -126,9 +125,9 @@ class Projectile:
         self.proj_dest_x: float = pl_x + pl_speed_x * delta * self.destination_place
         self.proj_dest_y: float = pl_y + pl_speed_y * delta * self.destination_place
 
-    def collision(self, player: pygame.Rect, center: pygame.Rect):
+    def collision(self, player: pg.Rect, center: pg.Rect):
         for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
-            proj = pygame.Rect(pos_x, pos_y, 75, 45)
+            proj = pg.Rect(pos_x, pos_y, 75, 45)
             if proj.colliderect(player):
                 print("You got hit for 5 HP!")
                 self.current_damage += 5
