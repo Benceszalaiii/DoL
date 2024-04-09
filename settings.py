@@ -28,7 +28,7 @@ class SettingsMenu(State):
             radius=-1,
         )
         self.volume_slider = Slider(
-            (700, 200), (300, 50), config.volume, 0, 100, self.game.font
+            (700, 200), (400, 50), config.volume, 0, 100, self.game.font
         )
         self.actions = {"click": False}
         self.active_preferences = self.config.data
@@ -88,22 +88,23 @@ class Slider:
         self.slider_left_pos = self.pos[0] - (size[0] // 2)
         self.slider_right_pos = self.pos[0] + (size[0] // 2)
         self.slider_top_pos = self.pos[1] - (size[1] // 2)
-
+        self.initial_val = initial_val
         self.min = min
         self.max = max
-        self.initial_val = (
-            self.slider_right_pos - self.slider_left_pos
-        ) * initial_val  # <- %
-
+        self.initial_pos = int(
+            (self.slider_right_pos - self.slider_left_pos) * initial_val / 100
+        )  # <- %
+        print(self.initial_val)
         self.container_rect = pg.Rect(
             self.slider_left_pos, self.slider_top_pos, self.size[0], self.size[1]
         )
         self.button_rect = pg.Rect(
-            self.slider_left_pos + self.initial_val - 3,
+            self.slider_left_pos + self.initial_pos - 3,
             self.slider_top_pos,
             20,
             self.size[1],
         )
+        print(self.initial_pos)
 
     def move_slider(self, mouse_pos: tuple[int, int]):
         pos = mouse_pos[0]
@@ -128,4 +129,6 @@ class Slider:
         val_range = self.slider_right_pos - self.slider_left_pos - 1
         button_val = self.button_rect.centerx - self.slider_left_pos
 
-        return (button_val / val_range) * (self.max - self.min) + self.min - 3
+        return abs(
+            round((button_val / val_range) * (self.max - self.min) + self.min - 2)
+        )
