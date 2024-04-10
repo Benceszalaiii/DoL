@@ -4,7 +4,7 @@ from math import atan2, cos, sin
 from config import Configuration
 
 proj_speed = 0
-
+print("Loading projectile")
 
 class Projectile:
     def __init__(self, config: Configuration):
@@ -83,7 +83,6 @@ class Projectile:
         self.current_damage = 0
         self.delay_number += 1 if not self.config.easter_egg else 10
         calc = self.delay_number / spawnrate * 10 if self.config.easter_egg else self.delay_number * spawnrate
-        print(calc)
         if calc >= 250:
             self._spawn_place()
             self.destination_place: int = random.randint(1, 200)

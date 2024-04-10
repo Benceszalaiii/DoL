@@ -140,7 +140,6 @@ class Player:
 
     def get_dominant_direction(self):
         # Check if stationary
-        print(self.direction)
         if self.dest_cord == (int(self.pos_x), int(self.pos_y)):
             return "stationary"
 
@@ -266,7 +265,6 @@ class Player:
         result = []
         for i in range(1, 4):
             name = self.image_pointer + "/" + direction + "_" + str(i) + ".png"
-            print(name)
             result.append(self.load_image(name))
         return result
 

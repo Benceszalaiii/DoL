@@ -9,6 +9,7 @@ from settings import SettingsMenu
 from utils import clr
 import os
 from sound import Soundtrack
+
 print("Loading menu")
 
 
@@ -37,7 +38,7 @@ class Menu(State):
         )
         self.settings_button = Button(
             x=self.game.screen_width / 2 + 100,
-            y=self.start.rect.bottom + 2*self.button_distance,
+            y=self.start.rect.bottom + 2 * self.button_distance,
             width=self.button_width,
             height=self.button_height,
             text="Settings",
@@ -66,7 +67,9 @@ class Menu(State):
         self.logo_rect = self.logo.get_rect()
         self.logo_rect.center = (200, self.game.screen_height / 2)
         self.actions = {"start": False, "click": False, "settings": False}
-        self.background = pg.image.load(os.path.join("assets", "map", "background_blurred.png"))
+        self.background = pg.image.load(
+            os.path.join("assets", "map", "background_blurred.png")
+        )
         self.background = pg.transform.scale(
             self.background, (self.game.GAME_WIDTH, self.game.GAME_HEIGHT)
         )
@@ -74,6 +77,7 @@ class Menu(State):
             self.background = pg.transform.box_blur(self.background, 10)  # type: ignore
         except AttributeError:
             pass
+
     def update(self, delta_time: float, config: Configuration):
         if config.pause_quitted:
             self.soundtrack.start_menu()

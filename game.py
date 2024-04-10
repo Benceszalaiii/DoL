@@ -79,7 +79,8 @@ class Game(State):
                 - self.dash_rect_max_width / 15 * self.player.ghost_cooldown,
             ),
             self.dash_rect_thickness,
-        )  #  /5 * 200 (Because 5 second is the cooldown and 200px is max width)
+        )
+        #  /5 * 200 (Because 5 second is the cooldown and 200px is max width)
         if self.actions["death"]:
             new_state = Deathscreen(self.game, self.config)
             new_state.enter_state()
