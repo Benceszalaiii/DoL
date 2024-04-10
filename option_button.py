@@ -3,7 +3,7 @@ import pygame as pg
 
 class Choose_Button:
     def __init__(self, pos: tuple[int, int], size: int, option1: str, option2: str, text_color: tuple[int, int, int] = (255, 255,255)):
-        self.font = pg.Font("League_font.ttf", 30)
+        self.font = pg.font.Font("League_font.ttf", 30)
         self.bg_rect = pg.Rect(pos, (size, size))
         self.bg_rect.center = pos
         self.option1 = option1

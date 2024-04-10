@@ -66,12 +66,14 @@ class Menu(State):
         self.logo_rect = self.logo.get_rect()
         self.logo_rect.center = (200, self.game.screen_height / 2)
         self.actions = {"start": False, "click": False, "settings": False}
-        self.background = pg.image.load(os.path.join("assets", "map", "background.jpg"))
+        self.background = pg.image.load(os.path.join("assets", "map", "background_blurred.png"))
         self.background = pg.transform.scale(
             self.background, (self.game.GAME_WIDTH, self.game.GAME_HEIGHT)
         )
-        self.background = pg.transform.box_blur(self.background, 10)
-
+        try:
+            self.background = pg.transform.box_blur(self.background, 10)  # type: ignore
+        except AttributeError:
+            pass
     def update(self, delta_time: float, config: Configuration):
         if config.pause_quitted:
             self.soundtrack.start_menu()

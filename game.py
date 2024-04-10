@@ -46,6 +46,7 @@ class Game(State):
         self.dash_rect_active.right = config.width / 2
         self.ghost_rect_active = pg.Rect(0, 35, 0, self.dash_rect_thickness)
         self.ghost_rect_active.left = config.width / 2
+        self.spawn_rate = 1
         self.soundtrack = Soundtrack(self.config.volume)
         self.soundtrack.start_game()
 

@@ -54,7 +54,10 @@ class PauseMenu(State):
 
     def render(self, screen: pg.surface.Surface):
         if self.blur_amt < 36:
-            screen.blit(pg.transform.box_blur(screen, 2), (0, 0))
+            try:
+                screen.blit(pg.transform.box_blur(screen, 2), (0, 0))  # type: ignore
+            except AttributeError:
+                pass
             self.blur_amt += 2
         else:
             self.resume.render(screen)

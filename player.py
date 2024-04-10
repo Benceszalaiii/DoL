@@ -44,7 +44,9 @@ class Player:
             self.rect.height / 6,
         )
         self.load_cursor()
-        self.dest_img = pg.image.load(os.path.join("assets", "sprites", "ground_arrow (2).png")).convert_alpha()
+        self.dest_img = pg.image.load(
+            os.path.join("assets", "sprites", "ground_arrow (2).png")
+        ).convert_alpha()
         self.dest_img = pg.transform.scale(self.dest_img, (16, 16))
         self.dest_cord = self.crect.size
         self.dest: pg.Rect = self.dest_img.get_rect()
@@ -80,6 +82,7 @@ class Player:
         self.cursor_recently_pressed = False
         self.cursor_delay = 10
         self.cursor_animation_timer = 0
+        self.spawn_rate = 1
 
     # ----------- #
     #   METHODS   #
@@ -88,15 +91,16 @@ class Player:
     # Updates elements of player
 
     def update(self, delta: float, actions: dict[str, bool], config: Configuration):
+        self.spawn_rate = min(3, self.spawn_rate + 0.001)
         if self.dash_timer >= 0:
-            self.dash_timer -= delta / 100
+            self.dash_timer -= delta / 250
         if self.ghosted:
-            self.ghost_timer -= delta / 100
+            self.ghost_timer -= delta / 250
             if self.ghost_timer <= 0:
                 self.ghosted = False
                 self.ghost_multiplier_current = 1
         else:
-            self.ghost_cooldown -= delta / 100
+            self.ghost_cooldown -= delta / 250
             if actions["ghost"]:
                 self.ghost(config)
         if actions["click"]:
@@ -111,8 +115,8 @@ class Player:
         else:
             self.cursor_animation_timer = 0
         self.walk(delta)
-        
-        self.crect.center = (self.pos_x, self.pos_y)
+
+        self.crect.center = (self.pos_x, self.pos_y)  # type: ignore
         # Update the character's rect to match the updated position
         self.rect.update(
             self.crect.centerx - (self.rect.width / 2),
@@ -120,7 +124,7 @@ class Player:
             self.rect.width,
             self.rect.height,
         )
-        self.projectile.update(delta)
+        self.projectile.update(delta, self.spawn_rate)
         self.projectile.collision(self.rect, self.crect)
         self.hp -= self.projectile.current_damage
         self.hp_bar.update(
@@ -136,7 +140,8 @@ class Player:
 
     def get_dominant_direction(self):
         # Check if stationary
-        if self.speed_x == 0 and self.speed_y == 0:
+        print(self.direction)
+        if self.dest_cord == (int(self.pos_x), int(self.pos_y)):
             return "stationary"
 
         # Determine dominant direction based on absolute speed
@@ -228,7 +233,10 @@ class Player:
         return (closest_x, closest_y)
 
     def animate(self):
-        if self.animation_time % self.animation_delay == 0 or self.direction != self.prev_direction:
+        if (
+            self.animation_time % self.animation_delay == 0
+            or self.direction != self.prev_direction
+        ):
             self.animation_frame += 1
             if self.prev_direction != self.direction:
                 self.animation_frame = 0
@@ -273,9 +281,12 @@ class Player:
             self.cursor_recently_pressed = False
             self.cursor_frame = 0
 
-            
     def load_cursor(self):
         self.cursor_frames = []
         for i in range(2, 11):
-            name = os.path.join("assets", "sprites", "ground_arrow (" + str(i) + ").png")
-            self.cursor_frames.append(pg.transform.scale(pg.image.load(name).convert_alpha(), (16, 16)))
+            name = os.path.join(
+                "assets", "sprites", "ground_arrow (" + str(i) + ").png"
+            )
+            self.cursor_frames.append(
+                pg.transform.scale(pg.image.load(name).convert_alpha(), (16, 16))
+            )
