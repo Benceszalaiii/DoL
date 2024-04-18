@@ -50,6 +50,7 @@ class Player:
         self.dest_img = pg.transform.scale(self.dest_img, (16, 16))
         self.dest_cord = self.crect.size
         self.dest: pg.Rect = self.dest_img.get_rect()
+        self.hitbox = pg.mask.from_surface(self.model)
         self.pos_x = x
         self.pos_y = y
         self.speed_x = 0
@@ -125,7 +126,7 @@ class Player:
             self.rect.height,
         )
         self.projectile.update(delta, self.spawn_rate)
-        self.projectile.collision(self.rect, self.crect)
+
         self.hp -= self.projectile.current_damage
         self.hp_bar.update(
             self.hp_bar.x, self.hp_bar.y, 400 * self.hp / self.max_hp, 15
@@ -153,6 +154,7 @@ class Player:
             return "down" if self.speed_y > 0 else "up"
 
     def render(self, screen: pg.Surface):
+        self.projectile.collision(self.rect, self.hitbox, self.crect, screen)
         self.projectile.render(screen)
         screen.blit(self.model, self.rect)
         pg.draw.rect(screen, (1, 10, 19), self.ui_rect)

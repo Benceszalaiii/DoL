@@ -6,6 +6,7 @@ from config import Configuration
 proj_speed = 0
 print("Loading projectile")
 
+
 class Projectile:
     def __init__(self, config: Configuration):
         self.config = config
@@ -82,7 +83,11 @@ class Projectile:
     def update(self, delta: float, spawnrate: float = 1):
         self.current_damage = 0
         self.delay_number += 1 if not self.config.easter_egg else 10
-        calc = self.delay_number / spawnrate * 10 if self.config.easter_egg else self.delay_number * spawnrate
+        calc = (
+            self.delay_number / spawnrate * 10
+            if self.config.easter_egg
+            else self.delay_number * spawnrate
+        )
         if calc >= 250:
             self._spawn_place()
             self.destination_place: int = random.randint(1, 200)
@@ -163,9 +168,17 @@ class Projectile:
         self.proj_dest_x: float = pl_x + pl_speed_x * delta * self.destination_place
         self.proj_dest_y: float = pl_y + pl_speed_y * delta * self.destination_place
 
-    def collision(self, player: pg.Rect, center: pg.Rect):
+    def collision(
+        self, player: pg.Rect, hitbox: pg.mask.Mask, center: pg.Rect, screen: pg.Surface
+    ):
         for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
             proj = pg.Rect(pos_x, pos_y, 75, 45)
+            p = self.resized_animation[self.animation_frame]
+            p.set_colorkey((0, 0, 0))
+            proj_h = pg.mask.from_surface(pg.transform.rotate(p, -angle.as_polar()[1]))
+            screen.blit(proj_h.to_surface(), (pos_x, pos_y))
+            if hitbox.overlap_mask(proj_h, (0, 0)):
+                print("Hit!")
             if proj.colliderect(player):
                 self.current_damage += 10
                 self.all_bullets.remove([pos_x, pos_y, speed_x, speed_y, angle])
