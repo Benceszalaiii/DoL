@@ -4,7 +4,7 @@ from math import atan2, cos, sin
 from config import Configuration
 
 proj_speed = 0
-
+print("Loading projectile")
 
 class Projectile:
     def __init__(self, config: Configuration):
@@ -16,8 +16,11 @@ class Projectile:
         self.pictures_init()
         if not self.config.easter_egg:
             self.crop_pictures()
+        else:
+            self.cropped_animation = self.proj_animation
         self.resize_pictures()
         self.current_damage = 0
+        self.cropped_animation = self.proj_animation
 
     def pictures_init(self):
         if not self.config.easter_egg:
@@ -51,7 +54,10 @@ class Projectile:
         self.resized_animation: list[pg.Surface] = []
 
         for item in range(len(self.cropped_animation)):
-            resized_item = pg.transform.scale(self.cropped_animation[item], [75, 45])
+            resized_item = pg.transform.scale(
+                self.cropped_animation[item],
+                [75, 45] if not self.config.easter_egg else [120, 90],
+            )
 
             self.resized_animation.append(resized_item)
         self.proj_animation = self.resized_animation
@@ -73,15 +79,15 @@ class Projectile:
                 random.randint(0, self.config.height),
             )
 
-    def update(self, delta: float, spawnrate: int = 1):
+    def update(self, delta: float, spawnrate: float = 1):
         self.current_damage = 0
         self.delay_number += 1 if not self.config.easter_egg else 10
-        if (
-            self.delay_number / 10 if self.config.easter_egg else self.delay_number
-        ) % 250 == 0:
+        calc = self.delay_number / spawnrate * 10 if self.config.easter_egg else self.delay_number * spawnrate
+        if calc >= 250:
             self._spawn_place()
             self.destination_place: int = random.randint(1, 200)
             self.projectile_logic()
+            self.delay_number = 0
         self.proj_movement(delta)
 
     def render(self, screen: pg.Surface):
@@ -161,6 +167,5 @@ class Projectile:
         for pos_x, pos_y, speed_x, speed_y, angle in self.all_bullets:
             proj = pg.Rect(pos_x, pos_y, 75, 45)
             if proj.colliderect(player):
-                if not self.config.easter_egg:
-                    self.current_damage += 5
-                    self.all_bullets.remove([pos_x, pos_y, speed_x, speed_y, angle])
+                self.current_damage += 10
+                self.all_bullets.remove([pos_x, pos_y, speed_x, speed_y, angle])

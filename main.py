@@ -80,7 +80,7 @@ class Stack:
 
     def get_dt(self):
         self.dt = time.time() - self.prev_time
-        self.dt *= self.FPS
+        self.dt *= self.config.fps
         self.prev_time = time.time()
 
     def draw_text(

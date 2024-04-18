@@ -1,6 +1,7 @@
 # Parent class to handle states
 import pygame as pg
 from config import Configuration
+
 print("Loading preset")
 
 
@@ -25,6 +26,7 @@ class State:
 
     def exit_state(self):  # Basically kys command
         self.game.state_stack.pop()
+
     def exit_state_twice(self, config: Configuration):
         self.game.state_stack.pop()
         self.game.state_stack.pop()
