@@ -1,6 +1,4 @@
-# ![Dodge of Legends](assets/logo.png)
-
-# Dodge of Legends
+# <img src="assets/logo.png" alt="Dodge of Legends Logo" width="50"/> Dodge of Legends
 
 ## ⬇️Download guide
 
